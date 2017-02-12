@@ -2,15 +2,15 @@
   "name": "es7-typescript-starter",
   "version": "1.0.0",
   "description": "An es7/typescript starter for building javascript libraries",
-  "main": "build/index.commonjs.js",
-  "module": "build/index.js",
-  "typings": "build/index.d.ts",
+  "main": "build/main/index.js",
+  "typings": "build/main/index.d.ts",
+  "module": "build/module/index.js",
   "repository": "https://github.com/bitjson/node-typescript-starter",
   "author": "Jason Dreyzehner <jason@dreyzehner.com>",
   "license": "MIT",
   "scripts": {
     "info": "npm-scripts-info",
-    "build": "trash build && tsc",
+    "build": "trash build && tsc -p tsconfig.json && tsc -p config/tsconfig-module.json",
     "lint": "tslint src/**/*.ts",
     "unit": "yarn build && nyc ava",
     "check-coverage": "nyc check-coverage --lines 100 --functions 100 --branches 95",
@@ -21,7 +21,8 @@
     "html-coverage": "nyc report --reporter=html",
     "send-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "docs": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs && opn build/docs/index.html",
-    "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts"
+    "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
+    "release": "standard-version"
   },
   "scripts-info": {
     "info": "Display information about the scripts",
@@ -35,7 +36,8 @@
     "html-coverage": "Output HTML test coverage report",
     "send-coverage": "Output lcov test coverage report and send it to codecov",
     "docs": "Generate API documentation and open it in a browser",
-    "docs:json": "Generate API documentation in typedoc JSON format"
+    "docs:json": "Generate API documentation in typedoc JSON format",
+    "release": "Bump package.json version, update CHANGELOG.md, tag a release"
   },
   "engines": {
     "node": ">=4"
@@ -47,11 +49,12 @@
     "npm-scripts-info": "^0.3.6",
     "nyc": "^10.0.0",
     "opn-cli": "^3.1.0",
+    "standard-version": "^4.0.0",
     "trash-cli": "^1.4.0",
     "tslint": "^4.0.2",
     "tslint-config-standard": "^2.0.0",
     "typedoc": "^0.5.5",
-    "typescript": "^2.1.5"
+    "typescript": "^2.2.0"
   },
   "keywords": [
     "node",
@@ -70,10 +73,10 @@
   },
   "ava": {
     "files": [
-      "build/**/*.spec.js"
+      "build/main/**/*.spec.js"
     ],
     "source": [
-      "build/**/*"
+      "build/main/**/*"
     ]
   },
   "dependencies": {

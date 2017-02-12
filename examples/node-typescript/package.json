@@ -1,0 +1,13 @@
+{
+  "name": "es7-typescript-starter-example-node-typescript",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node build/test.js",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.5",
+    "typescript": "^2.1.6"
+  }
+}

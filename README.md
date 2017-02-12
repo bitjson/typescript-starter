@@ -2,21 +2,23 @@
 An es7/typescript starter for building javascript libraries:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
-* Use optional typescript typings to improve tooling, linting, and documentation generation
-* Export as an [es module](https://github.com/rollup/rollup/wiki/pkg.module), making your work **fully tree-shakable** for consumers using es imports (like [Rollup](http://rollupjs.org/) or [Webpack 2](https://webpack.js.org/))
+* [Optionally use typescript](https://basarat.gitbooks.io/typescript/content/docs/why-typescript.html) to improve tooling, linting, and documentation generation
+* Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/) or [Webpack 2](https://webpack.js.org/))
 * Export typescript declarations to improve your downstream development experience
-* Backwards compatibility for Node.js CommonJS imports (v4 or greater)
+* Backwards compatibility for Node.js-style (CommonJS) imports (v4 or greater)
 * Both [strict](config/tsconfig.strict.json) and [flexible](config/tsconfig.flexible.json) typing configurations available
 
 So we can have nice things:
 * Generate API documentation (HTML or JSON) [without a mess of JSDoc tags](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) to maintain
-* Co-located, atomic, concurrent tests with [AVA](https://github.com/avajs/ava)
+* Collocated, atomic, concurrent unit tests with [AVA](https://github.com/avajs/ava)
 * Source-mapped code coverage reports with [nyc](https://github.com/istanbuljs/nyc)
 * Configurable code coverage testing (for continuous integration)
 
 ## Get started
 
 Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
+
+To see how this starter can be used, check out the [`examples`](./examples) folder.
 
 ## Development zen
 
@@ -71,6 +73,19 @@ For more advanced documentation generation, you can provide your own [typedoc th
 $ yarn docs:json
 ```
 
+## Generate Changelog & Release
+
+This project is tooled for [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow.
+
+```bash
+# bump package.json version, update CHANGELOG.md, git tag the release
+$ yarn release
+# Release without bumping package.json version
+$ yarn release -- --first-release
+# PGP sign the release
+$ yarn release -- --sign
+```
+
 ## All package scripts
 
 You can run the `info` script for information on each available package script.
@@ -102,6 +117,8 @@ docs:
   Generate API documentation and open it in a browser
 docs:json:
   Generate API documentation in typedoc JSON format
+release:
+  Bump package.json version, update CHANGELOG.md, tag a release
 ```
 ## Notes
 
