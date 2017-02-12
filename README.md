@@ -16,7 +16,7 @@ So we can have nice things:
 
 ## Get started
 
-Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
+Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support)like [vscode](https://code.visualstudio.com/).
 
 To see how this starter can be used, check out the [`examples`](./examples) folder.
 

@@ -2,9 +2,12 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "outDir": "build",
-    "module": "ES6",
+    "module": "es6",
     "declaration": false,
-    "removeComments": true
+    "removeComments": true,
+    "lib": [
+      "dom"
+    ]
   },
   "include": [
     "src/*.ts"

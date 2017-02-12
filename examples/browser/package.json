@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "http-server ./build/ -o",
+    "start": "http-server -c-1 ./build/ -o",
     "build": "rollup -c && cpy src/index.html build/"
   },
   "devDependencies": {
