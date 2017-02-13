@@ -1,12 +1,17 @@
+[![Build Status](https://travis-ci.org/bitjson/es7-typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/es7-typescript-starter)
+[![Codecov](https://img.shields.io/codecov/c/github/codecov/es7-typescript-starter.svg)](https://codecov.io/gh/bitjson/es7-typescript-starter)
+[![NPM version](https://img.shields.io/npm/v/es7-typescript-starter.svg)](https://www.npmjs.com/package/es7-typescript-starter)
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+
 # es7-typescript-starter
 An es7/typescript starter for building javascript libraries:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
 * [Optionally use typescript](https://basarat.gitbooks.io/typescript/content/docs/why-typescript.html) to improve tooling, linting, and documentation generation
 * Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/) or [Webpack 2](https://webpack.js.org/))
-* Export typescript declarations to improve your downstream development experience
-* Backwards compatibility for Node.js-style (CommonJS) imports (v4 or greater)
-* Both [strict](config/tsconfig.strict.json) and [flexible](config/tsconfig.flexible.json) typing configurations available
+* Export Typescript type declarations to improve your downstream development experience
+* Backwards compatibility for Node.js-style (CommonJS) imports
+* Both [strict](config/tsconfig.strict.json) and [flexible](config/tsconfig.flexible.json) Typescript configurations available
 
 So we can have nice things:
 * Generate API documentation (HTML or JSON) [without a mess of JSDoc tags](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) to maintain
@@ -16,14 +21,14 @@ So we can have nice things:
 
 ## Get started
 
-Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support)like [vscode](https://code.visualstudio.com/).
+Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) like [vscode](https://code.visualstudio.com/).
 
 To see how this starter can be used, check out the [`examples`](./examples) folder.
 
 ## Development zen
 
 
-This starter includes watch tasks which make development faster and more interactive. They're particularly helpful for TDD/BDD workflows.
+This starter includes watch tasks which make development faster and more interactive. They're particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
 
 To start working, run:
 
@@ -31,7 +36,7 @@ To start working, run:
 $ yarn watch:build
 ```
 
-which will build and watch the entire project for changes (to both the library and test sources). In another tab or terminal window, run:
+which will build and watch the entire project for changes (to both the library source files and test source files). In another tab or terminal window, run:
 
 ```
 $ yarn watch:test
@@ -41,11 +46,11 @@ As you develop, you can add tests for new functionality – which will initially
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
 
-## Enable stronger typechecking (Recommended)
+## Enable stronger type checking (Recommended)
 
 To make getting started easier, the default `tsconfig.json` is using the `config/tsconfig.flexible` configuration. This will allow you to get started without many warning from Typescript.
 
-To enable additional Typescript typechecking features (a good idea for mission-critical or large projects), change the `extends` value in `tsconfig.json` to `./config/tsconfig.strict`.
+To enable additional Typescript type checking features (a good idea for mission-critical or large projects), change the `extends` value in `tsconfig.json` to `./config/tsconfig.strict`.
 
 ## View test coverage
 
@@ -54,7 +59,7 @@ To generate and view test coverage, run:
 $ yarn cov
 ```
 
-This will create an HTML report of test coverage – source-mapped back to Typescript – and open in in your default browser.
+This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.
 
 ## Generate your API docs
 
@@ -124,14 +129,14 @@ release:
 
 ### Browser libraries
 
-This starter currently doesn't run tests in a browser ([AVA](https://github.com/avajs/ava) tests in Node exclusively). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
+This starter currently does **not** run tests in a browser ([AVA](https://github.com/avajs/ava) tests in Node exclusively). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
 
 ### Dependency on `tslib`
 
-By default, this project requires [tslib](https://github.com/Microsoft/tslib) as a dependency. This is the recommended way to use Typescript's es6 &amp; es7 transpiling for sizable projects, but you can remove this dependency by removing the `importHelpers` compiler option in `tsconfig.json`. Depending on your usage, this may increase the size of your library significantly, as the Typescript compiler will inject it's helper functions directly into every file which uses them.
+By default, this project requires [tslib](https://github.com/Microsoft/tslib) as a dependency. This is the recommended way to use Typescript's es6 &amp; es7 transpiling for sizable projects, but you can remove this dependency by removing the `importHelpers` compiler option in `tsconfig.json`. Depending on your usage, this may increase the size of your library significantly, as the Typescript compiler will inject it's helper functions directly into every file which uses them. (See also: [`noEmitHelpers` &rarr;](https://www.typescriptlang.org/docs/handbook/compiler-options.html))
 
-### Targetting Old Environments
+### Targeting Old Environments
 
 By default, this library targets environments with native (or already-polyfilled) support for es6 features. If your library needs to target Internet Explorer, outdated Android browsers, or versions of Node older than v4, you may need to change the `target` in `tsconfig.json` to `es5` (rather than `es6`) and bring in a Promise polyfill (such as [es6-promise](https://github.com/stefanpenner/es6-promise)).
 
-It's a good idea to maintain 100% unit test coverage, and always test in the environments you target.
+It's a good idea to maintain 100% unit test coverage, and always test in the environments you target. 
