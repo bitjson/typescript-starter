@@ -43,8 +43,8 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "@types/node": "^0.0.2",
-    "ava": "^0.17.0",
+    "@types/node": "^7.0.5",
+    "ava": "^0.18.1",
     "codecov": "^1.0.1",
     "npm-scripts-info": "^0.3.6",
     "nyc": "^10.0.0",
@@ -52,7 +52,7 @@
     "standard-version": "^4.0.0",
     "trash-cli": "^1.4.0",
     "tslint": "^4.0.2",
-    "tslint-config-standard": "^2.0.0",
+    "tslint-config-standard": "^4.0.0",
     "typedoc": "^0.5.5",
     "typescript": "^2.2.0"
   },
