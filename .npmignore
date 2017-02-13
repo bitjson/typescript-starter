@@ -2,3 +2,7 @@ src
 tsconfig.json
 tslint.json
 .travis.yml
+
+coverage
+.nyc_output
+*.log

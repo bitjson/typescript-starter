@@ -1,5 +1,7 @@
 node_modules
 build
 src/**.js
+
 coverage
 .nyc_output
+*.log
