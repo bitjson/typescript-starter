@@ -1,6 +1,6 @@
 {
   "name": "es7-typescript-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An es7/typescript starter for building javascript libraries",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
