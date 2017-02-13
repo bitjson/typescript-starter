@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/bitjson/es7-typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/es7-typescript-starter)
-[![Codecov](https://img.shields.io/codecov/c/github/codecov/es7-typescript-starter.svg)](https://codecov.io/gh/bitjson/es7-typescript-starter)
+[![Codecov](https://img.shields.io/codecov/c/github/bitjson/es7-typescript-starter.svg)](https://codecov.io/gh/bitjson/es7-typescript-starter)
 [![NPM version](https://img.shields.io/npm/v/es7-typescript-starter.svg)](https://www.npmjs.com/package/es7-typescript-starter)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
@@ -46,7 +46,7 @@ As you develop, you can add tests for new functionality – which will initially
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
 
-## Enable stronger type checking (Recommended)
+## Enable stronger type checking (recommended)
 
 To make getting started easier, the default `tsconfig.json` is using the `config/tsconfig.flexible` configuration. This will allow you to get started without many warning from Typescript.
 
@@ -78,7 +78,7 @@ For more advanced documentation generation, you can provide your own [typedoc th
 $ yarn docs:json
 ```
 
-## Generate Changelog & Release
+## Generate/update changelog & release
 
 This project is tooled for [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow.
 
@@ -135,7 +135,7 @@ This starter currently does **not** run tests in a browser ([AVA](https://github
 
 By default, this project requires [tslib](https://github.com/Microsoft/tslib) as a dependency. This is the recommended way to use Typescript's es6 &amp; es7 transpiling for sizable projects, but you can remove this dependency by removing the `importHelpers` compiler option in `tsconfig.json`. Depending on your usage, this may increase the size of your library significantly, as the Typescript compiler will inject it's helper functions directly into every file which uses them. (See also: [`noEmitHelpers` &rarr;](https://www.typescriptlang.org/docs/handbook/compiler-options.html))
 
-### Targeting Old Environments
+### Targeting older environments
 
 By default, this library targets environments with native (or already-polyfilled) support for es6 features. If your library needs to target Internet Explorer, outdated Android browsers, or versions of Node older than v4, you may need to change the `target` in `tsconfig.json` to `es5` (rather than `es6`) and bring in a Promise polyfill (such as [es6-promise](https://github.com/stefanpenner/es6-promise)).
 
