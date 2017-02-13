@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.org/bitjson/es7-typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/es7-typescript-starter)
-[![Codecov](https://img.shields.io/codecov/c/github/bitjson/es7-typescript-starter.svg)](https://codecov.io/gh/bitjson/es7-typescript-starter)
-[![NPM version](https://img.shields.io/npm/v/es7-typescript-starter.svg)](https://www.npmjs.com/package/es7-typescript-starter)
+[![Build Status](https://travis-ci.org/bitjson/typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/typescript-starter)
+[![Codecov](https://img.shields.io/codecov/c/github/bitjson/typescript-starter.svg)](https://codecov.io/gh/bitjson/typescript-starter)
+[![NPM version](https://img.shields.io/npm/v/typescript-starter.svg)](https://www.npmjs.com/package/typescript-starter)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
-# es7-typescript-starter
-An es7/typescript starter for building javascript libraries:
+# typescript-starter
+A typescript starter for building javascript libraries and projects:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
 * [Optionally use typescript](https://basarat.gitbooks.io/typescript/content/docs/why-typescript.html) to improve tooling, linting, and documentation generation
@@ -139,4 +139,4 @@ By default, this project requires [tslib](https://github.com/Microsoft/tslib) as
 
 By default, this library targets environments with native (or already-polyfilled) support for es6 features. If your library needs to target Internet Explorer, outdated Android browsers, or versions of Node older than v4, you may need to change the `target` in `tsconfig.json` to `es5` (rather than `es6`) and bring in a Promise polyfill (such as [es6-promise](https://github.com/stefanpenner/es6-promise)).
 
-It's a good idea to maintain 100% unit test coverage, and always test in the environments you target. 
+It's a good idea to maintain 100% unit test coverage, and always test in the environments you target.

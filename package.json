@@ -1,7 +1,7 @@
 {
-  "name": "es7-typescript-starter",
+  "name": "typescript-starter",
   "version": "1.1.1",
-  "description": "An es7/typescript starter for building javascript libraries",
+  "description": "A typescript starter for building javascript libraries and projects",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
@@ -57,14 +57,25 @@
     "typescript": "^2.2.0"
   },
   "keywords": [
-    "node",
-    "typescript",
-    "typings",
+    "async",
+    "ava",
+    "await",
     "boilerplate",
+    "conventional-changelog",
+    "ES6",
+    "ES7",
+    "library",
+    "javascript-modules",
+    "node",
+    "nyc",
+    "rollup",
     "starter",
-    "es6",
-    "es7",
-    "library"
+    "template",
+    "tree-shaking",
+    "tslint",
+    "typedoc",
+    "typescript",
+    "typings"
   ],
   "nyc": {
     "exclude": [

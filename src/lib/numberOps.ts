@@ -3,14 +3,14 @@
  *
  * ### Example (es module)
  * ```js
- * import { double } from 'es7-typescript-starter'
+ * import { double } from 'typescript-starter'
  * console.log(double(4))
  * // => 8
  * ```
  *
  * ### Example (commonjs)
  * ```js
- * var double = require('es7-typescript-starter').double;
+ * var double = require('typescript-starter').double;
  * console.log(double(4))
  * // => 8
  * ```
@@ -28,14 +28,14 @@ export function double (value: number) {
  *
  * ### Example (es module)
  * ```js
- * import { power } from 'es7-typescript-starter'
+ * import { power } from 'typescript-starter'
  * console.log(power(2,3))
  * // => 8
  * ```
  *
  * ### Example (commonjs)
  * ```js
- * var power = require('es7-typescript-starter').power;
+ * var power = require('typescript-starter').power;
  * console.log(power(2,3))
  * // => 8
  * ```
