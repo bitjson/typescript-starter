@@ -6,6 +6,8 @@
 [![devDependencies Status](https://david-dm.org/bitjson/typescript-starter/dev-status.svg)](https://david-dm.org/bitjson/typescript-starter?type=dev)
 
 # typescript-starter
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/bitjson/typescript-starter.svg)](https://greenkeeper.io/)
 A typescript starter for building javascript libraries and projects:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
