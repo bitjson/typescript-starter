@@ -43,7 +43,9 @@ which will build and watch the entire project for changes (to both the library s
 
 Typescript builds on the left, tests run on the right:
 
-<img alt="typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
+<p align="center">
+  <img alt="typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
+</p>
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
 
@@ -62,7 +64,9 @@ $ yarn cov
 
 This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.
 
-<center><img height="600" alt="source-mapped typescript test coverage" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png"></center>
+<p align="center">
+  <img height="600" alt="source-mapped typescript test coverage example" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png">
+</p>
 
 ## Generate your API docs
 
@@ -75,7 +79,9 @@ This command generates API documentation for your library in HTML format.
 
 Since types are tracked by Typescript, there's no need to indicate types in JSDoc format. For more information, see the [typedoc documentation](http://typedoc.org/guides/doccomments/).
 
-<center><img height="600" alt="source-mapped typescript test coverage" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png"></center>
+<p align="center">
+  <img height="500" alt="typedoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
+</p>
 
 For more advanced documentation generation, you can provide your own [typedoc theme](http://typedoc.org/guides/themes/), or [build your own documentation](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) using the JSON typedoc export:
 
