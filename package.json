@@ -5,7 +5,7 @@
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/bitjson/node-typescript-starter",
+  "repository": "https://github.com/bitjson/typescript-starter",
   "author": "Jason Dreyzehner <jason@dreyzehner.com>",
   "license": "MIT",
   "scripts": {
