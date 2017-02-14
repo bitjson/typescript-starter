@@ -7,7 +7,6 @@
 
 # typescript-starter
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/bitjson/typescript-starter.svg)](https://greenkeeper.io/)
 A typescript starter for building javascript libraries and projects:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
@@ -32,27 +31,25 @@ To see how this starter can be used, check out the [`examples`](./examples) fold
 ## Development zen
 
 
-This starter includes watch tasks which make development faster and more interactive. They're particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
+This starter includes a watch task which makes development faster and more interactive. It's particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
 
 To start working, run:
 
 ```
-$ yarn watch:build
+$ yarn watch
 ```
 
-which will build and watch the entire project for changes (to both the library source files and test source files). In another tab or terminal window, run:
+which will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
 
-```
-$ yarn watch:test
-```
+Typescript builds on the left, tests run on the right:
 
-As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
+<img alt="typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
 
 ## Enable stronger type checking (recommended)
 
-To make getting started easier, the default `tsconfig.json` is using the `config/tsconfig.flexible` configuration. This will allow you to get started without many warning from Typescript.
+To make getting started easier, the default `tsconfig.json` is using the `config/tsconfig.flexible` configuration. This will allow you to get started without many warnings from Typescript.
 
 To enable additional Typescript type checking features (a good idea for mission-critical or large projects), change the `extends` value in `tsconfig.json` to `./config/tsconfig.strict`.
 
@@ -65,6 +62,8 @@ $ yarn cov
 
 This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.
 
+<center><img height="600" alt="source-mapped typescript test coverage" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png"></center>
+
 ## Generate your API docs
 
 The src folder is analyzed and documentation is automatically generated using [typedoc](https://github.com/TypeStrong/typedoc).
@@ -76,6 +75,8 @@ This command generates API documentation for your library in HTML format.
 
 Since types are tracked by Typescript, there's no need to indicate types in JSDoc format. For more information, see the [typedoc documentation](http://typedoc.org/guides/doccomments/).
 
+<center><img height="600" alt="source-mapped typescript test coverage" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png"></center>
+
 For more advanced documentation generation, you can provide your own [typedoc theme](http://typedoc.org/guides/themes/), or [build your own documentation](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) using the JSON typedoc export:
 
 ```bash
@@ -84,7 +85,7 @@ $ yarn docs:json
 
 ## Generate/update changelog & release
 
-This project is tooled for [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow.
+This project is tooled for [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow, or [`CHANGELOG.md`](CHANGELOG.md) for an example.
 
 ```bash
 # bump package.json version, update CHANGELOG.md, git tag the release
@@ -112,6 +113,8 @@ unit:
   Run unit tests
 test:
   Lint and test the library
+watch:
+  Watch source files, rebuild library on changes, rerun relevant tests
 watch:build:
   Watch source files, rebuild library on changes
 watch:unit:
