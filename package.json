@@ -1,6 +1,6 @@
 {
   "name": "typescript-starter",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A typescript starter for building javascript libraries and projects",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
