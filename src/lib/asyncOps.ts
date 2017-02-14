@@ -17,8 +17,8 @@
  *
  * @returns       a Promise which should contain `['a','b','c']`
  */
-export async function asyncABC() {
-  function somethingSlow(index: 0 | 1 | 2) {
+export async function asyncABC () {
+  function somethingSlow (index: 0 | 1 | 2) {
     let storage = 'abc'.charAt(index)
     return new Promise<string>(resolve => {
       // here we pretend to wait on the network
