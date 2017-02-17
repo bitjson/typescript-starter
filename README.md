@@ -9,14 +9,14 @@
 
 # typescript-starter
 
-A typescript starter for building javascript libraries and projects:
+A [typescript](https://www.typescriptlang.org/) starter for building javascript libraries and projects:
 
 * Write **standard, future javascript** – with stable es7 features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
 * [Optionally use typescript](https://basarat.gitbooks.io/typescript/content/docs/why-typescript.html) to improve tooling, linting, and documentation generation
 * Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/) or [Webpack 2](https://webpack.js.org/))
-* Export Typescript type declarations to improve your downstream development experience
+* Export type declarations to improve your downstream development experience
 * Backwards compatibility for Node.js-style (CommonJS) imports
-* Both [strict](config/tsconfig.strict.json) and [flexible](config/tsconfig.flexible.json) Typescript configurations available
+* Both [strict](config/tsconfig.strict.json) and [flexible](config/tsconfig.flexible.json) typescript configurations available
 
 So we can have nice things:
 * Generate API documentation (HTML or JSON) [without a mess of JSDoc tags](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) to maintain
@@ -26,9 +26,15 @@ So we can have nice things:
 
 ## Get started
 
-Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) like [vscode](https://code.visualstudio.com/).
+Before you start, consider using an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
 
-To see how this starter can be used, check out the [`examples`](./examples) folder.
+[VS Code](https://code.visualstudio.com/) (below) is a popular option. Editors with typescript support can provide helpful autocomplete, inline documentation, and code refactoring features.
+
+<p align="center">
+  <img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
+</p>
+
+To see how this starter can be used as a dependency in other projects, check out the [`examples`](./examples) folder. The example above is from [`examples/node-typescript`](./examples/node-typescript).
 
 ## Development zen
 
@@ -46,7 +52,7 @@ which will build and watch the entire project for changes (to both the library s
 Typescript builds on the left, tests run on the right:
 
 <p align="center">
-  <img alt="typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
+  <img alt="Typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
 </p>
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
