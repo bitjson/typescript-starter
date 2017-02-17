@@ -26,9 +26,15 @@ So we can have nice things:
 
 ## Get started
 
-Before you start, consider configuring or switching to an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) like [vscode](https://code.visualstudio.com/).
+Before you start, consider using an [editor with good typescript support](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support).
 
-To see how this starter can be used, check out the [`examples`](./examples) folder.
+[VS Code](https://code.visualstudio.com/) (below) is a popular option. Editors with Typescript support can provide helpful autocomplete, inline documentation, and code refactoring features.
+
+<p align="center">
+  <img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
+</p>
+
+To see how this starter can be used as a dependency in other projects, check out the [`examples`](./examples) folder. The example above is from [`examples/node-typescript`](./examples/node-typescript).
 
 ## Development zen
 
