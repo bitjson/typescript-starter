@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "info": "npm-scripts-info",
-    "build": "trash build && tsc -p tsconfig.json && tsc -p config/tsconfig-module.json",
+    "build": "trash build && tsc -p tsconfig.json && tsc -p config/tsconfig.module.json",
     "lint": "tslint src/**/*.ts",
     "unit": "yarn build && nyc ava",
     "check-coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",

@@ -1,4 +1,6 @@
 src
+config
+examples
 tsconfig.json
 tslint.json
 .travis.yml

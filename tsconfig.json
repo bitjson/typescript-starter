@@ -7,14 +7,13 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "declaration": true,
-    "strictNullChecks": true,
     "importHelpers": true,
     "inlineSourceMap": true,
     "listFiles": false,
     "traceResolution": false,
     "pretty": true,
     "lib" : [
-      "ES6"
+      "es6"
     ],
     "types" : [
       "node"
