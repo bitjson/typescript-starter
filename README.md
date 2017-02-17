@@ -35,10 +35,10 @@ To see how this starter can be used, check out the [`examples`](./examples) fold
 
 This starter includes a watch task which makes development faster and more interactive. It's particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
 
-To start working, run:
+To start working, [install Yarn](https://yarnpkg.com/en/docs/getting-started) and run:
 
 ```
-$ yarn watch
+yarn watch
 ```
 
 which will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
@@ -61,7 +61,7 @@ To enable additional Typescript type checking features (a good idea for mission-
 
 To generate and view test coverage, run:
 ```bash
-$ yarn cov
+yarn cov
 ```
 
 This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.
@@ -75,7 +75,7 @@ This will create an HTML report of test coverage – source-mapped back to Types
 The src folder is analyzed and documentation is automatically generated using [typedoc](https://github.com/TypeStrong/typedoc).
 
 ```bash
-$ yarn docs
+yarn docs
 ```
 This command generates API documentation for your library in HTML format.
 
@@ -88,7 +88,7 @@ Since types are tracked by Typescript, there's no need to indicate types in JSDo
 For more advanced documentation generation, you can provide your own [typedoc theme](http://typedoc.org/guides/themes/), or [build your own documentation](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) using the JSON typedoc export:
 
 ```bash
-$ yarn docs:json
+yarn docs:json
 ```
 
 ## Generate/update changelog & release
@@ -97,11 +97,11 @@ This project is tooled for [Conventional Changelog](https://github.com/conventio
 
 ```bash
 # bump package.json version, update CHANGELOG.md, git tag the release
-$ yarn release
+yarn release
 # Release without bumping package.json version
-$ yarn release -- --first-release
+yarn release -- --first-release
 # PGP sign the release
-$ yarn release -- --sign
+yarn release -- --sign
 ```
 
 ## All package scripts
@@ -109,36 +109,36 @@ $ yarn release -- --sign
 You can run the `info` script for information on each available package script.
 
 ```
-$ yarn run info
+yarn run info
 
-info:
-  Display information about the scripts
-build:
-  (Trash and re)build the library
-lint:
-  Lint all typescript source files
-unit:
-  Run unit tests
-test:
-  Lint and test the library
-watch:
-  Watch source files, rebuild library on changes, rerun relevant tests
-watch:build:
-  Watch source files, rebuild library on changes
-watch:unit:
-  Watch the build, rerun relevant tests on changes
-cov:
-  Run tests, generate the HTML coverage report, and open it in a browser
-html-coverage:
-  Output HTML test coverage report
-send-coverage:
-  Output lcov test coverage report and send it to codecov
-docs:
-  Generate API documentation and open it in a browser
-docs:json:
-  Generate API documentation in typedoc JSON format
-release:
-  Bump package.json version, update CHANGELOG.md, tag a release
+  info:
+    Display information about the scripts
+  build:
+    (Trash and re)build the library
+  lint:
+    Lint all typescript source files
+  unit:
+    Run unit tests
+  test:
+    Lint and test the library
+  watch:
+    Watch source files, rebuild library on changes, rerun relevant tests
+  watch:build:
+    Watch source files, rebuild library on changes
+  watch:unit:
+    Watch the build, rerun relevant tests on changes
+  cov:
+    Run tests, generate the HTML coverage report, and open it in a browser
+  html-coverage:
+    Output HTML test coverage report
+  send-coverage:
+    Output lcov test coverage report and send it to codecov
+  docs:
+    Generate API documentation and open it in a browser
+  docs:json:
+    Generate API documentation in typedoc JSON format
+  release:
+    Bump package.json version, update CHANGELOG.md, tag a release
 ```
 ## Notes
 

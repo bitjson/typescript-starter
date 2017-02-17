@@ -13,5 +13,9 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-typescript": "^0.8.1",
     "typescript": "^2.2.0"
-  }
+  },
+  "dependencies": {
+    "typescript-starter": "^1.2.1"
+  },
+  "private": true
 }

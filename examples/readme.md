@@ -7,13 +7,11 @@ This directory (`/examples`) can be deleted when forking this project. It contai
 This shows the simplest use case – a quick, hacked-together Node.js project with no type safety, and no pre-processing. This is the way most of the Node.js ecosystem currently expects to import a node modules.
 
 ```bash
-# build typescript-starter first
-yarn build
-
 cd examples/node-vanilla
 
-# run the example
-node test.js 
+# install and run the example
+npm install
+npm run
 ```
 
 ## Node (Typescript)
@@ -21,17 +19,14 @@ node test.js
 This is for larger and more established Node.js projects which use Typescript for type safety. You'll notice that the type declarations and inline documentation from `typescript-starter` are accessible to [Typescript-compatible editors](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support) like [vscode](https://code.visualstudio.com/).
 
 ```bash
-# build typescript-starter first
-yarn build
-
 cd examples/node-typescript
 
  # install the dependencies
-yarn
+npm install
 # type-check and build the example
-yarn build
+npm run build
 # run the example
-yarn start
+npm start
 ```
 
 ## Browser (tree-shaking with Rollup)
@@ -41,15 +36,12 @@ This project imports the `power` and `asyncABC` functions from the ES6 output of
 To demonstrate, this example doesn't minify or remove comments. You can see where some javascript has been excluded from the bundle.
 
 ```bash
-# build typescript-starter first
-yarn build
-
 cd examples/browser
 
 # install the dependencies
-yarn
+npm install
 # build the javascript bundle
-yarn build
+npm run build
 # start a server and open the test in a browser
-yarn start
+npm start
 ```

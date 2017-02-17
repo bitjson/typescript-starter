@@ -1,14 +1,14 @@
 // Note: we're not using the double method, so it should be excluded from the bundle
-import { power, asyncABC } from '../../../'
+import { power, asyncABC } from 'typescript-starter'
 
 let output = ''
 
-function log(str: string) {
+function log (str: string) {
   console.log(str)
   output += str + '\n'
 }
 
-function logAndAlert(data: string[]) {
+function logAndAlert (data: string[]) {
   log('✔ asyncABC returned: ' + data)
   window.alert(output)
 }

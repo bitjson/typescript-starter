@@ -1,6 +1,6 @@
 // Typescript should resolve this using the same algorithm as Node.js.
 // See examples/node-vanilla for more info.
-import { double, power, asyncABC } from '../../../'
+import { double, power, asyncABC } from 'typescript-starter'
 import * as assert from 'assert'
 
 assert(double(6) === 12)
