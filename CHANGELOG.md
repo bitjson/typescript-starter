@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/bitjson/typescript-starter/compare/v1.2.1...v1.2.2) (2017-02-17)
+
+
+### Bug Fixes
+
+* **tsconfig:** set rootDir option when outDir option is used ([3577caa](https://github.com/bitjson/typescript-starter/commit/3577caa)), closes [#9](https://github.com/bitjson/typescript-starter/issues/9)
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/bitjson/typescript-starter/compare/v1.2.0...v1.2.1) (2017-02-14)
 
