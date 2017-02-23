@@ -3,6 +3,5 @@
 import hash from 'hash.js'
 
 export function createHash (algorithm: 'sha256') {
-  console.log(hash)
   return hash.sha256()
 }
