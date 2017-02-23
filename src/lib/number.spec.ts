@@ -1,5 +1,5 @@
 import { test } from 'ava'
-import { double, power } from '../'
+import { double, power } from 'typescript-starter'
 
 test('double', t => {
   t.deepEqual(double(2), 4)

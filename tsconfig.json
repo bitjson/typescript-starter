@@ -1,5 +1,5 @@
 {
-  "extends": "./config/tsconfig.flexible",
+  "extends": "./config/tsconfig.flexible", // also available: "./config/tsconfig.strict"
   "compilerOptions": {
     "target": "es6",
     "outDir": "build/main",
@@ -17,7 +17,11 @@
     ],
     "types" : [
       "node"
-    ]
+    ],
+    "baseUrl": ".", // required for "paths"
+    "paths": {
+      "typescript-starter": ["src/index.ts"] // write tests without relative paths
+    }
   },
   "include": [
     "src/**/*.ts"
