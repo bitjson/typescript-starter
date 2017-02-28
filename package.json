@@ -15,17 +15,14 @@
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p config/exports/tsconfig.module.json",
     "build:browser-deps": "mkdirp build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js",
-    "build:browser": "rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js",
-    "build:browser-cjs": "rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js",
+    "build:browser": "rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js && sorcery -i  build/browser/index.js",
+    "build:browser-cjs": "rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js && sorcery -i  build/browser/index.cjs.js",
     "build:tests": "node config/exports/build-tests.js",
     "lint": "tslint src/**/*.ts",
     "unit": "yarn build && yarn build:tests && nyc ava",
     "check-coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
     "test": "yarn lint && yarn unit && yarn check-coverage && ava",
-    "watch": "trash build && multiview [yarn watch:build] [yarn watch:unit]",
-    "watch:build": "tsc -p tsconfig.json -w",
-    "watch:unit": "tsc -p tsconfig.json && ava --watch --verbose",
-    "watch:build:tests": "node config/exports/build-tests.js -w",
+    "watch": "yarn build && concurrently -r 'yarn build:main -- -w' 'yarn build:module -- -w' 'yarn build:browser -- -w' 'yarn build:browser-cjs -- -w' 'yarn build:tests -- -w' 'ava --watch --verbose'",
     "cov": "yarn unit && yarn html-coverage && opn coverage/index.html",
     "html-coverage": "nyc report --reporter=html",
     "send-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
@@ -57,10 +54,10 @@
     "ava": "^0.18.2",
     "browserify": "^14.1.0",
     "codecov": "^1.0.1",
+    "concurrently": "^3.3.0",
     "cpx": "^1.5.0",
     "hash.js": "^1.0.3",
     "mkdirp": "^0.5.1",
-    "multiview": "^2.3.1",
     "npm-scripts-info": "^0.3.6",
     "nyc": "^10.0.0",
     "opn-cli": "^3.1.0",
@@ -68,6 +65,8 @@
     "rollup-plugin-alias": "^1.2.0",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-watch": "^3.2.2",
+    "sorcery": "^0.10.0",
     "standard-version": "^4.0.0",
     "trash-cli": "^1.4.0",
     "tslint": "^4.0.2",
@@ -98,8 +97,7 @@
   ],
   "nyc": {
     "exclude": [
-      "**/*.spec.js",
-      "build"
+      "**/*.spec.js"
     ]
   },
   "dependencies": {
