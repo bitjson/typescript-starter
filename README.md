@@ -146,6 +146,12 @@ yarn run info
 ```
 ## Notes
 
+### Multiple builds (`main`, `module`, and `browser`)
+
+The `src` of typescript-starter is compiled into three separate builds: `main`, `module`, and `browser`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8), while the `module` build [uses the new ES6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json). The browser build contains two bundles, an ES6 module (the preferred export) and a CommonJS bundle (primarily used for testing).
+
+Because Node.js does not yet support the ES6 module system, Node.js projects which depend on typescript-starter will follow the `main` field in [`package.json`](https://github.com/bitjson/typescript-starter/blob/master/package.json). Tools which support the new system (like [Rollup](https://github.com/rollup/rollup)) will follow the `module` field, giving them the ability to statically analyze typescript-starter. When building for the browser, newer tools follow the `browser` field, which will resolve to the browser build's ES6 module.
+
 ### Browser libraries
 
 While both the browser and the Node.js versions of the library are tested, this starter currently does **not** run the browser tests in a real browser ([AVA](https://github.com/avajs/ava) is currently Node-only). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
@@ -154,7 +160,7 @@ Note: test coverage is only checked against the Node.js implementation. This is 
 
 ### Building browser dependencies
 
-This starter demonstrates importing and using a CommonJS module ([`hash.js`](https://github.com/indutny/hash.js)) for it's `hash256` method. See the `build:browser-deps` [package script](./package.json) and [rollup.config.js](./config/exports/rollup.config.js) for more details. Of course, your project likely does not need this dependency, so it can be removed. If your library doesn't need to bundle external dependencies for the browser, several other devDependencies can also be removed (`browserify`, `rollup-plugin-alias`, `rollup-plugin-commonjs`, `rollup-plugin-node-resolve`, etc).
+This starter demonstrates importing and using a CommonJS module ([`hash.js`](https://github.com/indutny/hash.js)) for it's `hash256` method when built for the browser. See the `build:browser-deps` [package script](./package.json) and [rollup.config.js](./config/exports/rollup.config.js) for more details. Of course, your project likely does not need this dependency, so it can be removed. If your library doesn't need to bundle external dependencies for the browser, several other devDependencies can also be removed (`browserify`, `rollup-plugin-alias`, `rollup-plugin-commonjs`, `rollup-plugin-node-resolve`, etc).
 
 ### Dependency on `tslib`
 
