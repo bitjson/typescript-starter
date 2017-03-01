@@ -27,8 +27,10 @@
     "cov": "yarn unit && yarn html-coverage && opn coverage/index.html",
     "html-coverage": "nyc report --reporter=html",
     "send-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "docs": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs && opn build/docs/index.html",
+    "docs": "yarn docs:html && opn build/docs/index.html",
+    "docs:html": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs",
     "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
+    "docs:publish": "yarn docs:html && gh-pages -d build/docs",
     "release": "standard-version"
   },
   "scripts-info": {
@@ -57,6 +59,7 @@
     "codecov": "^1.0.1",
     "concurrently": "^3.3.0",
     "cpx": "^1.5.0",
+    "gh-pages": "^0.12.0",
     "hash.js": "^1.0.3",
     "mkdirp": "^0.5.1",
     "npm-scripts-info": "^0.3.6",

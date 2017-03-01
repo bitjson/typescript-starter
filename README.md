@@ -81,9 +81,17 @@ The src folder is analyzed and documentation is automatically generated using [t
 ```bash
 yarn docs
 ```
-This command generates API documentation for your library in HTML format.
+This command generates API documentation for your library in HTML format and opens it in a browser.
 
 Since types are tracked by Typescript, there's no need to indicate types in JSDoc format. For more information, see the [typedoc documentation](http://typedoc.org/guides/doccomments/).
+
+To generate and publish your documentation to [GitHub Pages](https://pages.github.com/) use the following command:
+
+```bash
+yarn docs:publish
+```
+
+Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [this repo's GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
 
 <p align="center">
   <img height="500" alt="typedoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
