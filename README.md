@@ -49,10 +49,8 @@ yarn watch
 
 which will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
 
-Typescript builds on the left, tests run on the right:
-
 <p align="center">
-  <img alt="Typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/22908704/f4a83b20-f21d-11e6-8006-da6a851fb057.png">
+  <img alt="Typescript and AVA watch task" src="https://cloud.githubusercontent.com/assets/904007/23443884/c625d562-fdff-11e6-8f26-77bf75add240.png">
 </p>
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
@@ -153,6 +151,10 @@ yarn run info
 While both the browser and the Node.js versions of the library are tested, this starter currently does **not** run the browser tests in a real browser ([AVA](https://github.com/avajs/ava) is currently Node-only). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
 
 Note: test coverage is only checked against the Node.js implementation. This is much simpler, and works well for libraries where the node and browser implementations have different dependencies and only minor adapter code. With only a few lines of differences (e.g. `src/adapters/crypto.browser.ts`), including those few lines in test coverage analysis usually isn't necessary.
+
+### Building browser dependencies
+
+This starter demonstrates importing and using a CommonJS module ([`hash.js`](https://github.com/indutny/hash.js)) for it's `hash256` method. See the `build:browser-deps` [package script](./package.json) and [rollup.config.js](./config/exports/rollup.config.js) for more details. Of course, your project likely does not need this dependency, so it can be removed. If your library doesn't need to bundle external dependencies for the browser, several other devDependencies can also be removed (`browserify`, `rollup-plugin-alias`, `rollup-plugin-commonjs`, `rollup-plugin-node-resolve`, etc).
 
 ### Dependency on `tslib`
 
