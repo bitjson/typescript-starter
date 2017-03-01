@@ -150,7 +150,9 @@ yarn run info
 
 ### Browser libraries
 
-This starter currently does **not** run tests in a browser ([AVA](https://github.com/avajs/ava) tests in Node exclusively). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
+While both the browser and the Node.js versions of the library are tested, this starter currently does **not** run the browser tests in a real browser ([AVA](https://github.com/avajs/ava) is currently Node-only). While the current testing system will be sufficient for most use cases, some projects will (also) need to implement a browser-based testing system like [karma-ava](https://github.com/avajs/karma-ava). (Pull requests welcome!)
+
+Note: test coverage is only checked against the Node.js implementation. This is much simpler, and works well for libraries where the node and browser implementations have different dependencies and only minor adapter code. With only a few lines of differences (e.g. `src/adapters/crypto.browser.ts`), including those few lines in test coverage analysis usually isn't necessary.
 
 ### Dependency on `tslib`
 
