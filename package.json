@@ -27,7 +27,7 @@
     "cov": "yarn unit && yarn html-coverage && opn coverage/index.html",
     "html-coverage": "nyc report --reporter=html",
     "send-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "docs": "typedoc src/index.ts --excludePrivate --exclude src/adapters/*.ts --mode file --theme minimal --out build/docs && opn build/docs/index.html",
+    "docs": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs && opn build/docs/index.html",
     "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
     "release": "standard-version"
   },
