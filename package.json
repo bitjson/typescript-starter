@@ -103,6 +103,13 @@
       "build/browser/**"
     ]
   },
+  "ava": {
+    "source": [
+      "test/**/*.js",
+      "build/**/*.js",
+      "!build/**/*.spec.js"
+    ]
+  },
   "dependencies": {
     "tslib": "^1.6.0"
   }
