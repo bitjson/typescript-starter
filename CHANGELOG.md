@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/bitjson/typescript-starter/compare/v1.2.2...v1.3.0) (2017-03-01)
+
+
+### Bug Fixes
+
+* **hash.js:** correctly pre-build hash.js for the browser ([1fe0b10](https://github.com/bitjson/typescript-starter/commit/1fe0b10))
+* **watch:** exclude build/**/*.spec.js from ava to avoid double execution ([e365656](https://github.com/bitjson/typescript-starter/commit/e365656))
+
+
+### Features
+
+* **browser:** add browser build, tests, and sample sha256 library method ([01f67d1](https://github.com/bitjson/typescript-starter/commit/01f67d1))
+* **watch:** use concurrently for the watch task ([7fa64b8](https://github.com/bitjson/typescript-starter/commit/7fa64b8)), closes [#11](https://github.com/bitjson/typescript-starter/issues/11)
+
+
+
 <a name="1.2.2"></a>
 ## [1.2.2](https://github.com/bitjson/typescript-starter/compare/v1.2.1...v1.2.2) (2017-02-17)
 
