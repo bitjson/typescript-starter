@@ -31,23 +31,24 @@
     "docs:html": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs",
     "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
     "docs:publish": "yarn docs:html && gh-pages -d build/docs",
-    "release": "standard-version"
+    "changelog": "standard-version",
+    "release": "yarn reset && yarn test && yarn docs:publish && yarn changelog",
+    "reset": "git clean -dfx && git reset --hard && yarn"
   },
   "scripts-info": {
     "info": "Display information about the scripts",
     "build": "(Trash and re)build the library",
     "lint": "Lint all typescript source files",
-    "unit": "Run unit tests",
-    "test": "Lint and test the library",
+    "unit": "Build the library and run unit tests",
+    "test": "Lint, build, and test the library",
     "watch": "Watch source files, rebuild library on changes, rerun relevant tests",
-    "watch:build": "Watch source files, rebuild library on changes",
-    "watch:unit": "Watch the build, rerun relevant tests on changes",
     "cov": "Run tests, generate the HTML coverage report, and open it in a browser",
-    "html-coverage": "Output HTML test coverage report",
-    "send-coverage": "Output lcov test coverage report and send it to codecov",
-    "docs": "Generate API documentation and open it in a browser",
+    "docs": "Generate HTML API documentation and open it in a browser",
+    "docs:publish": "Generate HTML API documentation and push it to GitHub Pages",
     "docs:json": "Generate API documentation in typedoc JSON format",
-    "release": "Bump package.json version, update CHANGELOG.md, tag a release"
+    "changelog": "Bump package.json version, update CHANGELOG.md, tag a release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "release": "Clean, build, test, publish docs, and prepare release (a one-step publish process)"
   },
   "engines": {
     "node": ">=4"
@@ -57,7 +58,7 @@
     "ava": "^0.18.2",
     "browserify": "^14.1.0",
     "codecov": "^1.0.1",
-    "concurrently": "^3.3.0",
+    "concurrently": "^3.4.0",
     "cpx": "^1.5.0",
     "gh-pages": "^0.12.0",
     "hash.js": "^1.0.3",

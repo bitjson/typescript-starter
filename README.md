@@ -103,22 +103,44 @@ For more advanced documentation generation, you can provide your own [typedoc th
 yarn docs:json
 ```
 
-## Generate/update changelog & release
+## Generate/update changelog & tag release
 
 This project is tooled for [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow, or [`CHANGELOG.md`](CHANGELOG.md) for an example.
 
 ```bash
 # bump package.json version, update CHANGELOG.md, git tag the release
+yarn changelog
+```
+
+## One-step publish preparation script
+
+Bringing together many of the steps above, this repo includes a one-step release command.
+
+```bash
+# Standard release
 yarn release
 # Release without bumping package.json version
-yarn release -- --first-release
+yarn changelog -- --first-release
 # PGP sign the release
-yarn release -- --sign
+yarn changelog -- --sign
 ```
+
+This command runs:
+- `yarn reset`: cleans the repo by removing all untracked files and resetting `--hard` to the latest commit. (**Note: this could be destructive.**)
+- `yarn test`: build and fully test the project
+- `yarn docs:publish`: generate and publish the latest version of the documentation to GitHub Pages
+- `yarn changelog`: bump package.json version, update CHANGELOG.md, and git tag the release
+
+When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the `npm` registry:
+
+```
+git push --follow-tags origin master; npm publish
+```
+Look over the release if you'd like, then execute the command to publish everything.
 
 ## All package scripts
 
-You can run the `info` script for information on each available package script.
+You can run the `info` script for information on each script intended to be individually run.
 
 ```
 yarn run info
@@ -130,27 +152,25 @@ yarn run info
   lint:
     Lint all typescript source files
   unit:
-    Run unit tests
+    Build the library and run unit tests
   test:
-    Lint and test the library
+    Lint, build, and test the library
   watch:
     Watch source files, rebuild library on changes, rerun relevant tests
-  watch:build:
-    Watch source files, rebuild library on changes
-  watch:unit:
-    Watch the build, rerun relevant tests on changes
   cov:
     Run tests, generate the HTML coverage report, and open it in a browser
-  html-coverage:
-    Output HTML test coverage report
-  send-coverage:
-    Output lcov test coverage report and send it to codecov
   docs:
-    Generate API documentation and open it in a browser
+    Generate HTML API documentation and open it in a browser
+  docs:publish:
+    Generate HTML API documentation and push it to GitHub Pages
   docs:json:
     Generate API documentation in typedoc JSON format
   release:
     Bump package.json version, update CHANGELOG.md, tag a release
+  reset:
+    Delete all untracked files and reset the repo to the last commit
+  publish:
+    Reset, build, test, publish docs, and prepare release (a one-step publish process)
 ```
 ## Notes
 
