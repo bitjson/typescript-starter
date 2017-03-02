@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/bitjson/typescript-starter/compare/v1.3.0...v1.4.0) (2017-03-02)
+
+
+### Features
+
+* **gh-pages:** add package script for publishing docs to gh-pages ([1dfe830](https://github.com/bitjson/typescript-starter/commit/1dfe830)), closes [#14](https://github.com/bitjson/typescript-starter/issues/14)
+* **publish:** add one-step publish process ([7b9b857](https://github.com/bitjson/typescript-starter/commit/7b9b857)), closes [#15](https://github.com/bitjson/typescript-starter/issues/15)
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/bitjson/typescript-starter/compare/v1.2.2...v1.3.0) (2017-03-01)
 
