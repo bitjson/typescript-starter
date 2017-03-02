@@ -981,25 +981,44 @@ img { max-width: 100%; }
 			<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">typedoc</a>.</p>
 			<pre><code class="lang-bash">yarn docs
 </code></pre>
-			<p>This command generates API documentation for your library in HTML format.</p>
+			<p>This command generates API documentation for your library in HTML format and opens it in a browser.</p>
 			<p>Since types are tracked by Typescript, there&#39;s no need to indicate types in JSDoc format. For more information, see the <a href="http://typedoc.org/guides/doccomments/">typedoc documentation</a>.</p>
+			<p>To generate and publish your documentation to <a href="https://pages.github.com/">GitHub Pages</a> use the following command:</p>
+			<pre><code class="lang-bash">yarn docs:publish
+</code></pre>
+			<p>Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See <a href="https://bitjson.github.io/typescript-starter/">this repo&#39;s GitHub Pages</a> for an example.</p>
 			<p align="center">
 				<img height="500" alt="typedoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
 			</p>
 			<p>For more advanced documentation generation, you can provide your own <a href="http://typedoc.org/guides/themes/">typedoc theme</a>, or <a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/">build your own documentation</a> using the JSON typedoc export:</p>
 			<pre><code class="lang-bash">yarn docs:json
 </code></pre>
-			<h2 id="generate-update-changelog-release">Generate/update changelog &amp; release</h2>
+			<h2 id="generate-update-changelog-tag-release">Generate/update changelog &amp; tag release</h2>
 			<p>This project is tooled for <a href="https://github.com/conventional-changelog/conventional-changelog">Conventional Changelog</a> to make managing releases easier. See the <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> documentation for more information on the workflow, or <a href="CHANGELOG.md"><code>CHANGELOG.md</code></a> for an example.</p>
 			<pre><code class="lang-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
+yarn changelog
+</code></pre>
+			<h2 id="one-step-publish-preparation-script">One-step publish preparation script</h2>
+			<p>Bringing together many of the steps above, this repo includes a one-step release command.</p>
+			<pre><code class="lang-bash"><span class="hljs-comment"># Standard release</span>
 yarn release
 <span class="hljs-comment"># Release without bumping package.json version</span>
-yarn release -- --first-release
+yarn changelog -- --first-release
 <span class="hljs-comment"># PGP sign the release</span>
-yarn release -- --sign
+yarn changelog -- --sign
 </code></pre>
+			<p>This command runs:</p>
+			<ul>
+				<li><code>yarn reset</code>: cleans the repo by removing all untracked files and resetting <code>--hard</code> to the latest commit. (<strong>Note: this could be destructive.</strong>)</li>
+				<li><code>yarn test</code>: build and fully test the project</li>
+				<li><code>yarn docs:publish</code>: generate and publish the latest version of the documentation to GitHub Pages</li>
+				<li><code>yarn changelog</code>: bump package.json version, update CHANGELOG.md, and git tag the release</li>
+			</ul>
+			<p>When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the <code>npm</code> registry:</p>
+			<pre><code>git <span class="hljs-built_in">push</span> --follow-tags <span class="hljs-built_in">origin</span> master; npm publish
+</code></pre><p>Look over the release if you&#39;d like, then execute the command to publish everything.</p>
 			<h2 id="all-package-scripts">All package scripts</h2>
-			<p>You can run the <code>info</code> script for information on each available package script.</p>
+			<p>You can run the <code>info</code> script for information on each script intended to be individually run.</p>
 			<pre><code>yarn run info
 
   info:
@@ -1009,27 +1028,25 @@ yarn release -- --sign
   lint:
     Lint all typescript source <span class="hljs-built_in">files</span>
   unit:
-    Run unit tests
+    Build <span class="hljs-keyword">the</span> library <span class="hljs-keyword">and</span> run unit tests
   test:
-    Lint <span class="hljs-keyword">and</span> test <span class="hljs-keyword">the</span> library
+    Lint, build, <span class="hljs-keyword">and</span> test <span class="hljs-keyword">the</span> library
   watch:
     Watch source <span class="hljs-built_in">files</span>, rebuild library <span class="hljs-keyword">on</span> <span class="hljs-title">changes</span>, <span class="hljs-title">rerun</span> <span class="hljs-title">relevant</span> <span class="hljs-title">tests</span>
-  watch:build:
-    Watch source <span class="hljs-built_in">files</span>, rebuild library <span class="hljs-keyword">on</span> <span class="hljs-title">changes</span>
-  watch:unit:
-    Watch <span class="hljs-keyword">the</span> build, rerun relevant tests <span class="hljs-keyword">on</span> <span class="hljs-title">changes</span>
   cov:
     Run tests, generate <span class="hljs-keyword">the</span> HTML coverage report, <span class="hljs-keyword">and</span> <span class="hljs-built_in">open</span> <span class="hljs-keyword">it</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> browser
-  html-coverage:
-    Output HTML test coverage report
-  <span class="hljs-built_in">send</span>-coverage:
-    Output lcov test coverage report <span class="hljs-keyword">and</span> <span class="hljs-built_in">send</span> <span class="hljs-keyword">it</span> <span class="hljs-built_in">to</span> codecov
   docs:
-    Generate API documentation <span class="hljs-keyword">and</span> <span class="hljs-built_in">open</span> <span class="hljs-keyword">it</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> browser
+    Generate HTML API documentation <span class="hljs-keyword">and</span> <span class="hljs-built_in">open</span> <span class="hljs-keyword">it</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> browser
+  docs:publish:
+    Generate HTML API documentation <span class="hljs-keyword">and</span> push <span class="hljs-keyword">it</span> <span class="hljs-built_in">to</span> GitHub Pages
   docs:json:
     Generate API documentation <span class="hljs-keyword">in</span> typedoc JSON <span class="hljs-built_in">format</span>
   release:
     Bump package.json <span class="hljs-built_in">version</span>, update CHANGELOG.md, tag <span class="hljs-keyword">a</span> release
+  reset:
+    Delete all untracked <span class="hljs-built_in">files</span> <span class="hljs-keyword">and</span> reset <span class="hljs-keyword">the</span> repo <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">last</span> commit
+  publish:
+    Reset, build, test, publish docs, <span class="hljs-keyword">and</span> <span class="hljs-built_in">prepare</span> release (<span class="hljs-keyword">a</span> <span class="hljs-literal">one</span>-step publish <span class="hljs-built_in">process</span>)
 </code></pre><h2 id="notes">Notes</h2>
 			<h3 id="multiple-builds-main-module-and-browser-">Multiple builds (<code>main</code>, <code>module</code>, and <code>browser</code>)</h3>
 			<p>The <code>src</code> of typescript-starter is compiled into three separate builds: <code>main</code>, <code>module</code>, and <code>browser</code>. The <code>main</code> build is <a href="https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8">configured to use the CommonJS module system</a>, while the <code>module</code> build <a href="https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json">uses the new ES6 module system</a>. The browser build contains two bundles, an ES6 module (the preferred export) and a CommonJS bundle (primarily used for testing).</p>
@@ -1074,7 +1091,7 @@ yarn release -- --sign
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/0d8665f/src/lib/async.ts#L20">lib/async.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/7b9b857/src/lib/async.ts#L20">lib/async.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1107,7 +1124,7 @@ asyncABC().then(<span class="hljs-built_in">console</span>.log);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/0d8665f/src/lib/number.ts#L22">lib/number.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/7b9b857/src/lib/number.ts#L22">lib/number.ts:22</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1154,7 +1171,7 @@ asyncABC().then(<span class="hljs-built_in">console</span>.log);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/0d8665f/src/lib/number.ts#L43">lib/number.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/7b9b857/src/lib/number.ts#L43">lib/number.ts:43</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1195,7 +1212,7 @@ asyncABC().then(<span class="hljs-built_in">console</span>.log);
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/0d8665f/src/lib/hash.ts#L15">lib/hash.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/bitjson/es7-typescript-starter/blob/7b9b857/src/lib/hash.ts#L15">lib/hash.ts:15</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
