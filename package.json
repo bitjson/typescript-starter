@@ -69,7 +69,7 @@
     "rollup": "^0.41.4",
     "rollup-plugin-alias": "^1.2.0",
     "rollup-plugin-commonjs": "^7.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^3.2.2",
     "sleep-ms": "^2.0.1",
     "sorcery": "^0.10.0",
