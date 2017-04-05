@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.5",
-    "ava": "^0.18.2",
+    "ava": "^0.19.0",
     "browserify": "^14.1.0",
     "codecov": "^1.0.1",
     "concurrently": "^3.4.0",
