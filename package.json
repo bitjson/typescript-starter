@@ -64,7 +64,7 @@
     "hash.js": "^1.0.3",
     "mkdirp": "^0.5.1",
     "npm-scripts-info": "^0.3.6",
-    "nyc": "^10.2.0",
+    "nyc": "^11.0.2",
     "opn-cli": "^3.1.0",
     "rollup": "^0.41.6",
     "rollup-plugin-alias": "^1.2.1",
