@@ -19,7 +19,7 @@
     "build:browser-cjs": "rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js",
     "build:resolve-sourcemaps": "sorcery -i build/browser/index.js && sorcery -i build/browser/index.cjs.js",
     "build:tests": "trash test && node config/exports/build-tests.js",
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint --project . --type-check src/**/*.ts",
     "unit": "yarn build && yarn build:tests && nyc ava",
     "check-coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
     "test": "yarn lint && yarn unit && yarn check-coverage",
