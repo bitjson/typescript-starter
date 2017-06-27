@@ -176,9 +176,15 @@ yarn run info
 
 ### Multiple builds (`main`, `module`, and `browser`)
 
-The `src` of typescript-starter is compiled into three separate builds: `main`, `module`, and `browser`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8), while the `module` build [uses the new ES6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json). The browser build contains two bundles, an ES6 module (the preferred export) and a CommonJS bundle (primarily used for testing).
+The `src` of `typescript-starter` is compiled into three separate builds: `main`, `module`, and `browser`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8), while the `module` build [uses the new ES6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json). The browser build contains two bundles, an ES6 module (the preferred export) and a CommonJS bundle (primarily used for testing).
 
 Because Node.js does not yet support the ES6 module system, Node.js projects which depend on typescript-starter will follow the `main` field in [`package.json`](https://github.com/bitjson/typescript-starter/blob/master/package.json). Tools which support the new system (like [Rollup](https://github.com/rollup/rollup)) will follow the `module` field, giving them the ability to statically analyze typescript-starter. When building for the browser, newer tools follow the `browser` field, which will resolve to the browser build's ES6 module.
+
+### Testing
+
+By convention, tests in `typescript-starter` are co-located with the files they test. The project is configured to allow tests to be written in Typescript and your library to be imported as if it were being used by another project. (E.g. `import { double, power } from 'typescript-starter'`.) This makes tests both intuitive to write and easy to read as another form of documentation.
+
+Note, tests are compiled and performed on the final builds in the standard Node.js runtime (rather than an alternative like [ts-node](https://github.com/TypeStrong/ts-node)) to ensure tests pass in that environment. If you are using [ts-node in production](https://github.com/TypeStrong/ts-node/issues/104), you can modify this project to skip test compilation.
 
 ### Browser libraries
 
