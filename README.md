@@ -205,3 +205,12 @@ By default, this project requires [tslib](https://github.com/Microsoft/tslib) as
 By default, this library targets environments with native (or already-polyfilled) support for es6 features. If your library needs to target Internet Explorer, outdated Android browsers, or versions of Node older than v4, you may need to change the `target` in `tsconfig.json` to `es5` (rather than `es6`) and bring in a Promise polyfill (such as [es6-promise](https://github.com/stefanpenner/es6-promise)).
 
 It's a good idea to maintain 100% unit test coverage, and always test in the environments you target.
+
+## typescript-starter in the wild
+
+You can find more advanced configurations, usage examples, and inspiration from projects using `typescript-starter`.
+
+- [BitAuth](https://github.com/bitauth/) – A universal identity and authentication protocol, based on bitcoin
+- [s6: Super Simple Secrets * Simple Secure Storage](https://gitlab.com/td7x/s6/) – An NPM library and tool to sprawl secrets with S3, ease, and encryption
+
+Using `typescript-starter` for your project? Please send a pull request to add it to the list!
