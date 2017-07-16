@@ -66,7 +66,7 @@
     "npm-scripts-info": "^0.3.6",
     "nyc": "^11.0.3",
     "opn-cli": "^3.1.0",
-    "rollup": "^0.43.0",
+    "rollup": "^0.44.0",
     "rollup-plugin-alias": "^1.2.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
