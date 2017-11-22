@@ -2,6 +2,7 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import alias from 'rollup-plugin-alias';
+import json from 'rollup-plugin-json';
 
 const substituteModulePaths = {
     'crypto': 'build/module/adapters/crypto.browser.js',
@@ -16,6 +17,7 @@ export default {
         nodeResolve({
             browser: true
         }),
-        commonjs()
+        commonjs(),
+        json()
     ]
 }
