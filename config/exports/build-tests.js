@@ -9,6 +9,7 @@ const pathUp = (levels) => Array.from(Array(levels), () => '../').join('');
 // replace instances of pkg.name with the proper route to the build being tested
 const makeTransform = (filePath, buildPath) => {
   const buildPathParts = buildPath.split(separator);
+  const filePathParts = filePath.split(separator);
   // filePath includes build/main (-2), test/BUILD is 2 deep (+2),
   // remove filename (-1). Total is length - 2
   const pathToRoot = pathUp(filePath.split(separator).length - 1);
@@ -18,7 +19,9 @@ const makeTransform = (filePath, buildPath) => {
       const str = chunk.toString();
       const parts = str.split(placeholder)
       const newPath = req(pathToRoot + buildPath)
-      const result = parts.join(newPath);
+      const result = parts.join(newPath)
+      .replace(/require\(\"\.\.\//g, 'require("' + pathToRoot + filePathParts.slice(0, -2).join(separator) + separator)
+      .replace(/require\(\"\.\//g, 'require("' + pathToRoot + filePathParts.slice(0, -1).join(separator) + separator);
       this.push(result);
       done();
     }
