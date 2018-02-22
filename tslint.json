@@ -1,3 +1,9 @@
 {
-  "extends": "tslint-config-standard"
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "rules": {
+    "interface-name": [true, "never-prefix"],
+    // TODO: allow devDependencies only in **/*.spec.ts files:
+    // https://github.com/palantir/tslint/pull/3708
+    "no-implicit-dependencies": [true, "dev"]
+  }
 }

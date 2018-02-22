@@ -6,3 +6,5 @@ src/**.js
 coverage
 .nyc_output
 *.log
+
+yarn.lock

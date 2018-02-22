@@ -2,7 +2,5 @@ sudo: false
 language: node_js
 node_js:
   - 8
-  - 6
-  - 4
 after_success:
-  - yarn send-coverage
+  - npm run send-coverage

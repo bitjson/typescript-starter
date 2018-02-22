@@ -1,7 +1,8 @@
-import { createHash } from 'crypto'
+import { createHash } from 'crypto';
+import shaJs from 'sha.js';
 
 /**
- * Calculate the sha256 digest of a string. On Node.js, this will use the native module, in the browser, it will fall back to a pure javascript implementation.
+ * Calculate the sha256 digest of a string.
  *
  * ### Example (es imports)
  * ```js
@@ -12,6 +13,19 @@ import { createHash } from 'crypto'
  *
  * @returns sha256 message digest
  */
-export function sha256 (message: string) {
-  return createHash('sha256').update(message).digest('hex')
+export function sha256(message: string) {
+  return shaJs('sha256')
+    .update(message)
+    .digest('hex');
+}
+
+/**
+ * A faster implementation of [[sha256]] which requires the native Node.js module. Browser consumers should use [[sha256]], instead.
+ *
+ * @returns sha256 message digest
+ */
+export function sha256Native(message: string) {
+  return createHash('sha256')
+    .update(message)
+    .digest('hex');
 }

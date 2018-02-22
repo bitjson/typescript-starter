@@ -17,16 +17,16 @@
  *
  * @returns       a Promise which should contain `['a','b','c']`
  */
-export async function asyncABC () {
-  function somethingSlow (index: 0 | 1 | 2) {
-    let storage = 'abc'.charAt(index)
+export async function asyncABC() {
+  function somethingSlow(index: 0 | 1 | 2) {
+    const storage = 'abc'.charAt(index);
     return new Promise<string>(resolve => {
       // here we pretend to wait on the network
-      setTimeout(() => resolve(storage), 0)
-    })
+      setTimeout(() => resolve(storage), 0);
+    });
   }
-  let a = await somethingSlow(0)
-  let b = await somethingSlow(1)
-  let c = await somethingSlow(2)
-  return [a, b, c]
+  const a = await somethingSlow(0);
+  const b = await somethingSlow(1);
+  const c = await somethingSlow(2);
+  return [a, b, c];
 }
