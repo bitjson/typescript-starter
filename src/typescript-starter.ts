@@ -58,8 +58,14 @@ const repo =
   }
   const { definitions, description, name, runner } = await collectOptions();
   const commitHash = await cloneRepo(name);
-  const nodeDefinitions = [TypeDefinitions.Node, TypeDefinitions.NodeAndDOM].includes(definitions);
-  const domDefinitions = [TypeDefinitions.DOM, TypeDefinitions.NodeAndDOM].includes(definitions);
+  const nodeDefinitions = [
+    TypeDefinitions.Node,
+    TypeDefinitions.NodeAndDOM
+  ].includes(definitions);
+  const domDefinitions = [
+    TypeDefinitions.DOM,
+    TypeDefinitions.NodeAndDOM
+  ].includes(definitions);
   console.log(`${chalk.dim(`Cloned at commit:${commitHash}`)}\n`);
 
   const { gitName, gitEmail } = await getUserInfo();
