@@ -68,7 +68,7 @@
     "opn-cli": "^3.1.0",
     "rollup": "^0.44.0",
     "rollup-plugin-alias": "^1.2.0",
-    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-commonjs": "^9.0.0",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-watch": "^4.0.0",
