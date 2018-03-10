@@ -42,12 +42,12 @@
     "test": "run-s build test:*",
     "test:lint": "tslint --project . src/**/*.ts && prettier 'src/**/*.ts' --list-different",
     "test:unit": "nyc --silent ava",
-    "test:coverage": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "test:nsp": "nsp check",
     "watch": "run-s clean build:main && run-p 'build:main -- -w' 'test:unit -- --watch'",
     "cov": "run-s build test:unit cov:html && opn coverage/index.html",
     "cov:html": "nyc report --reporter=html",
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "doc": "run-s doc:html && opn build/docs/index.html",
     "doc:html": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs",
     "doc:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
@@ -55,7 +55,7 @@
     "changelog": "standard-version",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
-    "release": "run-s reset test docs:html docs:publish changelog"
+    "release": "run-s reset test cov:check docs:html docs:publish changelog"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
