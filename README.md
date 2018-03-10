@@ -1,11 +1,9 @@
 <img height="0" width="0" alt="Typescript Starter Dark" src="https://cloud.githubusercontent.com/assets/904007/23006840/4e2b0c6c-f3d2-11e6-8f32-11384ee0cc4b.png"><img alt="typescript-starter" src="https://cloud.githubusercontent.com/assets/904007/23006836/4c67a3b8-f3d2-11e6-8784-12f0a34284d1.png">
 
+[![NPM version](https://img.shields.io/npm/v/typescript-starter.svg)](https://www.npmjs.com/package/typescript-starter)
 [![Build Status](https://travis-ci.org/bitjson/typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/typescript-starter)
 [![Codecov](https://img.shields.io/codecov/c/github/bitjson/typescript-starter.svg)](https://codecov.io/gh/bitjson/typescript-starter)
-[![NPM version](https://img.shields.io/npm/v/typescript-starter.svg)](https://www.npmjs.com/package/typescript-starter)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
-[![dependencies Status](https://david-dm.org/bitjson/typescript-starter/status.svg)](https://david-dm.org/bitjson/typescript-starter)
-[![devDependencies Status](https://david-dm.org/bitjson/typescript-starter/dev-status.svg)](https://david-dm.org/bitjson/typescript-starter?type=dev)
 
 # typescript-starter
 
@@ -117,7 +115,7 @@ To generate and publish your documentation to [GitHub Pages](https://pages.githu
 npm run docs:publish
 ```
 
-Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [this repo's GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
+Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [`typescript-starter`'s GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
 
 <p align="center">
   <img height="500" alt="TypeDoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">

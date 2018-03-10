@@ -115,11 +115,6 @@
     "typedoc": "^0.11.1",
     "typescript": "^2.4.1"
   },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js"
-    ]
-  },
   "ava": {
     "failFast": true,
     "files": [
@@ -129,12 +124,22 @@
       "build/main/**/*.js"
     ]
   },
-  "prettier": {
-    "singleQuote": true
-  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "greenkeeper": {
+    "ignore": [
+      "@types/node"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
   }
 }
