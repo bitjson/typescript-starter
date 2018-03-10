@@ -120,8 +120,27 @@ test('getUserInfo: suppresses errors and returns empty strings', async t => {
 });
 
 test('initialCommit: throws generated errors', async t => {
-  const error = await t.throws(initialCommit(mockErr(1))('deadbeef', 'fail'));
+  const error = await t.throws(
+    initialCommit(mockErr(1))('deadbeef', 'fail', 'name', 'bitjson@github.com')
+  );
   t.is(error.code, 1);
+});
+
+test("initialCommit: don't attempt to commit if user.name/email is not set", async t => {
+  // tslint:disable-next-line:no-let
+  let calls = 0;
+  const errorIf3 = ((() => {
+    calls++;
+    calls === 1 ? t.pass() : calls === 2 ? t.pass() : t.fail();
+  }) as any) as ExecaStatic;
+  t.false(
+    await initialCommit(errorIf3)(
+      'deadbeef',
+      'fail',
+      Placeholders.name,
+      Placeholders.email
+    )
+  );
 });
 
 test('install: uses the correct runner', async t => {

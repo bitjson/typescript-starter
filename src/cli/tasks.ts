@@ -26,7 +26,12 @@ export interface Tasks {
     readonly gitEmail: string;
     readonly gitName: string;
   }>;
-  readonly initialCommit: (hash: string, projectDir: string) => Promise<void>;
+  readonly initialCommit: (
+    hash: string,
+    projectDir: string,
+    name: string,
+    email: string
+  ) => Promise<boolean>;
   readonly install: (
     shouldInstall: boolean,
     runner: Runner,
@@ -104,7 +109,9 @@ export const getUserInfo = (spawner: ExecaStatic) => async () => {
 
 export const initialCommit = (spawner: ExecaStatic) => async (
   hash: string,
-  projectDir: string
+  projectDir: string,
+  name: string,
+  email: string
 ) => {
   const opts: Options = {
     cwd: projectDir,
@@ -113,6 +120,9 @@ export const initialCommit = (spawner: ExecaStatic) => async (
   };
   await spawner('git', ['init'], opts);
   await spawner('git', ['add', '-A'], opts);
+  if (name === Placeholders.name || email === Placeholders.email) {
+    return false;
+  }
   await spawner(
     'git',
     [
@@ -122,6 +132,7 @@ export const initialCommit = (spawner: ExecaStatic) => async (
     ],
     opts
   );
+  return true;
 };
 
 export const install = (spawner: ExecaStatic) => async (
