@@ -110,9 +110,12 @@ test('getGithubUsername: returns placeholder if not found', async t => {
   t.is(username, 'YOUR_USER_NAME');
 });
 
-test('getUserInfo: throws generated errors', async t => {
-  const error = await t.throws(getUserInfo(mockErr(1))());
-  t.is(error.code, 1);
+test('getUserInfo: suppresses errors and returns undefined', async t => {
+  const result = await getUserInfo(mockErr(1))();
+  t.deepEqual(result, {
+    gitEmail: undefined,
+    gitName: undefined
+  });
 });
 
 test('initialCommit: throws generated errors', async t => {

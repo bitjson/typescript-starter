@@ -15,10 +15,10 @@ export interface Tasks {
   readonly cloneRepo: (
     dir: string
   ) => Promise<{ readonly commitHash: string; readonly gitHistoryDir: string }>;
-  readonly getGithubUsername: (email: string) => Promise<string>;
+  readonly getGithubUsername: (email: string | undefined) => Promise<string>;
   readonly getUserInfo: () => Promise<{
-    readonly gitEmail: string;
-    readonly gitName: string;
+    readonly gitEmail: string | undefined;
+    readonly gitName: string | undefined;
   }>;
   readonly initialCommit: (hash: string, projectDir: string) => Promise<void>;
   readonly install: (
@@ -65,23 +65,37 @@ export const cloneRepo = (spawner: ExecaStatic) => async (dir: string) => {
   }
 };
 
-export const getGithubUsername = (fetcher: any) => async (email: string) =>
-  fetcher(email).catch(() => {
+export const getGithubUsername = (fetcher: any) => async (
+  email: string | undefined
+) => {
+  const placeholder = 'YOUR_USER_NAME';
+  if (email === undefined) {
+    return placeholder;
+  }
+  return fetcher(email).catch(() => {
     // if username isn't found, just return a placeholder
-    return 'YOUR_USER_NAME';
+    return placeholder;
   });
+};
 
 export const getUserInfo = (spawner: ExecaStatic) => async () => {
   const opts: Options = {
     encoding: 'utf8',
     stdio: ['pipe', 'pipe', inherit]
   };
-  const nameResult = await spawner('git', ['config', 'user.name'], opts);
-  const emailResult = await spawner('git', ['config', 'user.email'], opts);
-  return {
-    gitEmail: emailResult.stdout,
-    gitName: nameResult.stdout
-  };
+  try {
+    const nameResult = await spawner('git', ['config', 'user.name'], opts);
+    const emailResult = await spawner('git', ['config', 'user.email'], opts);
+    return {
+      gitEmail: emailResult.stdout,
+      gitName: nameResult.stdout
+    };
+  } catch (err) {
+    return {
+      gitEmail: undefined,
+      gitName: undefined
+    };
+  }
 };
 
 export const initialCommit = (spawner: ExecaStatic) => async (

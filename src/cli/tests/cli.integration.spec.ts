@@ -116,7 +116,7 @@ async function testInteractive(
   const lastCheck = entry[3] !== undefined;
   t.plan(lastCheck ? 6 : 5);
 
-  const proc = execa(`../bin/typescript-starter`, ['--noinstall'], {
+  const proc = execa(`../bin/typescript-starter`, {
     cwd: join(process.cwd(), 'build'),
     env: {
       TYPESCRIPT_STARTER_REPO_URL: process.cwd()
@@ -157,7 +157,6 @@ async function testInteractive(
   clearBuffer();
   type(`${entry[2][0]}${enter}`);
   await ms(200);
-
   const search = `${entry[2][1]}.|s*global type definitions`;
   const exp = lastCheck
     ? new RegExp(`${search}`) // should match
@@ -170,8 +169,6 @@ async function testInteractive(
     await ms(200);
     checkBuffer(new RegExp(`${entry[3][1]}`));
   }
-
-  // TODO: validate contents?
 }
 
 test('integration test 3: interactive mode, javascript library', async t => {
