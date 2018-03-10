@@ -8,6 +8,12 @@ import { Runner } from './primitives';
 // TODO: await https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24209
 const inherit = 'inherit' as StdIOOption;
 
+export enum Placeholders {
+  email = 'YOUR_EMAIL',
+  name = 'YOUR_NAME',
+  username = 'YOUR_GITHUB_USER_NAME'
+}
+
 const repo =
   process.env.TYPESCRIPT_STARTER_REPO_URL ||
   'https://github.com/bitjson/typescript-starter.git';
@@ -15,10 +21,10 @@ export interface Tasks {
   readonly cloneRepo: (
     dir: string
   ) => Promise<{ readonly commitHash: string; readonly gitHistoryDir: string }>;
-  readonly getGithubUsername: (email: string | undefined) => Promise<string>;
+  readonly getGithubUsername: (email: string) => Promise<string>;
   readonly getUserInfo: () => Promise<{
-    readonly gitEmail: string | undefined;
-    readonly gitName: string | undefined;
+    readonly gitEmail: string;
+    readonly gitName: string;
   }>;
   readonly initialCommit: (hash: string, projectDir: string) => Promise<void>;
   readonly install: (
@@ -68,13 +74,11 @@ export const cloneRepo = (spawner: ExecaStatic) => async (dir: string) => {
 export const getGithubUsername = (fetcher: any) => async (
   email: string | undefined
 ) => {
-  const placeholder = 'YOUR_USER_NAME';
-  if (email === undefined) {
-    return placeholder;
+  if (email === Placeholders.email) {
+    return Placeholders.username;
   }
   return fetcher(email).catch(() => {
-    // if username isn't found, just return a placeholder
-    return placeholder;
+    return Placeholders.username;
   });
 };
 
@@ -92,8 +96,8 @@ export const getUserInfo = (spawner: ExecaStatic) => async () => {
     };
   } catch (err) {
     return {
-      gitEmail: undefined,
-      gitName: undefined
+      gitEmail: Placeholders.email,
+      gitName: Placeholders.name
     };
   }
 };

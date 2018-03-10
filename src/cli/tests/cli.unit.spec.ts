@@ -10,7 +10,8 @@ import {
   getGithubUsername,
   getUserInfo,
   initialCommit,
-  install
+  install,
+  Placeholders
 } from '../tasks';
 
 test('errors if outdated', async t => {
@@ -107,14 +108,14 @@ test('getGithubUsername: returns placeholder if not found', async t => {
   const username: string = await getGithubUsername(mockFetcher)(
     'bitjson@github.com'
   );
-  t.is(username, 'YOUR_USER_NAME');
+  t.is(username, Placeholders.username);
 });
 
-test('getUserInfo: suppresses errors and returns undefined', async t => {
+test('getUserInfo: suppresses errors and returns empty strings', async t => {
   const result = await getUserInfo(mockErr(1))();
   t.deepEqual(result, {
-    gitEmail: undefined,
-    gitName: undefined
+    gitEmail: Placeholders.email,
+    gitName: Placeholders.name
   });
 });
 
