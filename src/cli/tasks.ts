@@ -1,9 +1,12 @@
 // tslint:disable:no-console no-if-statement no-expression-statement
-import execa, { ExecaStatic, Options } from 'execa';
+import execa, { ExecaStatic, Options, StdIOOption } from 'execa';
 import { readFileSync, writeFileSync } from 'fs';
 import githubUsername from 'github-username';
 import { join } from 'path';
 import { Runner } from './primitives';
+
+// TODO: await https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24209
+const inherit = 'inherit' as StdIOOption;
 
 const repo =
   process.env.TYPESCRIPT_STARTER_REPO_URL ||
@@ -53,7 +56,7 @@ export const cloneRepo = (spawner: ExecaStatic) => async (dir: string) => {
     const revParseResult = await spawner('git', ['rev-parse', 'HEAD'], {
       cwd: projectDir,
       encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'inherit']
+      stdio: ['pipe', 'pipe', inherit]
     });
     const commitHash = revParseResult.stdout;
     return { commitHash, gitHistoryDir };
@@ -71,7 +74,7 @@ export const getGithubUsername = (fetcher: any) => async (email: string) =>
 export const getUserInfo = (spawner: ExecaStatic) => async () => {
   const opts: Options = {
     encoding: 'utf8',
-    stdio: ['pipe', 'pipe', 'inherit']
+    stdio: ['pipe', 'pipe', inherit]
   };
   const nameResult = await spawner('git', ['config', 'user.name'], opts);
   const emailResult = await spawner('git', ['config', 'user.email'], opts);
