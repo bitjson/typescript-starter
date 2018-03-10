@@ -144,11 +144,22 @@ export async function typescriptStarter(
   await tasks.install(install, runner, projectPath);
 
   const spinner7 = ora(`Initializing git repository`).start();
-  (await tasks.initialCommit(commitHash, projectPath, gitName, gitEmail))
-    ? spinner7.succeed()
-    : spinner7.fail(
-        "Git config user.name and user.email are not configured. You'll need to `git commit` yourself."
-      );
+  completeSpinner(
+    spinner7,
+    await tasks.initialCommit(commitHash, projectPath, gitName, gitEmail),
+    "Git config user.name and user.email are not configured. You'll need to `git commit` yourself."
+  );
 
   console.log(`\n${chalk.blue.bold(`Created ${name} 🎉`)}\n`);
+}
+
+export function completeSpinner(
+  spinner: {
+    readonly succeed: (text?: string) => any;
+    readonly fail: (text?: string) => any;
+  },
+  success: boolean,
+  message?: string
+): void {
+  success ? spinner.succeed() : spinner.fail(message);
 }

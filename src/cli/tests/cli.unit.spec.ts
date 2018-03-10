@@ -13,6 +13,7 @@ import {
   install,
   Placeholders
 } from '../tasks';
+import { completeSpinner } from '../typescript-starter';
 
 test('errors if outdated', async t => {
   nock.disableNetConnect();
@@ -119,6 +120,19 @@ test('getUserInfo: suppresses errors and returns empty strings', async t => {
   });
 });
 
+test('getUserInfo: returns results properly', async t => {
+  const mock = ((async () => {
+    return {
+      stdout: 'result'
+    };
+  }) as any) as ExecaStatic;
+  const result = await getUserInfo(mock)();
+  t.deepEqual(result, {
+    gitEmail: 'result',
+    gitName: 'result'
+  });
+});
+
 test('initialCommit: throws generated errors', async t => {
   const error = await t.throws(
     initialCommit(mockErr(1))('deadbeef', 'fail', 'name', 'bitjson@github.com')
@@ -126,10 +140,21 @@ test('initialCommit: throws generated errors', async t => {
   t.is(error.code, 1);
 });
 
+test('initialCommit: attempts to commit', async t => {
+  // tslint:disable-next-line:no-let
+  t.plan(4);
+  const mock = ((async () => {
+    t.pass();
+  }) as any) as ExecaStatic;
+  t.true(
+    await initialCommit(mock)('commit', 'dir', 'name', 'valid@example.com')
+  );
+});
+
 test("initialCommit: don't attempt to commit if user.name/email is not set", async t => {
   // tslint:disable-next-line:no-let
   let calls = 0;
-  const errorIf3 = ((() => {
+  const errorIf3 = ((async () => {
     calls++;
     calls === 1 ? t.pass() : calls === 2 ? t.pass() : t.fail();
   }) as any) as ExecaStatic;
@@ -144,7 +169,7 @@ test("initialCommit: don't attempt to commit if user.name/email is not set", asy
 });
 
 test('install: uses the correct runner', async t => {
-  const mock = (((runner: Runner) => {
+  const mock = ((async (runner: Runner) => {
     runner === Runner.Yarn ? t.pass() : t.fail();
   }) as any) as ExecaStatic;
   await install(mock)(true, Runner.Yarn, 'pass');
@@ -153,4 +178,16 @@ test('install: uses the correct runner', async t => {
 test('install: throws pretty error on failure', async t => {
   const error = await t.throws(install(mockErr())(true, Runner.Npm, 'fail'));
   t.is(error.message, "Installation failed. You'll need to install manually.");
+});
+
+test('completeSpinner: resolves spinners properly', async t => {
+  t.plan(2);
+  const never = () => {
+    t.fail();
+  };
+  const check = (confirm?: string) => (result?: string) => {
+    confirm ? t.is(confirm, result) : t.pass();
+  };
+  completeSpinner({ succeed: check(), fail: never }, true);
+  completeSpinner({ succeed: never, fail: check('message') }, false, 'message');
 });
