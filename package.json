@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "A typescript starter for building javascript libraries and projects",
   "bin": {
-    "typescript-starter": "./build/main/typescript-starter.js"
+    "typescript-starter": "./build/main/cli/cli.js"
   },
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -39,11 +39,12 @@
     "fix": "run-s fix:*",
     "fix:prettier": "prettier 'src/**/*.ts' --write",
     "fix:tslint": "tslint --fix --project . src/**/*.ts",
-    "test": "run-s test:*",
+    "test": "run-s build test:*",
     "test:lint": "tslint --project . src/**/*.ts && prettier 'src/**/*.ts' --list-different",
-    "test:unit": "nyc ava",
-    "test:coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
-    "watch": "run-s clean && run-p 'build:* -- -w' 'test:unit -- --watch'",
+    "test:unit": "nyc --silent ava",
+    "test:coverage": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
+    "test:nsp": "nsp check",
+    "watch": "run-s clean build:main && run-p 'build:main -- -w' 'test:unit -- --watch'",
     "cov": "run-s build test:unit cov:html && opn coverage/index.html",
     "cov:html": "nyc report --reporter=html",
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
@@ -58,7 +59,7 @@
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
-    "build": "Clean and Rebuild the project",
+    "build": "Clean and rebuild the project",
     "fix": "Try to automatically fix any linting problems",
     "test": "Lint and unit test the project",
     "watch": "Watch and rebuild the project on save, then rerun relevant tests",
@@ -74,24 +75,35 @@
   },
   "dependencies": {
     "chalk": "^2.3.1",
-    "cross-spawn": "^6.0.4",
+    "del": "^3.0.0",
+    "execa": "^0.9.0",
     "github-username": "^4.1.0",
     "gradient-string": "^1.0.0",
     "inquirer": "^5.1.0",
+    "meow": "^4.0.0",
     "ora": "^2.0.0",
     "project-version": "^1.0.0",
     "replace-in-file": "^3.1.1",
     "sha.js": "^2.4.10",
-    "sorted-object": "^2.0.1",
-    "trash": "^4.2.1"
+    "update-notifier": "^2.3.0"
   },
   "devDependencies": {
-    "@types/node": "^8.9.4",
+    "@types/del": "^3.0.0",
+    "@types/execa": "^0.8.1",
+    "@types/inquirer": "0.0.37",
+    "@types/meow": "^4.0.1",
+    "@types/nock": "^9.1.2",
+    "@types/node": "^8.9.5",
+    "@types/ora": "^1.3.2",
+    "@types/update-notifier": "^2.0.0",
     "ava": "^1.0.0-beta.3",
     "codecov": "^3.0.0",
+    "cz-conventional-changelog": "^2.1.0",
     "gh-pages": "^1.0.0",
+    "nock": "^9.2.3",
     "npm-run-all": "^4.1.2",
     "npm-scripts-info": "^0.3.6",
+    "nsp": "^3.2.1",
     "nyc": "^11.5.0",
     "opn-cli": "^3.1.0",
     "prettier": "^1.10.2",
@@ -99,7 +111,8 @@
     "trash-cli": "^1.4.0",
     "tslint": "^5.4.3",
     "tslint-config-prettier": "^1.8.0",
-    "typedoc": "^0.10.0",
+    "tslint-immutable": "^4.5.1",
+    "typedoc": "^0.11.1",
     "typescript": "^2.4.1"
   },
   "nyc": {
@@ -118,5 +131,10 @@
   },
   "prettier": {
     "singleQuote": true
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
