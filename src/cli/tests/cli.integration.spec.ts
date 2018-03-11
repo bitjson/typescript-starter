@@ -128,7 +128,7 @@ test(`${
       `${TestDirectories.one}`,
       // (user entered `-d='example description 1'`)
       `-d=${description}`,
-      '--noinstall'
+      '--no-install'
     ],
     {
       cwd: buildDir,
@@ -166,7 +166,7 @@ test(`${
       '--yarn',
       '--node',
       '--dom',
-      '--noinstall'
+      '--no-install'
     ],
     {
       cwd: buildDir,
@@ -206,7 +206,7 @@ async function testInteractive(
   entry: ReadonlyArray<string | ReadonlyArray<string>>
 ): Promise<execa.ExecaReturns> {
   const typeDefs = entry[3] !== '';
-  const proc = execa(`../bin/typescript-starter`, ['--noinstall'], {
+  const proc = execa(`../bin/typescript-starter`, ['--no-install'], {
     cwd: buildDir,
     env: {
       TYPESCRIPT_STARTER_REPO_URL: repoURL
@@ -349,6 +349,14 @@ const sandboxOptions = {
   workingDirectory: buildDir
 };
 
+const silenceConsole = (console: any) => {
+  // tslint:disable-next-line:no-object-mutation
+  console.log = () => {
+    // mock console.log to silence it
+    return;
+  };
+};
+
 test(`${
   TestDirectories.five
 }: Sandboxed: npm install, initial commit`, async t => {
@@ -366,15 +374,8 @@ test(`${
     strict: true,
     vscode: false
   };
-  const log = console.log;
-  // tslint:disable-next-line:no-object-mutation
-  console.log = () => {
-    // mock console.log to silence it
-    return;
-  };
+  silenceConsole(console);
   await typescriptStarter(options, sandboxTasks(t, true, true));
-  // tslint:disable-next-line:no-object-mutation
-  console.log = log; // and put it back
   const map = await hashAllTheThings(TestDirectories.five, true);
   t.deepEqual(map, {
     'test-5/LICENSE': 'd11b4dba04062af8bd80b052066daf1c',
@@ -406,15 +407,8 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     strict: false,
     vscode: true
   };
-  const log = console.log;
-  // tslint:disable-next-line:no-object-mutation
-  console.log = () => {
-    // mock console.log to silence it
-    return;
-  };
+  silenceConsole(console);
   await typescriptStarter(options, sandboxTasks(t, false, true));
-  // tslint:disable-next-line:no-object-mutation
-  console.log = log; // and put it back
   const map = await hashAllTheThings(TestDirectories.six, true);
   t.deepEqual(map, {
     'test-6/LICENSE': '1dfe8c78c6af40fc14ea3b40133f1fa5',

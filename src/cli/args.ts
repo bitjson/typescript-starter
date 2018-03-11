@@ -20,7 +20,10 @@ export async function checkArgs(): Promise<
     --yarn              use yarn (default: npm)
     --node              include node.js type definitions
     --dom               include DOM type definitions
-    --noinstall         skip yarn/npm install
+    --no-install        skip yarn/npm install
+    --strict            Enable stricter type-checking
+    --no-immutable      Don't enable tslint-immutable
+    --no-vscode         Don't include VS Code debugging config
 
     Non-Interactive Example
 	  $ typescript-starter my-library -d 'do something, better'
@@ -36,12 +39,24 @@ export async function checkArgs(): Promise<
           default: false,
           type: 'boolean'
         },
+        immutable: {
+          default: true,
+          type: 'boolean'
+        },
+        install: {
+          default: true,
+          type: 'boolean'
+        },
         node: {
           default: false,
           type: 'boolean'
         },
-        noinstall: {
+        strict: {
           default: false,
+          type: 'boolean'
+        },
+        vscode: {
+          default: true,
           type: 'boolean'
         },
         yarn: {
@@ -72,10 +87,10 @@ export async function checkArgs(): Promise<
   const input = cli.input[0];
   if (!input) {
     // no project-name provided, return to collect options in interactive mode
-    // note: we always return `install`, so --noinstall always works
+    // note: we always return `install`, so --no-install always works
     // (important for test performance)
     return {
-      install: !cli.flags.noinstall
+      install: cli.flags.install
     };
   }
   const validOrMsg = await validateName(input);
@@ -86,9 +101,12 @@ export async function checkArgs(): Promise<
   return {
     description: cli.flags.description,
     domDefinitions: cli.flags.dom,
-    install: !cli.flags.noinstall,
+    immutable: cli.flags.immutable,
+    install: cli.flags.install,
     nodeDefinitions: cli.flags.node,
     projectName: input,
-    runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm
+    runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,
+    strict: cli.flags.strict,
+    vscode: cli.flags.vscode
   };
 }

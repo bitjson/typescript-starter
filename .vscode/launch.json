@@ -4,10 +4,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug CLI",
+      "name": "Debug Project",
       // we test in `build` to make cleanup fast and easy
       "cwd": "${workspaceFolder}/build",
+      // Replace this with your project root. If there are multiple, you can
+      // automatically run the currently visible file with: "program": ${file}"
       "program": "${workspaceFolder}/src/cli/cli.ts",
+      // "args": ["--no-install"],
       "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
       "skipFiles": [
         "<node_internals>/**/*.js",
@@ -28,7 +31,7 @@
       // the debugger will open the source *.spec.ts file for debugging.
       "type": "node",
       "request": "launch",
-      "name": "Debug Compiled Test File",
+      "name": "Debug Visible Compiled Spec",
       "program": "${workspaceFolder}/node_modules/ava/profile.js",
       "args": [
         "${file}"
@@ -44,13 +47,14 @@
       // "preLaunchTask": "npm: build",
       // "smartStep": true,
       "runtimeArgs": ["--nolazy"]
-    }
+    },
+    // --- cut here ---
     // TODO: Simpler test debugging option. Discussion:
     // https://github.com/avajs/ava/issues/1505#issuecomment-370654427
     // {
     //   "type": "node",
     //   "request": "launch",
-    //   "name": "Debug Current Test File",
+    //   "name": "Debug Visible Compiled Spec",
     //   "program": "${file}",
     //   "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
     //   "skipFiles": ["<node_internals>/**/*.js"],
@@ -63,5 +67,30 @@
     //     "AVA_DEBUG_MODE": "1"
     //   }
     // }
+    // CLI:
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug CLI Unit Tests",
+      "program": "${workspaceFolder}/node_modules/ava/profile.js",
+      "args": ["${workspaceFolder}/build/main/cli/tests/cli.unit.spec.js"],
+      "skipFiles": ["<node_internals>/**/*.js"],
+      // "preLaunchTask": "npm: build",
+      // "smartStep": true,
+      "runtimeArgs": ["--nolazy"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug CLI Integration Tests",
+      "program": "${workspaceFolder}/node_modules/ava/profile.js",
+      "args": [
+        "${workspaceFolder}/build/main/cli/tests/cli.integration.spec.js"
+      ],
+      "skipFiles": ["<node_internals>/**/*.js"],
+      // "preLaunchTask": "npm: build",
+      // "smartStep": true,
+      "runtimeArgs": ["--nolazy"]
+    }
   ]
 }

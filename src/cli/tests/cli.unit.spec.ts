@@ -74,20 +74,26 @@ test('checkArgs returns the right options', async t => {
     '--yarn',
     '--node',
     '--dom',
-    '--noinstall'
+    '--no-install',
+    '--strict',
+    '--no-immutable',
+    '--no-vscode'
   ];
   const opts = await checkArgs();
   t.deepEqual(opts, {
     description: '',
     domDefinitions: true,
+    immutable: false,
     install: false,
     nodeDefinitions: true,
     projectName: 'example-project',
-    runner: Runner.Yarn
+    runner: Runner.Yarn,
+    strict: true,
+    vscode: false
   });
 });
 
-test('checkArgs always returns { install } (so --noinstall works in interactive mode)', async t => {
+test('checkArgs always returns { install } (so --no-install works in interactive mode)', async t => {
   passUpdateNotifier('1.0.0');
   // tslint:disable-next-line:no-object-mutation
   process.argv = ['path/to/node', 'path/to/typescript-starter'];
