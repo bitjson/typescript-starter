@@ -315,32 +315,39 @@ test(`${
   });
 });
 
-const sandboxTasks: Tasks = {
-  cloneRepo: cloneRepo(execa, true),
-  initialCommit: async () => {
-    return;
-  },
-  install: async () => {
-    return;
-  }
+const sandboxTasks = (
+  t: ExecutionContext<{}>,
+  commit: boolean,
+  install: boolean
+): Tasks => {
+  return {
+    cloneRepo: cloneRepo(execa, true),
+    initialCommit: async () => {
+      commit ? t.pass() : t.fail();
+    },
+    install: async () => {
+      install ? t.pass() : t.fail();
+    }
+  };
 };
 
 const sandboxOptions = {
   description: 'this is an example description',
-  email: Placeholders.email,
   githubUsername: 'SOME_GITHUB_USERNAME',
-  install: true,
   repoURL,
   workingDirectory: buildDir
 };
 
 test(`${
   TestDirectories.five
-}: Sandboxed: pretend to npm install, should never commit`, async t => {
+}: Sandboxed: npm install, initial commit`, async t => {
+  t.plan(3);
   const options = {
     ...sandboxOptions,
     domDefinitions: false,
-    fullName: Placeholders.name,
+    email: 'email@example.com',
+    fullName: 'Satoshi Nakamoto',
+    install: true,
     nodeDefinitions: false,
     projectName: TestDirectories.five,
     runner: Runner.Npm
@@ -351,12 +358,12 @@ test(`${
     // mock console.log to silence it
     return;
   };
-  await typescriptStarter(options, sandboxTasks);
+  await typescriptStarter(options, sandboxTasks(t, true, true));
   // tslint:disable-next-line:no-object-mutation
   console.log = log; // and put it back
   const map = await hashAllTheThings(TestDirectories.five, true);
   t.deepEqual(map, {
-    'test-5/LICENSE': '1dfe8c78c6af40fc14ea3b40133f1fa5',
+    'test-5/LICENSE': 'd11b4dba04062af8bd80b052066daf1c',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
     'test-5/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
     'test-5/package.json': '862946a9f0efa84f37a5124e6f7e3aae',
@@ -370,11 +377,14 @@ test(`${
   });
 });
 
-test(`${TestDirectories.six}: Sandboxed: pretend to yarn`, async t => {
+test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
+  t.plan(2);
   const options = {
     ...sandboxOptions,
     domDefinitions: true,
-    fullName: 'Satoshi Nakamoto',
+    email: Placeholders.email,
+    fullName: Placeholders.name,
+    install: true,
     nodeDefinitions: true,
     projectName: TestDirectories.six,
     runner: Runner.Yarn
@@ -385,12 +395,12 @@ test(`${TestDirectories.six}: Sandboxed: pretend to yarn`, async t => {
     // mock console.log to silence it
     return;
   };
-  await typescriptStarter(options, sandboxTasks);
+  await typescriptStarter(options, sandboxTasks(t, false, true));
   // tslint:disable-next-line:no-object-mutation
   console.log = log; // and put it back
   const map = await hashAllTheThings(TestDirectories.six, true);
   t.deepEqual(map, {
-    'test-6/LICENSE': 'd11b4dba04062af8bd80b052066daf1c',
+    'test-6/LICENSE': '1dfe8c78c6af40fc14ea3b40133f1fa5',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
     'test-6/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
     'test-6/package.json': 'd411b162cf46ac1e49a5867a130a0b05',

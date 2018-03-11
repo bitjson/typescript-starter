@@ -165,7 +165,11 @@ export async function typescriptStarter(
     await tasks.install(runner, projectPath);
   }
 
-  if (fullName !== Placeholders.name && email !== Placeholders.email) {
+  const gitIsConfigured =
+    fullName !== Placeholders.name && email !== Placeholders.email
+      ? true
+      : false;
+  if (gitIsConfigured) {
     const spinnerGitInit = ora(`Initializing git repository...`).start();
     await tasks.initialCommit(commitHash, projectPath, fullName);
     spinnerGitInit.succeed();
