@@ -13,13 +13,16 @@ export async function typescriptStarter(
     description,
     domDefinitions,
     email,
-    install,
-    projectName,
-    nodeDefinitions,
-    runner,
     fullName,
     githubUsername,
+    immutable,
+    install,
+    nodeDefinitions,
+    projectName,
     repoURL,
+    runner,
+    strict,
+    vscode,
     workingDirectory
   }: TypescriptStarterOptions,
   tasks: Tasks
@@ -128,6 +131,7 @@ export async function typescriptStarter(
   spinnerLicense.succeed();
 
   const spinnerDelete = ora('Deleting unnecessary files').start();
+
   await del([
     join(projectPath, 'examples'),
     join(projectPath, 'CHANGELOG.md'),
@@ -136,15 +140,25 @@ export async function typescriptStarter(
     join(projectPath, 'src', 'cli'),
     join(projectPath, 'src', 'types', 'cli.d.ts')
   ]);
+  if (!vscode) {
+    del([join(projectPath, '.vscode')]);
+  }
   spinnerDelete.succeed();
 
-  const spinnertsconfigModule = ora('Removing traces of the CLI').start();
+  const spinnerTsconfigModule = ora('Removing traces of the CLI').start();
   await replace({
     files: join(projectPath, 'tsconfig.module.json'),
     from: /,\s+\/\/ typescript-starter:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
     to: ''
   });
-  spinnertsconfigModule.succeed();
+  if (vscode) {
+    await replace({
+      files: join(projectPath, '.vscode', 'launch.json'),
+      from: /,[\s]*\/\/ --- cut here ---[\s\S]*]/,
+      to: ']'
+    });
+  }
+  spinnerTsconfigModule.succeed();
 
   const spinnerReadme = ora('Creating README.md').start();
   renameSync(
@@ -162,6 +176,16 @@ export async function typescriptStarter(
     to: description
   });
   spinnerReadme.succeed();
+
+  if (!strict) {
+    const spinnerStrict = ora(`tsconfig: disable strict`).start();
+    await replace({
+      files: join(projectPath, 'tsconfig.json'),
+      from: '"strict": true',
+      to: '// "strict": true'
+    });
+    spinnerStrict.succeed();
+  }
 
   if (!domDefinitions) {
     const spinnerDom = ora(`tsconfig: don't include "dom" lib`).start();
@@ -192,6 +216,16 @@ export async function typescriptStarter(
       join(projectPath, 'src', 'lib', 'async.spec.ts')
     ]);
     spinnerNode.succeed();
+  }
+
+  if (!immutable) {
+    const spinnerTslint = ora(`tslint: disable tslint-immutable`).start();
+    await replace({
+      files: join(projectPath, 'tslint.json'),
+      from: /,[\s]*\/\* tslint-immutable rules \*\/[\s\S]*\/\* end tslint-immutable rules \*\//,
+      to: ''
+    });
+    spinnerTslint.succeed();
   }
 
   if (install) {

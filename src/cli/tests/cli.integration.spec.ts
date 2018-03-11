@@ -146,7 +146,7 @@ test(`${
     'test-1/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-1/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-1/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-1/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
+    'test-1/tsconfig.json': '0e04adfce2f26c6473f079f6dabd108a',
     'test-1/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-1/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
@@ -188,7 +188,7 @@ test(`${
     'test-2/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-2/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-2/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-2/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
+    'test-2/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
     'test-2/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-2/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
@@ -320,9 +320,9 @@ test(`${
     'test-4/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-4/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-4/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-4/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
+    'test-4/tsconfig.json': '0e04adfce2f26c6473f079f6dabd108a',
     'test-4/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
-    'test-4/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
+    'test-4/tslint.json': '99f6f8fa763bfc2a32377739b3e5dd5c'
   });
 });
 
@@ -423,7 +423,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-6/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-6/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-6/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
+    'test-6/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
     'test-6/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-6/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
