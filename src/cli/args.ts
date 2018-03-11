@@ -1,9 +1,11 @@
+// tslint:disable:no-console no-if-statement no-expression-statement
+
 import meow from 'meow';
 import { Package, UpdateInfo, UpdateNotifier } from 'update-notifier';
-import { Runner, TypescriptStarterOptions, validateName } from './primitives';
+import { Runner, TypescriptStarterUserOptions, validateName } from './utils';
 
 export async function checkArgs(): Promise<
-  TypescriptStarterOptions | undefined
+  Partial<TypescriptStarterUserOptions>
 > {
   const cli = meow(
     `
@@ -54,15 +56,12 @@ export async function checkArgs(): Promise<
   const updateInfo = await new Promise<UpdateInfo>((resolve, reject) => {
     const notifier = new UpdateNotifier({
       callback: (error, update) => {
-        // tslint:disable-next-line:no-expression-statement
         error ? reject(error) : resolve(update);
       },
       pkg: cli.pkg as Package
     });
-    // tslint:disable-next-line:no-expression-statement
     notifier.check();
   });
-  // tslint:disable-next-line:no-if-statement
   if (updateInfo.type !== 'latest') {
     throw new Error(`
     Your version of typescript-starter is outdated.
@@ -71,13 +70,15 @@ export async function checkArgs(): Promise<
   }
 
   const input = cli.input[0];
-  // tslint:disable-next-line:no-if-statement
   if (!input) {
     // no project-name provided, return to collect options in interactive mode
-    return undefined;
+    // note: we always return `install`, so --noinstall always works
+    // (important for test performance)
+    return {
+      install: !cli.flags.noinstall
+    };
   }
   const validOrMsg = await validateName(input);
-  // tslint:disable-next-line:no-if-statement
   if (typeof validOrMsg === 'string') {
     throw new Error(validOrMsg);
   }
@@ -86,8 +87,8 @@ export async function checkArgs(): Promise<
     description: cli.flags.description,
     domDefinitions: cli.flags.dom,
     install: !cli.flags.noinstall,
-    name: input,
     nodeDefinitions: cli.flags.node,
+    projectName: input,
     runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm
   };
 }

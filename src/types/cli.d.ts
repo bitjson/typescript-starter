@@ -3,6 +3,5 @@
 // so its purpose is just to squelch noImplicitAny errors.
 declare module 'github-username';
 declare module 'gradient-string';
-declare module 'has-ansi';
-declare module 'mock-spawn';
+declare module 'md5-file';
 declare module 'replace-in-file';

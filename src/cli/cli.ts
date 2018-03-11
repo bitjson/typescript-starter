@@ -2,19 +2,23 @@
 import chalk from 'chalk';
 import { checkArgs } from './args';
 import { inquire } from './inquire';
-import { getIntro } from './primitives';
-import { LiveTasks } from './tasks';
+import { getInferredOptions, LiveTasks } from './tasks';
 import { typescriptStarter } from './typescript-starter';
+import { getIntro, TypescriptStarterUserOptions } from './utils';
 
 (async () => {
   const cliOptions = await checkArgs();
-  const options = cliOptions
-    ? cliOptions
-    : await (async () => {
-        console.log(getIntro(process.stdout.columns));
-        return inquire();
-      })();
-  return typescriptStarter(options, LiveTasks);
+  const userOptions = cliOptions.projectName
+    ? (cliOptions as TypescriptStarterUserOptions)
+    : {
+        ...(await (async () => {
+          console.log(getIntro(process.stdout.columns));
+          return inquire();
+        })()),
+        ...cliOptions // merge in cliOptions.install
+      };
+  const inferredOptions = await getInferredOptions();
+  return typescriptStarter({ ...inferredOptions, ...userOptions }, LiveTasks);
 })().catch((err: Error) => {
   console.error(`
   ${chalk.red(err.message)}

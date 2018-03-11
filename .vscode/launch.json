@@ -5,6 +5,8 @@
       "type": "node",
       "request": "launch",
       "name": "Debug CLI",
+      // we test in `build` to make cleanup fast and easy
+      "cwd": "${workspaceFolder}/build",
       "program": "${workspaceFolder}/src/cli/cli.ts",
       "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
       "skipFiles": [

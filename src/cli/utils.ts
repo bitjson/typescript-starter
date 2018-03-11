@@ -6,14 +6,26 @@ export enum Runner {
   Yarn = 'yarn'
 }
 
-export interface TypescriptStarterOptions {
+export interface TypescriptStarterUserOptions {
   readonly description: string;
   readonly domDefinitions: boolean;
   readonly install: boolean;
   readonly nodeDefinitions: boolean;
-  readonly name: string;
+  readonly projectName: string;
   readonly runner: Runner;
 }
+
+export interface TypescriptStarterInferredOptions {
+  readonly githubUsername: string;
+  readonly fullName: string;
+  readonly email: string;
+  readonly repoURL: string;
+  readonly workingDirectory: string;
+}
+
+export interface TypescriptStarterOptions
+  extends TypescriptStarterUserOptions,
+    TypescriptStarterInferredOptions {}
 
 export function validateName(input: string): true | string {
   return !/^\s*[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\s*$/.test(input)

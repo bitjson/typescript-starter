@@ -1,42 +1,48 @@
 // tslint:disable:no-console no-if-statement no-expression-statement
 import chalk from 'chalk';
 import del from 'del';
-import { renameSync } from 'fs';
+import { readFileSync, renameSync, writeFileSync } from 'fs';
 import ora from 'ora';
 import { join } from 'path';
 import replace from 'replace-in-file';
-import { Runner, TypescriptStarterOptions } from './primitives';
-import { Tasks } from './tasks';
+import { Placeholders, Tasks } from './tasks';
+import { Runner, TypescriptStarterOptions } from './utils';
 
 export async function typescriptStarter(
   {
     description,
     domDefinitions,
+    email,
     install,
-    name,
+    projectName,
     nodeDefinitions,
-    runner
+    runner,
+    fullName,
+    githubUsername,
+    repoURL,
+    workingDirectory
   }: TypescriptStarterOptions,
   tasks: Tasks
 ): Promise<void> {
   console.log();
-  const { commitHash, gitHistoryDir } = await tasks.cloneRepo(name);
+  const { commitHash, gitHistoryDir } = await tasks.cloneRepo(
+    repoURL,
+    workingDirectory,
+    projectName
+  );
   await del([gitHistoryDir]);
   console.log(`
   ${chalk.dim(`Cloned at commit: ${commitHash}`)}
 `);
 
-  const { gitName, gitEmail } = await tasks.getUserInfo();
-  const username = await tasks.getGithubUsername(gitEmail);
-
   const spinner1 = ora('Updating package.json').start();
-  const projectPath = join(process.cwd(), name);
+  const projectPath = join(workingDirectory, projectName);
   const pkgPath = join(projectPath, 'package.json');
 
   // dependencies to retain for Node.js applications
   const nodeKeptDeps: ReadonlyArray<any> = ['sha.js'];
 
-  const pkg = tasks.readPackageJson(pkgPath);
+  const pkg = readPackageJson(pkgPath);
   const newPkg = {
     ...pkg,
     bin: {},
@@ -47,19 +53,19 @@ export async function typescriptStarter(
       : {},
     description,
     keywords: [],
-    name,
-    repository: `https:// github.com/${username}/${name}`,
+    projectName,
+    repository: `https:// github.com/${githubUsername}/${projectName}`,
     scripts:
       runner === Runner.Yarn
         ? {
             ...pkg.scripts,
-            preinstall: `node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('${name} must be installed with Yarn: https://yarnpkg.com/')\"`
+            preinstall: `node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('${projectName} must be installed with Yarn: https://yarnpkg.com/')\"`
           }
         : { ...pkg.scripts },
     version: '1.0.0'
   };
 
-  tasks.writePackageJson(pkgPath, newPkg);
+  writePackageJson(pkgPath, newPkg);
   spinner1.succeed();
 
   const spinner2 = ora('Updating .gitignore').start();
@@ -84,7 +90,7 @@ export async function typescriptStarter(
   await replace({
     files: join(projectPath, 'LICENSE'),
     from: 'Jason Dreyzehner',
-    to: gitName
+    to: fullName
   });
   spinner4.succeed();
 
@@ -94,7 +100,8 @@ export async function typescriptStarter(
     join(projectPath, 'CHANGELOG.md'),
     join(projectPath, 'README.md'),
     join(projectPath, 'package-lock.json'),
-    join(projectPath, 'src', 'typescript-starter.ts')
+    join(projectPath, 'src', 'cli'),
+    join(projectPath, 'src', 'types', 'cli.d.ts')
   ]);
   spinner5.succeed();
 
@@ -106,7 +113,7 @@ export async function typescriptStarter(
   await replace({
     files: join(projectPath, 'README.md'),
     from: 'package-name',
-    to: name
+    to: projectName
   });
   spinner6.succeed();
 
@@ -141,25 +148,25 @@ export async function typescriptStarter(
     spinner6B.succeed();
   }
 
-  await tasks.install(install, runner, projectPath);
+  if (install) {
+    await tasks.install(runner, projectPath);
+  }
 
-  const spinner7 = ora(`Initializing git repository`).start();
-  completeSpinner(
-    spinner7,
-    await tasks.initialCommit(commitHash, projectPath, gitName, gitEmail),
-    "Git config user.name and user.email are not configured. You'll need to `git commit` yourself."
-  );
+  if (fullName !== Placeholders.name && email !== Placeholders.email) {
+    const spinner7 = ora(`Initializing git repository...`).start();
+    await tasks.initialCommit(commitHash, projectPath, fullName);
+    spinner7.succeed();
+  }
 
-  console.log(`\n${chalk.blue.bold(`Created ${name} 🎉`)}\n`);
+  console.log(`\n${chalk.blue.bold(`Created ${projectName} 🎉`)}\n`);
 }
 
-export function completeSpinner(
-  spinner: {
-    readonly succeed: (text?: string) => any;
-    readonly fail: (text?: string) => any;
-  },
-  success: boolean,
-  message?: string
-): void {
-  success ? spinner.succeed() : spinner.fail(message);
-}
+const readPackageJson = (path: string) =>
+  JSON.parse(readFileSync(path, 'utf8'));
+
+const writePackageJson = (path: string, pkg: any) => {
+  // write using the same format as npm:
+  // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48
+  const stringified = JSON.stringify(pkg, null, 2) + '\n';
+  return writeFileSync(path, stringified);
+};

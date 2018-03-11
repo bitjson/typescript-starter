@@ -1,9 +1,8 @@
 // tslint:disable:no-console no-if-statement no-expression-statement
 import execa, { ExecaStatic, Options, StdIOOption } from 'execa';
-import { readFileSync, writeFileSync } from 'fs';
 import githubUsername from 'github-username';
 import { join } from 'path';
-import { Runner } from './primitives';
+import { Runner, TypescriptStarterInferredOptions } from './utils';
 
 // TODO: await https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24209
 const inherit = 'inherit' as StdIOOption;
@@ -14,43 +13,18 @@ export enum Placeholders {
   username = 'YOUR_GITHUB_USER_NAME'
 }
 
-const repo =
-  process.env.TYPESCRIPT_STARTER_REPO_URL ||
-  'https://github.com/bitjson/typescript-starter.git';
-export interface Tasks {
-  readonly cloneRepo: (
-    dir: string
-  ) => Promise<{ readonly commitHash: string; readonly gitHistoryDir: string }>;
-  readonly getGithubUsername: (email: string) => Promise<string>;
-  readonly getUserInfo: () => Promise<{
-    readonly gitEmail: string;
-    readonly gitName: string;
-  }>;
-  readonly initialCommit: (
-    hash: string,
-    projectDir: string,
-    name: string,
-    email: string
-  ) => Promise<boolean>;
-  readonly install: (
-    shouldInstall: boolean,
-    runner: Runner,
-    projectDir: string
-  ) => Promise<void>;
-  readonly readPackageJson: (path: string) => any;
-  readonly writePackageJson: (path: string, pkg: any) => void;
-}
-
 // We implement these as function factories to make unit testing easier.
 
-export const cloneRepo = (spawner: ExecaStatic) => async (dir: string) => {
-  const cwd = process.cwd();
-  const projectDir = join(cwd, dir);
+export const cloneRepo = (
+  spawner: ExecaStatic,
+  suppressOutput = false
+) => async (repoURL: string, workingDirectory: string, dir: string) => {
+  const projectDir = join(workingDirectory, dir);
   const gitHistoryDir = join(projectDir, '.git');
   try {
-    await spawner('git', ['clone', '--depth=1', repo, dir], {
-      cwd,
-      stdio: 'inherit'
+    await spawner('git', ['clone', '--depth=1', repoURL, dir], {
+      cwd: workingDirectory,
+      stdio: suppressOutput ? 'pipe' : 'inherit'
     });
   } catch (err) {
     if (err.code === 'ENOENT') {
@@ -78,7 +52,7 @@ export const cloneRepo = (spawner: ExecaStatic) => async (dir: string) => {
 
 export const getGithubUsername = (fetcher: any) => async (
   email: string | undefined
-) => {
+): Promise<string> => {
   if (email === Placeholders.email) {
     return Placeholders.username;
   }
@@ -109,10 +83,8 @@ export const getUserInfo = (spawner: ExecaStatic) => async () => {
 
 export const initialCommit = (spawner: ExecaStatic) => async (
   hash: string,
-  projectDir: string,
-  name: string,
-  email: string
-) => {
+  projectDir: string
+): Promise<void> => {
   const opts: Options = {
     cwd: projectDir,
     encoding: 'utf8',
@@ -120,9 +92,6 @@ export const initialCommit = (spawner: ExecaStatic) => async (
   };
   await spawner('git', ['init'], opts);
   await spawner('git', ['add', '-A'], opts);
-  if (name === Placeholders.name || email === Placeholders.email) {
-    return false;
-  }
   await spawner(
     'git',
     [
@@ -132,11 +101,9 @@ export const initialCommit = (spawner: ExecaStatic) => async (
     ],
     opts
   );
-  return true;
 };
 
 export const install = (spawner: ExecaStatic) => async (
-  shouldInstall: boolean,
   runner: Runner,
   projectDir: string
 ) => {
@@ -145,9 +112,6 @@ export const install = (spawner: ExecaStatic) => async (
     encoding: 'utf8',
     stdio: 'inherit'
   };
-  if (!shouldInstall) {
-    return;
-  }
   try {
     runner === Runner.Npm
       ? spawner('npm', ['install'], opts)
@@ -157,22 +121,42 @@ export const install = (spawner: ExecaStatic) => async (
   }
 };
 
-const readPackageJson = (path: string) =>
-  JSON.parse(readFileSync(path, 'utf8'));
-
-const writePackageJson = (path: string, pkg: any) => {
-  // write using the same format as npm:
-  // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48
-  const stringified = JSON.stringify(pkg, null, 2) + '\n';
-  return writeFileSync(path, stringified);
+export const getRepoUrl = () => {
+  return (
+    process.env.TYPESCRIPT_STARTER_REPO_URL ||
+    'https://github.com/bitjson/typescript-starter.git'
+  );
 };
+
+export interface Tasks {
+  readonly cloneRepo: (
+    repoURL: string,
+    workingDirectory: string,
+    dir: string
+  ) => Promise<{ readonly commitHash: string; readonly gitHistoryDir: string }>;
+  readonly initialCommit: (
+    hash: string,
+    projectDir: string,
+    name: string
+  ) => Promise<void>;
+  readonly install: (runner: Runner, projectDir: string) => Promise<void>;
+}
 
 export const LiveTasks: Tasks = {
   cloneRepo: cloneRepo(execa),
-  getGithubUsername: getGithubUsername(githubUsername),
-  getUserInfo: getUserInfo(execa),
   initialCommit: initialCommit(execa),
-  install: install(execa),
-  readPackageJson,
-  writePackageJson
+  install: install(execa)
+};
+export const getInferredOptions = async (): Promise<
+  TypescriptStarterInferredOptions
+> => {
+  const { gitName, gitEmail } = await getUserInfo(execa)();
+  const username = await getGithubUsername(githubUsername)(gitEmail);
+  return {
+    email: gitEmail,
+    fullName: gitName,
+    githubUsername: username,
+    repoURL: getRepoUrl(),
+    workingDirectory: process.cwd()
+  };
 };

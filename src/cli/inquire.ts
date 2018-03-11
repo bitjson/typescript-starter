@@ -1,11 +1,11 @@
 import { prompt, Question } from 'inquirer';
-import { Runner, TypescriptStarterOptions, validateName } from './primitives';
+import { Runner, TypescriptStarterUserOptions, validateName } from './utils';
 
-export async function inquire(): Promise<TypescriptStarterOptions> {
+export async function inquire(): Promise<TypescriptStarterUserOptions> {
   const packageNameQuestion: Question = {
     filter: (answer: string) => answer.trim(),
     message: 'Enter the new package name:',
-    name: 'name',
+    name: 'projectName',
     type: 'input',
     validate: validateName
   };
@@ -81,10 +81,10 @@ export async function inquire(): Promise<TypescriptStarterOptions> {
     runnerQuestion,
     typeDefsQuestion
   ]).then(answers => {
-    const { definitions, description, name, runner } = answers as {
+    const { definitions, description, projectName, runner } = answers as {
       readonly definitions?: TypeDefinitions;
       readonly description: string;
-      readonly name: string;
+      readonly projectName: string;
       readonly runner: Runner;
     };
     return {
@@ -95,12 +95,12 @@ export async function inquire(): Promise<TypescriptStarterOptions> {
           )
         : false,
       install: true,
-      name,
       nodeDefinitions: definitions
         ? [TypeDefinitions.Node, TypeDefinitions.NodeAndDOM].includes(
             definitions
           )
         : false,
+      projectName,
       runner
     };
   });

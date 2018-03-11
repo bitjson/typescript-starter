@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/bitjson/typescript-starter.svg?branch=master)](https://travis-ci.org/bitjson/typescript-starter)
 [![Codecov](https://img.shields.io/codecov/c/github/bitjson/typescript-starter.svg)](https://codecov.io/gh/bitjson/typescript-starter)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+[![GitHub stars](https://img.shields.io/github/stars/bitjson/typescript-starter.svg?style=social&logo=github&label=Stars)](https://github.com/bitjson/typescript-starter)
 
 # typescript-starter
 
@@ -21,7 +22,9 @@ Run one simple command to install and use the interactive project generator. You
 npx typescript-starter
 ```
 
-The interactive CLI will help you automatically create and configure your project.
+The interactive CLI will help you create and configure your project automatically.
+
+> Since this repo includes [the CLI and it's tests](./src/cli), you'll only need to fork or clone this project if you want to contribute. If you find this project useful, please consider [leaving a star](https://github.com/bitjson/typescript-starter/stargazers) so others can find it. Thanks!
 
 # Features
 
