@@ -39,22 +39,50 @@ export async function typescriptStarter(
   const projectPath = join(workingDirectory, projectName);
   const pkgPath = join(projectPath, 'package.json');
 
+  const keptDevDeps: ReadonlyArray<string> = [
+    'ava',
+    'codecov',
+    'cz-conventional-changelog',
+    'gh-pages',
+    'npm-run-all',
+    'npm-scripts-info',
+    'nsp',
+    'nyc',
+    'opn-cli',
+    'prettier',
+    'standard-version',
+    'trash-cli',
+    'tslint',
+    'tslint-config-prettier',
+    'tslint-immutable',
+    'typedoc',
+    'typescript'
+  ];
+
   // dependencies to retain for Node.js applications
-  const nodeKeptDeps: ReadonlyArray<any> = ['sha.js'];
+  const nodeKeptDeps: ReadonlyArray<string> = ['sha.js'];
+
+  const filterAllBut = (
+    keep: ReadonlyArray<string>,
+    from: { readonly [module: string]: number }
+  ) =>
+    keep.reduce<{ readonly [module: string]: number }>(
+      (acc, moduleName: string) => {
+        return { ...acc, [moduleName]: from[moduleName] };
+      },
+      {}
+    );
 
   const pkg = readPackageJson(pkgPath);
   const newPkg = {
     ...pkg,
-    bin: {},
     dependencies: nodeDefinitions
-      ? nodeKeptDeps.reduce((all, dep) => {
-          return { ...all, [dep]: pkg.dependencies[dep] };
-        }, {})
+      ? filterAllBut(nodeKeptDeps, pkg.dependencies)
       : {},
     description,
+    devDependencies: filterAllBut(keptDevDeps, pkg.devDependencies),
     keywords: [],
-    projectName,
-    repository: `https:// github.com/${githubUsername}/${projectName}`,
+    repository: `https://github.com/${githubUsername}/${projectName}`,
     scripts:
       runner === Runner.Yarn
         ? {
@@ -64,6 +92,11 @@ export async function typescriptStarter(
         : { ...pkg.scripts },
     version: '1.0.0'
   };
+
+  // tslint:disable:no-delete no-object-mutation
+  delete newPkg.bin;
+  delete newPkg.NOTE;
+  // tslint:enable:no-delete no-object-mutation
 
   writePackageJson(pkgPath, newPkg);
   spinnerPackage.succeed();
