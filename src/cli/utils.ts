@@ -9,10 +9,13 @@ export enum Runner {
 export interface TypescriptStarterUserOptions {
   readonly description: string;
   readonly domDefinitions: boolean;
+  readonly immutable: boolean;
   readonly install: boolean;
   readonly nodeDefinitions: boolean;
   readonly projectName: string;
   readonly runner: Runner;
+  readonly strict: boolean;
+  readonly vscode: boolean;
 }
 
 export interface TypescriptStarterInferredOptions {

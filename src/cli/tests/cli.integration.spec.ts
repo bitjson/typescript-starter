@@ -205,7 +205,7 @@ async function testInteractive(
   projectName: string,
   entry: ReadonlyArray<string | ReadonlyArray<string>>
 ): Promise<execa.ExecaReturns> {
-  const lastCheck = entry[3] !== undefined;
+  const typeDefs = entry[3] !== '';
   const proc = execa(`../bin/typescript-starter`, ['--noinstall'], {
     cwd: buildDir,
     env: {
@@ -247,45 +247,54 @@ async function testInteractive(
   clearBuffer();
   type(`${entry[1]}${enter}`);
   await ms(200);
-  checkBuffer(new RegExp(`${entry[1]}[\\s\\S]*npm or yarn?`));
+  checkBuffer(new RegExp(`${entry[1]}[\\s\\S]*npm or yarn\\?`));
   clearBuffer();
   type(`${entry[2][0]}${enter}`);
   await ms(200);
-  const search = `${entry[2][1]}[\\s\\S]*global type definitions`;
-  const exp = lastCheck
+  const search = `\\? ${entry[2][1]}`;
+  const exp = typeDefs
     ? new RegExp(`${search}`) // should match
     : new RegExp(`(?!${search})`); // should not match
   checkBuffer(exp);
   // tslint:disable-next-line:no-if-statement
-  if (lastCheck) {
+  if (typeDefs) {
     clearBuffer();
     type(`${entry[3][0]}${enter}`);
     await ms(200);
-    checkBuffer(new RegExp(`${entry[3][1]}`));
+    checkBuffer(new RegExp(`${entry[3][1]}[\\s\\S]*More fun stuff`));
   }
+  clearBuffer();
+  type(`${entry[4][0]}${enter}`);
+  await ms(200);
+  checkBuffer(new RegExp(`${entry[4][1]}`));
   return proc;
 }
 
 test(`${
   TestDirectories.three
 }: interactive mode: javascript library`, async t => {
-  t.plan(7);
+  t.plan(8);
   const proc = await testInteractive(t, `${TestDirectories.three}`, [
     [`${down}${up}${down}`, `Javascript library`],
     `integration test 3 description`,
     [`${down}${up}${down}${enter}`, `yarn`],
-    [`${down}${down}${down}${enter}`, `Both Node.js and DOM`]
+    [`${down}${down}${down}${enter}`, `Both Node.js and DOM`],
+    [' ', 'stricter type-checking[\\s\\S]*tslint-immutable[\\s\\S]*VS Code']
   ]);
   await proc;
   const map = await hashAllTheThings(TestDirectories.three);
   t.deepEqual(map, {
     'test-3/README.md': 'c52631ebf78f6b030af9a109b769b647',
     'test-3/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
-    'test-3/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
+    'test-3/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
+    'test-3/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-3/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
+    'test-3/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-3/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
     'test-3/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-3/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-3/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-3/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
+    'test-3/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
     'test-3/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-3/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
@@ -294,11 +303,13 @@ test(`${
 test(`${
   TestDirectories.four
 }: interactive mode: node.js application`, async t => {
-  t.plan(6);
+  t.plan(7);
   const proc = await testInteractive(t, `${TestDirectories.four}`, [
     [`${down}${up}`, `Node.js application`],
     `integration test 4 description`,
-    [`${down}${up}${enter}`, `npm`]
+    [`${down}${up}${enter}`, `npm`],
+    '',
+    [`${down} `, 'VS Code']
   ]);
   await proc;
   const map = await hashAllTheThings(TestDirectories.four);
@@ -347,10 +358,13 @@ test(`${
     domDefinitions: false,
     email: 'email@example.com',
     fullName: 'Satoshi Nakamoto',
+    immutable: true,
     install: true,
     nodeDefinitions: false,
     projectName: TestDirectories.five,
-    runner: Runner.Npm
+    runner: Runner.Npm,
+    strict: true,
+    vscode: false
   };
   const log = console.log;
   // tslint:disable-next-line:no-object-mutation
@@ -384,10 +398,13 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     domDefinitions: true,
     email: Placeholders.email,
     fullName: Placeholders.name,
+    immutable: true,
     install: true,
     nodeDefinitions: true,
     projectName: TestDirectories.six,
-    runner: Runner.Yarn
+    runner: Runner.Yarn,
+    strict: false,
+    vscode: true
   };
   const log = console.log;
   // tslint:disable-next-line:no-object-mutation
