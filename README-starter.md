@@ -1,3 +1,3 @@
-# package-name
+# [package-name]
 
-description
+[description]

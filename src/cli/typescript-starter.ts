@@ -105,15 +105,20 @@ export async function typescriptStarter(
   ]);
   spinner5.succeed();
 
-  const spinner6 = ora('Updating README.md').start();
+  const spinner6 = ora('Creating README.md').start();
   renameSync(
     join(projectPath, 'README-starter.md'),
     join(projectPath, 'README.md')
   );
   await replace({
     files: join(projectPath, 'README.md'),
-    from: 'package-name',
+    from: '[package-name]',
     to: projectName
+  });
+  await replace({
+    files: join(projectPath, 'README.md'),
+    from: '[description]',
+    to: description
   });
   spinner6.succeed();
 
