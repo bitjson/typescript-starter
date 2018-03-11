@@ -35,7 +35,7 @@ export async function typescriptStarter(
   ${chalk.dim(`Cloned at commit: ${commitHash}`)}
 `);
 
-  const spinner1 = ora('Updating package.json').start();
+  const spinnerPackage = ora('Updating package.json').start();
   const projectPath = join(workingDirectory, projectName);
   const pkgPath = join(projectPath, 'package.json');
 
@@ -66,9 +66,9 @@ export async function typescriptStarter(
   };
 
   writePackageJson(pkgPath, newPkg);
-  spinner1.succeed();
+  spinnerPackage.succeed();
 
-  const spinner2 = ora('Updating .gitignore').start();
+  const spinnerGitignore = ora('Updating .gitignore').start();
   if (runner === Runner.Yarn) {
     await replace({
       files: join(projectPath, '.gitignore'),
@@ -76,25 +76,25 @@ export async function typescriptStarter(
       to: 'package-lock.json'
     });
   }
-  spinner2.succeed();
+  spinnerGitignore.succeed();
 
-  const spinner3 = ora('Updating .npmignore').start();
+  const spinnerNpmignore = ora('Updating .npmignore').start();
   await replace({
     files: join(projectPath, '.npmignore'),
     from: 'examples\n',
     to: ''
   });
-  spinner3.succeed();
+  spinnerNpmignore.succeed();
 
-  const spinner4 = ora('Updating LICENSE').start();
+  const spinnerLicense = ora('Updating LICENSE').start();
   await replace({
     files: join(projectPath, 'LICENSE'),
     from: 'Jason Dreyzehner',
     to: fullName
   });
-  spinner4.succeed();
+  spinnerLicense.succeed();
 
-  const spinner5 = ora('Deleting unnecessary files').start();
+  const spinnerDelete = ora('Deleting unnecessary files').start();
   await del([
     join(projectPath, 'examples'),
     join(projectPath, 'CHANGELOG.md'),
@@ -103,9 +103,17 @@ export async function typescriptStarter(
     join(projectPath, 'src', 'cli'),
     join(projectPath, 'src', 'types', 'cli.d.ts')
   ]);
-  spinner5.succeed();
+  spinnerDelete.succeed();
 
-  const spinner6 = ora('Creating README.md').start();
+  const spinnertsconfigModule = ora('Removing traces of the CLI').start();
+  await replace({
+    files: join(projectPath, 'tsconfig.module.json'),
+    from: /,\s+\/\/ typescript-starter:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
+    to: ''
+  });
+  spinnertsconfigModule.succeed();
+
+  const spinnerReadme = ora('Creating README.md').start();
   renameSync(
     join(projectPath, 'README-starter.md'),
     join(projectPath, 'README.md')
@@ -120,20 +128,20 @@ export async function typescriptStarter(
     from: '[description]',
     to: description
   });
-  spinner6.succeed();
+  spinnerReadme.succeed();
 
   if (!domDefinitions) {
-    const spinner6A = ora(`tsconfig: don't include "dom" lib`).start();
+    const spinnerDom = ora(`tsconfig: don't include "dom" lib`).start();
     await replace({
       files: join(projectPath, 'tsconfig.json'),
       from: '"lib": ["es2017", "dom"]',
       to: '"lib": ["es2017"]'
     });
-    spinner6A.succeed();
+    spinnerDom.succeed();
   }
 
   if (!nodeDefinitions) {
-    const spinner6B = ora(`tsconfig: don't include "node" types`).start();
+    const spinnerNode = ora(`tsconfig: don't include "node" types`).start();
     await replace({
       files: join(projectPath, 'tsconfig.json'),
       from: '"types": ["node"]',
@@ -150,7 +158,7 @@ export async function typescriptStarter(
       join(projectPath, 'src', 'lib', 'async.ts'),
       join(projectPath, 'src', 'lib', 'async.spec.ts')
     ]);
-    spinner6B.succeed();
+    spinnerNode.succeed();
   }
 
   if (install) {
@@ -158,9 +166,9 @@ export async function typescriptStarter(
   }
 
   if (fullName !== Placeholders.name && email !== Placeholders.email) {
-    const spinner7 = ora(`Initializing git repository...`).start();
+    const spinnerGitInit = ora(`Initializing git repository...`).start();
     await tasks.initialCommit(commitHash, projectPath, fullName);
-    spinner7.succeed();
+    spinnerGitInit.succeed();
   }
 
   console.log(`\n${chalk.blue.bold(`Created ${projectName} 🎉`)}\n`);

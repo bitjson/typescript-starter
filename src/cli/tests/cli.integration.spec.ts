@@ -147,7 +147,7 @@ test(`${
     'test-1/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-1/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-1/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
-    'test-1/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-1/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-1/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
@@ -189,7 +189,7 @@ test(`${
     'test-2/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-2/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-2/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
-    'test-2/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-2/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-2/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
@@ -231,23 +231,27 @@ async function testInteractive(
     proc.stdout.once('data', resolve);
   });
   await ms(200);
-  checkBuffer(new RegExp(`typescript-starter.|s*Enter the new package name`));
+  checkBuffer(
+    new RegExp(`typescript-starter[\\s\\S]*Enter the new package name`)
+  );
   clearBuffer();
   type(`${projectName}${enter}`);
   await ms(200);
-  checkBuffer(new RegExp(`${projectName}.|s*What are you making?`));
+  checkBuffer(new RegExp(`${projectName}[\\s\\S]*What are you making?`));
   clearBuffer();
   type(`${entry[0][0]}${enter}`);
   await ms(200);
-  checkBuffer(new RegExp(`${entry[0][1]}.|s*Enter the package description`));
+  checkBuffer(
+    new RegExp(`${entry[0][1]}[\\s\\S]*Enter the package description`)
+  );
   clearBuffer();
   type(`${entry[1]}${enter}`);
   await ms(200);
-  checkBuffer(new RegExp(`${entry[1]}.|s*npm or yarn?`));
+  checkBuffer(new RegExp(`${entry[1]}[\\s\\S]*npm or yarn?`));
   clearBuffer();
   type(`${entry[2][0]}${enter}`);
   await ms(200);
-  const search = `${entry[2][1]}.|s*global type definitions`;
+  const search = `${entry[2][1]}[\\s\\S]*global type definitions`;
   const exp = lastCheck
     ? new RegExp(`${search}`) // should match
     : new RegExp(`(?!${search})`); // should not match
@@ -268,7 +272,7 @@ test(`${
   t.plan(7);
   const proc = await testInteractive(t, `${TestDirectories.three}`, [
     [`${down}${up}${down}`, `Javascript library`],
-    `integration test 3 description${enter}`,
+    `integration test 3 description`,
     [`${down}${up}${down}${enter}`, `yarn`],
     [`${down}${down}${down}${enter}`, `Both Node.js and DOM`]
   ]);
@@ -282,7 +286,7 @@ test(`${
     'test-3/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-3/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-3/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
-    'test-3/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-3/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-3/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
@@ -293,7 +297,7 @@ test(`${
   t.plan(6);
   const proc = await testInteractive(t, `${TestDirectories.four}`, [
     [`${down}${up}`, `Node.js application`],
-    `integration test 4 description${enter}`,
+    `integration test 4 description`,
     [`${down}${up}${enter}`, `npm`]
   ]);
   await proc;
@@ -306,7 +310,7 @@ test(`${
     'test-4/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-4/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-4/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
-    'test-4/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-4/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-4/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
@@ -361,7 +365,7 @@ test(`${
     'test-5/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-5/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-5/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
-    'test-5/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-5/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-5/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
@@ -399,7 +403,7 @@ test(`${TestDirectories.six}: Sandboxed: pretend to yarn`, async t => {
     'test-6/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-6/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-6/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
-    'test-6/tsconfig.module.json': 'e452fd6ff2580347077ae3fff2443e34',
+    'test-6/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-6/tslint.json': '7ac167ffbcb724a6c270e8dc4e747067'
   });
 });
