@@ -49,13 +49,14 @@
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
     "doc": "run-s doc:html && opn build/docs/index.html",
-    "doc:html": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs",
-    "doc:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
-    "docs:publish": "gh-pages -d build/docs",
-    "changelog": "standard-version",
+    "doc:html": "typedoc src/ --target ES6 --mode file --out build/docs",
+    "doc:json": "typedoc src/ --target ES6 --mode file --json build/docs/typedoc.json",
+    "doc:publish": "gh-pages -d build/docs",
+    "version": "standard-version",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
-    "release": "run-s reset test cov:check docs:html docs:publish changelog"
+    "all": "run-s reset test cov:check doc:html",
+    "prepare-release": "run-s all version doc:publish"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -68,7 +69,7 @@
     "doc:json": "Generate API documentation in typedoc JSON format",
     "changelog": "Bump package.json version, update CHANGELOG.md, tag release",
     "reset": "Delete all untracked files and reset the repo to the last commit",
-    "release": "One-step: clean, build, test, publish docs, and prep a release"
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
   },
   "engines": {
     "node": ">=8.9"

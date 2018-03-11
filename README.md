@@ -150,15 +150,28 @@ npm run changelog
 
 ## One-step publish preparation script
 
-Bringing together many of the steps above, this repo includes a one-step release command.
+Bringing together many of the steps above, this repo includes a one-step release preparation command.
 
 ```bash
-# Standard release
-npm run release
-# Release without bumping package.json version
-npm run changelog -- --first-release
-# PGP sign the release
-npm run changelog -- --sign
+# Prepare a standard release:
+npm run prepare-release
+```
+
+You can also prepare a non-standard release:
+
+```bash
+# Or a non-standard release:
+
+# Build everything
+npm run all
+
+# Then version it
+npm run version -- --first-release # don't bump package.json version
+npm run version -- --sign # PGP sign it
+npm run version -- --prerelease alpha # alpha release
+
+# And don't forget to push the docs to GitHub pages:
+npm run docs:publish
 ```
 
 This command runs the following tasks:
