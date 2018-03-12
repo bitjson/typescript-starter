@@ -10,10 +10,10 @@ export async function checkArgs(): Promise<
   const cli = meow(
     `
 	Usage
-	  $ typescript-starter
+	  $ npx typescript-starter
 
   Non-Interactive Usage
-    $ typescript-starter <project-name> [options]
+    $ npx typescript-starter <project-name> [options]
   
 	Options
     --description, -d   package.json description
@@ -26,7 +26,7 @@ export async function checkArgs(): Promise<
     --no-vscode         Don't include VS Code debugging config
 
     Non-Interactive Example
-	  $ typescript-starter my-library -d 'do something, better'
+	  $ npx typescript-starter my-library -d 'do something, better'
     `,
     {
       flags: {
