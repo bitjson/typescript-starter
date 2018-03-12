@@ -21,6 +21,3 @@ jobs:
       - run: npm test
       - run: npx nyc report --reporter=lcov | npx codecov
       - run: npm run cov:check
-    branches:
-      ignore:
-        - gh-pages
