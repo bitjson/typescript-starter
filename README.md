@@ -11,7 +11,7 @@
 ### A clean, simple [typescript](https://www.typescriptlang.org/) starter for building javascript libraries and Node.js applications.
 
 <p align="center">
-  <img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/42f54062/demo.svg">
+  <img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/c3e3b7ec/demo.svg">
 </p>
 
 ## Start Now
