@@ -141,7 +141,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.one);
   t.deepEqual(map, {
     'test-1/README.md': '7a9f4efa9213266c3800f3cc82a53ba7',
-    'test-1/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-1/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-1/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
     'test-1/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-1/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
@@ -179,7 +179,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.two);
   t.deepEqual(map, {
     'test-2/README.md': 'ddaf27da4cc4ca5225785f0ac8f4da58',
-    'test-2/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-2/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-2/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-2/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
     'test-2/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
@@ -285,7 +285,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.three);
   t.deepEqual(map, {
     'test-3/README.md': 'c52631ebf78f6b030af9a109b769b647',
-    'test-3/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-3/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-3/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-3/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
     'test-3/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
@@ -315,7 +315,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.four);
   t.deepEqual(map, {
     'test-4/README.md': 'a3e0699b39498df4843c9dde95f1e000',
-    'test-4/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-4/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-4/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
     'test-4/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-4/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
@@ -380,7 +380,7 @@ test(`${
   t.deepEqual(map, {
     'test-5/LICENSE': 'd11b4dba04062af8bd80b052066daf1c',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
-    'test-5/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-5/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-5/package.json': '350b37ef2d615462eeefc27d84d1eb21',
     'test-5/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
     'test-5/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
@@ -413,7 +413,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
   t.deepEqual(map, {
     'test-6/LICENSE': '1dfe8c78c6af40fc14ea3b40133f1fa5',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
-    'test-6/bin/typescript-starter': 'a4ad3923f37f50df986b43b1adb9f6b3',
+    'test-6/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-6/package.json': '635cf9c0e9fd16e9c29679108b8ebc3d',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',

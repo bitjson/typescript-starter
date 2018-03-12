@@ -114,14 +114,6 @@ export async function typescriptStarter(
   }
   spinnerGitignore.succeed();
 
-  const spinnerNpmignore = ora('Updating .npmignore').start();
-  await replace({
-    files: join(projectPath, '.npmignore'),
-    from: 'examples\n',
-    to: ''
-  });
-  spinnerNpmignore.succeed();
-
   const spinnerLicense = ora('Updating LICENSE').start();
   await replace({
     files: join(projectPath, 'LICENSE'),
@@ -133,7 +125,6 @@ export async function typescriptStarter(
   const spinnerDelete = ora('Deleting unnecessary files').start();
 
   await del([
-    join(projectPath, 'examples'),
     join(projectPath, 'CHANGELOG.md'),
     join(projectPath, 'README.md'),
     join(projectPath, 'package-lock.json'),

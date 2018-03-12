@@ -56,10 +56,6 @@ Also consider installing editor extensions for [TSLint](https://github.com/Micro
   <img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
 </p>
 
-## View usage examples
-
-To see how this starter can be used as a dependency in other projects, check out the [`examples`](./examples) folder. The example in the VSCode screenshot above is from [`examples/node-typescript`](./examples/node-typescript).
-
 # Developing with typescript-starter
 
 ## Development zen
@@ -343,7 +339,7 @@ If you're using [VS Code](https://code.visualstudio.com/), the `Debug CLI` launc
 
 # In the wild
 
-You can find more advanced configurations, usage examples, and inspiration from projects using `typescript-starter`.
+You can find more advanced configurations, usage examples, and inspiration from other projects using `typescript-starter`:
 
 * [BitAuth](https://github.com/bitauth/) – A universal identity and authentication protocol, based on bitcoin
 * [s6: Super Simple Secrets \* Simple Secure Storage](https://gitlab.com/td7x/s6/) – An NPM library and tool to sprawl secrets with S3, ease, and encryption
