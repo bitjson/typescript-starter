@@ -114,13 +114,15 @@ export async function inquire(): Promise<TypescriptStarterUserOptions> {
       description,
       extras,
       projectName,
-      runner
+      runner,
+      type
     } = answers as {
       readonly definitions?: TypeDefinitions;
       readonly description: string;
       readonly extras: ReadonlyArray<string>;
       readonly projectName: string;
       readonly runner: Runner;
+      readonly type: ProjectType;
     };
     return {
       description,
@@ -135,7 +137,7 @@ export async function inquire(): Promise<TypescriptStarterUserOptions> {
         ? [TypeDefinitions.node, TypeDefinitions.nodeAndDom].includes(
             definitions
           )
-        : false,
+        : type === ProjectType.Node,
       projectName,
       runner,
       strict: extras.includes(Extras.strict),

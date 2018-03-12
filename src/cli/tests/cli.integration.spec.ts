@@ -316,11 +316,15 @@ test(`${
   t.deepEqual(map, {
     'test-4/README.md': 'a3e0699b39498df4843c9dde95f1e000',
     'test-4/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
-    'test-4/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
+    'test-4/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
+    'test-4/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-4/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
+    'test-4/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-4/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
     'test-4/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
     'test-4/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-4/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
-    'test-4/tsconfig.json': '0e04adfce2f26c6473f079f6dabd108a',
+    'test-4/tsconfig.json': 'e41d08f0aca16cb05430b61e4b6286db',
     'test-4/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
     'test-4/tslint.json': '99f6f8fa763bfc2a32377739b3e5dd5c'
   });
