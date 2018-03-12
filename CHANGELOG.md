@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/bitjson/typescript-starter/compare/v2.0.3...v2.1.0) (2018-03-12)
+
+
+### Features
+
+* **CLI:** add smaller ascii art for clients with 74-84 columns ([7e4ba94](https://github.com/bitjson/typescript-starter/commit/7e4ba94))
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/bitjson/typescript-starter/compare/v2.0.2...v2.0.3) (2018-03-12)
 
