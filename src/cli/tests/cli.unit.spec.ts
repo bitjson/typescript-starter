@@ -107,6 +107,12 @@ test('ascii art shows if stdout has 85+ columns', async t => {
   t.regex(jumbo, new RegExp(snippet));
 });
 
+test('small ascii art shows if stdout has 74-84 columns', async t => {
+  const jumbo = getIntro(80);
+  const snippet = `|  _| || | '_ \\/ -_|_-</ _| '_| | '_ \\  _|`;
+  t.regex(jumbo, new RegExp(snippet));
+});
+
 const mockErr = (code?: string | number) =>
   ((() => {
     const err = new Error();

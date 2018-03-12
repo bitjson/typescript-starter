@@ -48,7 +48,17 @@ export function getIntro(columns: number | undefined): string {
      |___/|_|                         |_|                                            
 `;
 
+  const asciiSmaller = `
+_                             _      _          _            _           
+| |_ _  _ _ __  ___ ___ __ _ _(_)_ __| |_ ___ __| |_ __ _ _ _| |_ ___ _ _ 
+|  _| || | '_ \\/ -_|_-</ _| '_| | '_ \\  _|___(_-<  _/ _\` | '_|  _/ -_) '_|
+ \\__|\\_, | .__/\\___/__/\\__|_| |_| .__/\\__|   /__/\\__\\__,_|_|  \\__\\___|_|  
+     |__/|_|                    |_|                                       
+`;
+
   return columns && columns >= 85
     ? chalk.bold(gradient.mind(ascii))
-    : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
+    : columns && columns >= 74
+      ? chalk.bold(gradient.mind(asciiSmaller))
+      : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
 }
