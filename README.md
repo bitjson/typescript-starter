@@ -11,7 +11,7 @@
 ### A clean, simple [typescript](https://www.typescriptlang.org/) starter for building javascript libraries and Node.js applications.
 
 <p align="center">
-  <img alt="demo of the typescript-starter command-line interface" src="">
+  <img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/42f54062/demo.svg">
 </p>
 
 ## Start Now
@@ -71,7 +71,8 @@ This starter includes a watch task which makes development faster and more inter
 The watch task will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
 
 <p align="center">
-  <img alt="demo of typescript-starter's watch task" src="">
+  <!-- PR request: capture the magic of using a test-running watch task for development -->
+  <img alt="typescript-starter's watch task" src="https://user-images.githubusercontent.com/904007/37270842-c05f5192-25a6-11e8-83bb-1981ae48e38e.png">
 </p>
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
