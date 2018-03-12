@@ -1,86 +1,15 @@
 {
   "name": "typescript-starter",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "description": "A typescript starter for building javascript libraries and projects",
+  "bin": {
+    "typescript-starter": "./bin/typescript-starter"
+  },
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "browser": "build/browser/index.js",
   "repository": "https://github.com/bitjson/typescript-starter",
-  "author": "Jason Dreyzehner <jason@dreyzehner.com>",
   "license": "MIT",
-  "scripts": {
-    "info": "npm-scripts-info",
-    "build": "trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps",
-    "build:main": "tsc -p tsconfig.json",
-    "build:module": "tsc -p config/exports/tsconfig.module.json",
-    "build:browser-deps": "mkdirp build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js",
-    "build:browser": "rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js",
-    "build:browser-cjs": "rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js",
-    "build:resolve-sourcemaps": "sorcery -i build/browser/index.js && sorcery -i build/browser/index.cjs.js",
-    "build:tests": "trash test && node config/exports/build-tests.js",
-    "lint": "tslint --project . --type-check src/**/*.ts",
-    "unit": "yarn build && yarn build:tests && nyc ava",
-    "check-coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
-    "test": "yarn lint && yarn unit && yarn check-coverage",
-    "watch": "yarn build && yarn build:tests -- --no-browser && concurrently -r --kill-others \"npm run --silent build:main -- -w\" \"npm run --silent build:tests -- -w --no-browser\" \"sleepms 2000 && ava --watch\"",
-    "cov": "yarn unit && yarn html-coverage && opn coverage/index.html",
-    "html-coverage": "nyc report --reporter=html",
-    "send-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "docs": "yarn docs:html && opn build/docs/index.html",
-    "docs:html": "typedoc src/index.ts --excludePrivate --mode file --theme minimal --out build/docs",
-    "docs:json": "typedoc --mode file --json build/docs/typedoc.json src/index.ts",
-    "docs:publish": "yarn docs:html && gh-pages -d build/docs",
-    "changelog": "standard-version",
-    "release": "yarn reset && yarn test && yarn docs:publish && yarn changelog",
-    "reset": "git clean -dfx && git reset --hard && yarn"
-  },
-  "scripts-info": {
-    "info": "Display information about the scripts",
-    "build": "(Trash and re)build the library",
-    "lint": "Lint all typescript source files",
-    "unit": "Build the library and run unit tests",
-    "test": "Lint, build, and test the library",
-    "watch": "Watch source files, rebuild library on changes, rerun relevant tests",
-    "cov": "Run tests, generate the HTML coverage report, and open it in a browser",
-    "docs": "Generate HTML API documentation and open it in a browser",
-    "docs:publish": "Generate HTML API documentation and push it to GitHub Pages",
-    "docs:json": "Generate API documentation in typedoc JSON format",
-    "changelog": "Bump package.json version, update CHANGELOG.md, tag a release",
-    "reset": "Delete all untracked files and reset the repo to the last commit",
-    "release": "Clean, build, test, publish docs, and prepare release (a one-step publish process)"
-  },
-  "engines": {
-    "node": ">=4.5"
-  },
-  "devDependencies": {
-    "@types/node": "^8.0.4",
-    "ava": "^0.21.0",
-    "browserify": "^14.1.0",
-    "codecov": "^2.2.0",
-    "concurrently": "^3.4.0",
-    "cpx": "^1.5.0",
-    "gh-pages": "^1.0.0",
-    "hash.js": "^1.0.3",
-    "mkdirp": "^0.5.1",
-    "npm-scripts-info": "^0.3.6",
-    "nyc": "^11.0.3",
-    "opn-cli": "^3.1.0",
-    "rollup": "^0.44.0",
-    "rollup-plugin-alias": "^1.2.0",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-watch": "^4.0.0",
-    "sleep-ms": "^2.0.1",
-    "sorcery": "^0.10.0",
-    "standard-version": "^4.0.0",
-    "trash-cli": "^1.4.0",
-    "tslint": "^5.4.3",
-    "tslint-config-standard": "^6.0.1",
-    "typedoc": "^0.8.0",
-    "typescript": "^2.4.1"
-  },
   "keywords": [
     "async",
     "ava",
@@ -102,20 +31,120 @@
     "typescript",
     "typings"
   ],
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js",
-      "build/browser/**"
-    ]
+  "scripts": {
+    "info": "npm-scripts-info",
+    "build": "run-s clean && run-p build:*",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "fix": "run-s fix:*",
+    "fix:prettier": "prettier 'src/**/*.ts' --write",
+    "fix:tslint": "tslint --fix --project .",
+    "test": "run-s build test:*",
+    "test:lint": "tslint --project . && prettier 'src/**/*.ts' --list-different",
+    "test:unit": "nyc --silent ava",
+    "test:nsp": "nsp check",
+    "watch": "run-s clean build:main && run-p 'build:main -- -w' 'test:unit -- --watch'",
+    "cov": "run-s build test:unit cov:html && opn coverage/index.html",
+    "cov:html": "nyc report --reporter=html",
+    "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
+    "doc": "run-s doc:html && opn build/docs/index.html",
+    "doc:html": "typedoc src/ --target ES6 --mode file --out build/docs",
+    "doc:json": "typedoc src/ --target ES6 --mode file --json build/docs/typedoc.json",
+    "doc:publish": "gh-pages -d build/docs",
+    "version": "standard-version",
+    "reset": "git clean -dfx && git reset --hard && npm i",
+    "clean": "trash build test",
+    "all": "run-s reset test cov:check doc:html",
+    "prepare-release": "run-s all version doc:publish"
+  },
+  "scripts-info": {
+    "info": "Display information about the package scripts",
+    "build": "Clean and rebuild the project",
+    "fix": "Try to automatically fix any linting problems",
+    "test": "Lint and unit test the project",
+    "watch": "Watch and rebuild the project on save, then rerun relevant tests",
+    "cov": "Rebuild, run tests, then create and open the coverage report",
+    "doc": "Generate HTML API documentation and open it in a browser",
+    "doc:json": "Generate API documentation in typedoc JSON format",
+    "changelog": "Bump package.json version, update CHANGELOG.md, tag release",
+    "reset": "Delete all untracked files and reset the repo to the last commit",
+    "prepare-release": "One-step: clean, build, test, publish docs, and prep a release"
+  },
+  "engines": {
+    "node": ">=8.9"
+  },
+  "NOTE": "These dependencies are for the CLI, and will be removed automatically.",
+  "dependencies": {
+    "@types/globby": "^6.1.0",
+    "chalk": "^2.3.1",
+    "del": "^3.0.0",
+    "execa": "^0.9.0",
+    "github-username": "^4.1.0",
+    "globby": "^8.0.1",
+    "gradient-string": "^1.0.0",
+    "inquirer": "^5.1.0",
+    "meow": "^4.0.0",
+    "ora": "^2.0.0",
+    "project-version": "^1.0.0",
+    "replace-in-file": "^3.1.1",
+    "sha.js": "^2.4.10",
+    "update-notifier": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/del": "^3.0.0",
+    "@types/execa": "^0.8.1",
+    "@types/inquirer": "0.0.37",
+    "@types/meow": "^4.0.1",
+    "@types/nock": "^9.1.2",
+    "@types/node": "^8.9.5",
+    "@types/ora": "^1.3.2",
+    "@types/update-notifier": "^2.2.0",
+    "ava": "^1.0.0-beta.3",
+    "codecov": "^3.0.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "gh-pages": "^1.0.0",
+    "md5-file": "^3.2.3",
+    "nock": "^9.2.3",
+    "npm-run-all": "^4.1.2",
+    "npm-scripts-info": "^0.3.6",
+    "nsp": "^3.2.1",
+    "nyc": "^11.5.0",
+    "opn-cli": "^3.1.0",
+    "prettier": "^1.10.2",
+    "standard-version": "^4.0.0",
+    "trash-cli": "^1.4.0",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.8.0",
+    "tslint-immutable": "^4.5.1",
+    "typedoc": "^0.11.1",
+    "typescript": "^2.4.1"
   },
   "ava": {
-    "source": [
-      "test/**/*.js",
-      "build/**/*.js",
-      "!build/**/*.spec.js"
+    "failFast": true,
+    "files": [
+      "build/main/**/*.spec.js"
+    ],
+    "sources": [
+      "build/main/**/*.js"
     ]
   },
-  "dependencies": {
-    "tslib": "^1.6.0"
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "greenkeeper": {
+    "ignore": [
+      "@types/node"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
   }
 }

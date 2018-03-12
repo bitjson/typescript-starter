@@ -1,0 +1,96 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Project",
+      // we test in `build` to make cleanup fast and easy
+      "cwd": "${workspaceFolder}/build",
+      // Replace this with your project root. If there are multiple, you can
+      // automatically run the currently visible file with: "program": ${file}"
+      "program": "${workspaceFolder}/src/cli/cli.ts",
+      // "args": ["--no-install"],
+      "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+        "${workspaceFolder}/node_modules/**/*.js"
+      ],
+      "preLaunchTask": "npm: build",
+      "stopOnEntry": true,
+      "smartStep": true,
+      "runtimeArgs": ["--nolazy"],
+      "env": {
+        "TYPESCRIPT_STARTER_REPO_URL": "${workspaceFolder}"
+      },
+      "console": "externalTerminal"
+    },
+    {
+      /// Usage: set appropriate breakpoints in a *.spec.ts file, then open the
+      // respective *.spec.js file to run this task. Once a breakpoint is hit,
+      // the debugger will open the source *.spec.ts file for debugging.
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Visible Compiled Spec",
+      "program": "${workspaceFolder}/node_modules/ava/profile.js",
+      "args": [
+        "${file}"
+        // TODO: VSCode's launch.json variable substitution
+        // (https://code.visualstudio.com/docs/editor/variables-reference)
+        // doesn't quite allow us to go from:
+        // `./src/path/to/file.ts` to `./build/main/path/to/file.js`
+        // so the user has to navigate to the compiled file manually. (Close:)
+        // "${workspaceFolder}/build/main/lib/${fileBasenameNoExtension}.js"
+      ],
+      "skipFiles": ["<node_internals>/**/*.js"],
+      // Consider using `npm run watch` or `yarn watch` for faster debugging
+      // "preLaunchTask": "npm: build",
+      // "smartStep": true,
+      "runtimeArgs": ["--nolazy"]
+    },
+    // --- cut here ---
+    // TODO: Simpler test debugging option. Discussion:
+    // https://github.com/avajs/ava/issues/1505#issuecomment-370654427
+    // {
+    //   "type": "node",
+    //   "request": "launch",
+    //   "name": "Debug Visible Compiled Spec",
+    //   "program": "${file}",
+    //   "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
+    //   "skipFiles": ["<node_internals>/**/*.js"],
+    //   // Consider using `npm run watch` or `yarn watch` for faster debugging
+    //   // "preLaunchTask": "npm: build",
+    //   // "stopOnEntry": true,
+    //   // "smartStep": true,
+    //   "runtimeArgs": ["--nolazy"],
+    //   "env": {
+    //     "AVA_DEBUG_MODE": "1"
+    //   }
+    // }
+    // CLI:
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug CLI Unit Tests",
+      "program": "${workspaceFolder}/node_modules/ava/profile.js",
+      "args": ["${workspaceFolder}/build/main/cli/tests/cli.unit.spec.js"],
+      "skipFiles": ["<node_internals>/**/*.js"],
+      // "preLaunchTask": "npm: build",
+      // "smartStep": true,
+      "runtimeArgs": ["--nolazy"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug CLI Integration Tests",
+      "program": "${workspaceFolder}/node_modules/ava/profile.js",
+      "args": [
+        "${workspaceFolder}/build/main/cli/tests/cli.integration.spec.js"
+      ],
+      "skipFiles": ["<node_internals>/**/*.js"],
+      // "preLaunchTask": "npm: build",
+      // "smartStep": true,
+      "runtimeArgs": ["--nolazy"]
+    }
+  ]
+}

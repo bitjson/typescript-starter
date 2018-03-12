@@ -19,8 +19,8 @@
  * @returns       Comment describing the return type.
  * @anotherNote   Some other value.
  */
-export function double (value: number) {
-  return value * 2
+export function double(value: number): number {
+  return value * 2;
 }
 
 /**
@@ -40,7 +40,7 @@ export function double (value: number) {
  * // => 8
  * ```
  */
-export function power (base: number, exponent: number) {
+export function power(base: number, exponent: number): number {
   // This is a proposed es7 operator, which should be transpiled by Typescript
-  return base ** exponent
+  return base ** exponent;
 }
