@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/bitjson/typescript-starter/compare/v1.4.1...v2.0.0) (2018-03-12)
+
+
+### Bug Fixes
+
+* **CLI:** automatically remove a CLI-related part of tsconfig.module.json ([a8e33af](https://github.com/bitjson/typescript-starter/commit/a8e33af))
+* **CLI:** automatically remove the CLI's dependencies ([11509cf](https://github.com/bitjson/typescript-starter/commit/11509cf))
+* **CLI:** if git config user.name/email fails, use a placeholder rather than failing ([41ac315](https://github.com/bitjson/typescript-starter/commit/41ac315))
+* **CLI:** use placeholders for email, name, and GitHub username ([abef54a](https://github.com/bitjson/typescript-starter/commit/abef54a))
+* **codecov:** prefix with npx ([c93c9db](https://github.com/bitjson/typescript-starter/commit/c93c9db))
+
+
+### Features
+
+* **CLI:** begin adding extra configuration options ([ee930cc](https://github.com/bitjson/typescript-starter/commit/ee930cc))
+* **CLI:** create CLI, begin work on v2 ([76336c8](https://github.com/bitjson/typescript-starter/commit/76336c8))
+* **CLI:** don't attempt to commit if user.name/email is not set ([58688fc](https://github.com/bitjson/typescript-starter/commit/58688fc))
+* **CLI:** implement strict, immutable, and vscode options ([3bf7a7e](https://github.com/bitjson/typescript-starter/commit/3bf7a7e))
+* **CLI:** v2 ([260a7d3](https://github.com/bitjson/typescript-starter/commit/260a7d3))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/bitjson/typescript-starter/compare/v1.4.0...v1.4.1) (2017-06-27)
 
