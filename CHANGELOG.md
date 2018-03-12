@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/bitjson/typescript-starter/compare/v2.0.0...v2.0.1) (2018-03-12)
+
+
+### Bug Fixes
+
+* **CLI:** link the correct bin from package.json ([1990e12](https://github.com/bitjson/typescript-starter/commit/1990e12))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/bitjson/typescript-starter/compare/v1.4.1...v2.0.0) (2018-03-12)
 
