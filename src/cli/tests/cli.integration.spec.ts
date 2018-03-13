@@ -108,14 +108,19 @@ async function hashAllTheThings(
   const hashes = await Promise.all(hashAll);
   return hashes.reduce<{ readonly [filename: string]: string }>(
     (acc, hash, i) => {
-      const trimmedFilePath = relative(buildDir, filePaths[i]);
+      const trimmedNormalizedFilePath = normalizePath(relative(buildDir, filePaths[i]));
       return {
         ...acc,
-        [trimmedFilePath]: hash
+        [trimmedNormalizedFilePath]: hash
       };
     },
     {}
   );
+}
+
+// On Windows, convert backslashes to forward slashes
+function normalizePath(p: string) {
+  return process.platform === 'win32' ? p.replace(/\\/g, '/') : p;
 }
 
 test(`${
