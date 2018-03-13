@@ -20,7 +20,7 @@ import execa from 'execa';
 import globby from 'globby';
 import md5File from 'md5-file';
 import meow from 'meow';
-import { join, relative } from 'path';
+import { join, normalize, relative } from 'path';
 import { cloneRepo, Placeholders, Tasks } from '../tasks';
 import { typescriptStarter } from '../typescript-starter';
 import { Runner } from '../utils';
@@ -108,7 +108,9 @@ async function hashAllTheThings(
   const hashes = await Promise.all(hashAll);
   return hashes.reduce<{ readonly [filename: string]: string }>(
     (acc, hash, i) => {
-      const trimmedNormalizedFilePath = normalizePath(relative(buildDir, filePaths[i]));
+      const trimmedNormalizedFilePath = normalize(
+        relative(buildDir, filePaths[i])
+      );
       return {
         ...acc,
         [trimmedNormalizedFilePath]: hash
@@ -116,11 +118,6 @@ async function hashAllTheThings(
     },
     {}
   );
-}
-
-// On Windows, convert backslashes to forward slashes
-function normalizePath(p: string) {
-  return process.platform === 'win32' ? p.replace(/\\/g, '/') : p;
 }
 
 test(`${
