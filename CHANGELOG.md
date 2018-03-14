@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/bitjson/typescript-starter/compare/v2.1.0...v2.1.1) (2018-03-14)
+
+
+### Bug Fixes
+
+* **CLI:** allow scoped npm package names ([83fdc67](https://github.com/bitjson/typescript-starter/commit/83fdc67)), closes [#68](https://github.com/bitjson/typescript-starter/issues/68)
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/bitjson/typescript-starter/compare/v2.0.3...v2.1.0) (2018-03-12)
 
