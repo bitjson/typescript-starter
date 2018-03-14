@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { existsSync } from 'fs';
 import gradient from 'gradient-string';
+import validateNpmPackageName from 'validate-npm-package-name';
 export enum Runner {
   Npm = 'npm',
   Yarn = 'yarn'
@@ -31,8 +32,8 @@ export interface TypescriptStarterOptions
     TypescriptStarterInferredOptions {}
 
 export function validateName(input: string): true | string {
-  return !/^\s*[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\s*$/.test(input)
-    ? 'Name should be in-kebab-case'
+  return !validateNpmPackageName(input).validForNewPackages
+    ? 'Name should be in-kebab-case (for npm)'
     : existsSync(input)
       ? `The "${input}" path already exists in this directory.`
       : true;

@@ -5,3 +5,4 @@ declare module 'github-username';
 declare module 'gradient-string';
 declare module 'md5-file';
 declare module 'replace-in-file';
+declare module 'validate-npm-package-name';

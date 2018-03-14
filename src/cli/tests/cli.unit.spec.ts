@@ -13,7 +13,7 @@ import {
   install,
   Placeholders
 } from '../tasks';
-import { getIntro, Runner } from '../utils';
+import { getIntro, Runner, validateName } from '../utils';
 
 test('errors if outdated', async t => {
   nock.disableNetConnect();
@@ -99,6 +99,12 @@ test('checkArgs always returns { install } (so --no-install works in interactive
   process.argv = ['path/to/node', 'path/to/typescript-starter'];
   const opts = await checkArgs();
   t.deepEqual(opts, { install: true });
+});
+
+test('only accepts valid package names', async t => {
+  t.true(validateName('package-name'));
+  t.true(validateName('package-name-2'));
+  t.true(validateName('@example/package-name-2'));
 });
 
 test('ascii art shows if stdout has 85+ columns', async t => {
