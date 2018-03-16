@@ -128,6 +128,8 @@ export async function typescriptStarter(
     join(projectPath, 'CHANGELOG.md'),
     join(projectPath, 'README.md'),
     join(projectPath, 'package-lock.json'),
+    join(projectPath, 'appveyor.yml'),
+    join(projectPath, '.travis.yml'),
     join(projectPath, 'src', 'cli'),
     join(projectPath, 'src', 'types', 'cli.d.ts')
   ]);
