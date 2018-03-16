@@ -194,6 +194,8 @@ export const addInferredOptions = async (
   };
   return {
     ...inferredOptions,
+    appveyor: userOptions.appveyor,
+    circleci: userOptions.circleci,
     description: userOptions.description,
     domDefinitions: userOptions.domDefinitions,
     immutable: userOptions.immutable,
@@ -202,6 +204,7 @@ export const addInferredOptions = async (
     projectName: userOptions.projectName,
     runner: userOptions.runner,
     strict: userOptions.strict,
+    travis: userOptions.travis,
     vscode: userOptions.vscode
   };
 };

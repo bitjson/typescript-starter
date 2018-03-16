@@ -75,8 +75,11 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   };
 
   enum Extras {
-    strict = 'strict',
+    appveyor = 'appveyor',
+    circleci = 'circleci',
     immutable = 'immutable',
+    strict = 'strict',
+    travis = 'travis',
     vscode = 'vscode'
   }
   const extrasQuestion: Question = {
@@ -94,6 +97,21 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
         checked: true,
         name: 'Include VS Code debugging config',
         value: Extras.vscode
+      },
+      {
+        checked: true,
+        name: 'Include CircleCI config',
+        value: Extras.circleci
+      },
+      {
+        checked: false,
+        name: 'Include Appveyor (Windows-based CI) config',
+        value: Extras.appveyor
+      },
+      {
+        checked: false,
+        name: 'Include Travis CI config',
+        value: Extras.travis
       }
     ],
     message: '🚀 More fun stuff:',
@@ -125,6 +143,8 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
       readonly type: ProjectType;
     };
     return {
+      appveyor: extras.includes(Extras.appveyor),
+      circleci: extras.includes(Extras.circleci),
       description,
       domDefinitions: definitions
         ? [TypeDefinitions.dom, TypeDefinitions.nodeAndDom].includes(
@@ -141,6 +161,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
       projectName,
       runner,
       strict: extras.includes(Extras.strict),
+      travis: extras.includes(Extras.travis),
       vscode: extras.includes(Extras.vscode)
     };
   });

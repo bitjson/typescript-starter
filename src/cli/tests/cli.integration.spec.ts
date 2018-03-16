@@ -424,6 +424,8 @@ test(`${
   t.plan(3);
   const options = {
     ...sandboxOptions,
+    appveyor: false,
+    circleci: false,
     domDefinitions: false,
     email: 'email@example.com',
     fullName: 'Satoshi Nakamoto',
@@ -433,13 +435,13 @@ test(`${
     projectName: TestDirectories.five,
     runner: Runner.Npm,
     strict: true,
+    travis: false,
     vscode: false
   };
   silenceConsole(console);
   await typescriptStarter(options, sandboxTasks(t, true, true));
   const map = await hashAllTheThings(TestDirectories.five, true);
   t.deepEqual(map, {
-    'test-5/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
     'test-5/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-5/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
@@ -465,6 +467,8 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
   t.plan(2);
   const options = {
     ...sandboxOptions,
+    appveyor: true,
+    circleci: true,
     domDefinitions: true,
     email: Placeholders.email,
     fullName: Placeholders.name,
@@ -474,6 +478,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     projectName: TestDirectories.six,
     runner: Runner.Yarn,
     strict: false,
+    travis: true,
     vscode: true
   };
   silenceConsole(console);
@@ -488,10 +493,12 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
     'test-6/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
+    'test-6/.travis.yml': '8ba04203d5a1c6e0304fef52123a45fc',
     'test-6/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-6/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-6/LICENSE': '1dfe8c78c6af40fc14ea3b40133f1fa5',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
+    'test-6/appveyor.yml': 'c889f967e607510860d754a031fdf93c',
     'test-6/bin/typescript-starter': 'df05a2c6c849f47761f0e24230359d3e',
     'test-6/package.json': 'a7a94f6c500a05c90e475049103ba26e',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',

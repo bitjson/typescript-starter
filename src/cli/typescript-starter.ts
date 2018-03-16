@@ -10,6 +10,8 @@ import { Runner, TypescriptStarterOptions } from './utils';
 
 export async function typescriptStarter(
   {
+    appveyor,
+    circleci,
     description,
     domDefinitions,
     email,
@@ -22,6 +24,7 @@ export async function typescriptStarter(
     repoInfo,
     runner,
     strict,
+    travis,
     vscode,
     workingDirectory
   }: TypescriptStarterOptions,
@@ -128,11 +131,18 @@ export async function typescriptStarter(
     join(projectPath, 'CHANGELOG.md'),
     join(projectPath, 'README.md'),
     join(projectPath, 'package-lock.json'),
-    join(projectPath, 'appveyor.yml'),
-    join(projectPath, '.travis.yml'),
     join(projectPath, 'src', 'cli'),
     join(projectPath, 'src', 'types', 'cli.d.ts')
   ]);
+  if (!appveyor) {
+    del([join(projectPath, 'appveyor.yml')]);
+  }
+  if (!circleci) {
+    del([join(projectPath, '.circleci')]);
+  }
+  if (!travis) {
+    del([join(projectPath, '.travis.yml')]);
+  }
   if (!vscode) {
     del([join(projectPath, '.vscode')]);
   }

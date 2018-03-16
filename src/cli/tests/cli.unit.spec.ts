@@ -70,18 +70,23 @@ test('checkArgs returns the right options', async t => {
     'path/to/node',
     'path/to/typescript-starter',
     'example-project',
+    '--appveyor',
     `-description "example description"`,
-    '--yarn',
-    '--node',
     '--dom',
-    '--no-install',
+    '--node',
     '--strict',
+    '--travis',
+    '--yarn',
+    '--no-circleci',
     '--no-immutable',
+    '--no-install',
     '--no-vscode'
   ];
   const opts = await checkArgs();
   const currentVersion = meow('').pkg.version;
   t.deepEqual(opts, {
+    appveyor: true,
+    circleci: false,
     description: '',
     domDefinitions: true,
     immutable: false,
@@ -91,6 +96,7 @@ test('checkArgs returns the right options', async t => {
     runner: Runner.Yarn,
     starterVersion: currentVersion,
     strict: true,
+    travis: true,
     vscode: false
   });
 });

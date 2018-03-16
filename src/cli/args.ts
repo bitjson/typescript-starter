@@ -14,20 +14,32 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     $ npx typescript-starter <project-name> [options]
   
 	Options
+    --appveyor          include Appveyor for Windows CI
     --description, -d   package.json description
-    --yarn              use yarn (default: npm)
-    --node              include node.js type definitions
     --dom               include DOM type definitions
+    --node              include node.js type definitions
+    --strict            enable stricter type-checking
+    --travis            include Travis CI configuration
+    --yarn              use yarn (default: npm)
+
+    --no-circleci       don't include CircleCI 
+    --no-immutable      don't enable tslint-immutable
     --no-install        skip yarn/npm install
-    --strict            Enable stricter type-checking
-    --no-immutable      Don't enable tslint-immutable
-    --no-vscode         Don't include VS Code debugging config
+    --no-vscode         don't include VS Code debugging config
 
     Non-Interactive Example
 	  $ npx typescript-starter my-library -d 'do something, better'
     `,
     {
       flags: {
+        appveyor: {
+          default: false,
+          type: 'boolean'
+        },
+        circleci: {
+          default: true,
+          type: 'boolean'
+        },
         description: {
           alias: 'd',
           default: 'a typescript-starter project',
@@ -50,6 +62,10 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
           type: 'boolean'
         },
         strict: {
+          default: false,
+          type: 'boolean'
+        },
+        travis: {
           default: false,
           type: 'boolean'
         },
@@ -98,6 +114,8 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
   }
 
   return {
+    appveyor: cli.flags.appveyor,
+    circleci: cli.flags.circleci,
     description: cli.flags.description,
     domDefinitions: cli.flags.dom,
     immutable: cli.flags.immutable,
@@ -107,6 +125,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,
     starterVersion: cli.pkg.version,
     strict: cli.flags.strict,
+    travis: cli.flags.travis,
     vscode: cli.flags.vscode
   };
 }

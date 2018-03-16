@@ -8,6 +8,8 @@ export enum Runner {
 }
 
 export interface TypescriptStarterCLIOptions {
+  readonly appveyor: boolean;
+  readonly circleci: boolean;
   readonly description: string;
   readonly domDefinitions: boolean;
   readonly immutable: boolean;
@@ -16,6 +18,7 @@ export interface TypescriptStarterCLIOptions {
   readonly projectName: string;
   readonly runner: Runner;
   readonly strict: boolean;
+  readonly travis: boolean;
   readonly vscode: boolean;
 }
 
