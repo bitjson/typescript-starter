@@ -79,7 +79,7 @@
     "@types/globby": "^6.1.0",
     "chalk": "^2.3.1",
     "del": "^3.0.0",
-    "execa": "^0.9.0",
+    "execa": "^0.10.0",
     "github-username": "^4.1.0",
     "globby": "^8.0.1",
     "gradient-string": "^1.0.0",
