@@ -158,6 +158,7 @@ git cz
 				<pre><code class="lang-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
 npm run changelog
 </code></pre>
+				<p>You may find a tool like <a href="https://github.com/bitjson/wip"><strong><code>wip</code></strong></a> helpful for managing work in progress before you&#39;re ready to create a meaningful commit.</p>
 				<h2 id="one-step-publish-preparation-script">One-step publish preparation script</h2>
 				<p>Bringing together many of the steps above, this repo includes a one-step release preparation command.</p>
 				<pre><code class="lang-bash"><span class="hljs-comment"># Prepare a standard release:</span>
@@ -281,9 +282,10 @@ npm link
 				<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
 <span class="hljs-built_in">cd</span> typescript-starter-testing
 TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter
-</code></pre><p>You can also <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
+</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
 				<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">'https://github.com/YOUR_USERNAME/typescript-starter.git'</span> typescript-starter
-</code></pre><p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
+</code></pre><p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
+				<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
 				<h1 id="in-the-wild">In the wild</h1>
 				<p>You can find more advanced configurations, usage examples, and inspiration from other projects using <code>typescript-starter</code>:</p>
 				<ul>
@@ -316,13 +318,25 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 						<a href="interfaces/tasks.html" class="tsd-kind-icon">Tasks</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/typescriptstarterclioptions.html" class="tsd-kind-icon">Typescript<wbr>StarterCLIOptions</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/typescriptstarterinferredoptions.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Inferred<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/typescriptstarteroptions.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/typescriptstarteruseroptions.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>User<wbr>Options</a>
+						<a href="interfaces/typescriptstarterrequiredconfig.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Required<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarterargsoptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Args<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarteruseroptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>User<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#branch" class="tsd-kind-icon">branch</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#builddir" class="tsd-kind-icon">build<wbr>Dir</a>
@@ -337,10 +351,10 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 						<a href="globals.html#inherit" class="tsd-kind-icon">inherit</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#repourl" class="tsd-kind-icon">repoURL</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#up" class="tsd-kind-icon">up</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#addinferredoptions" class="tsd-kind-icon">add<wbr>Inferred<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#asyncabc" class="tsd-kind-icon">asyncABC</a>
@@ -358,16 +372,16 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 						<a href="globals.html#getgithubusername" class="tsd-kind-icon">get<wbr>Github<wbr>Username</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getinferredoptions" class="tsd-kind-icon">get<wbr>Inferred<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-function">
 						<a href="globals.html#getintro" class="tsd-kind-icon">get<wbr>Intro</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getrepourl" class="tsd-kind-icon">get<wbr>Repo<wbr>Url</a>
+						<a href="globals.html#getrepoinfo" class="tsd-kind-icon">get<wbr>Repo<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getuserinfo" class="tsd-kind-icon">get<wbr>User<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#hasclioptions" class="tsd-kind-icon">hasCLIOptions</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#hash" class="tsd-kind-icon">hash</a>
@@ -390,11 +404,11 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#ms" class="tsd-kind-icon">ms</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
-						<a href="globals.html#passupdatenotifier" class="tsd-kind-icon">pass<wbr>Update<wbr>Notifier</a>
-					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#power" class="tsd-kind-icon">power</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#pretendlatestversionis" class="tsd-kind-icon">pretend<wbr>Latest<wbr>Version<wbr>Is</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#readpackagejson" class="tsd-kind-icon">read<wbr>Package<wbr>Json</a>
@@ -425,6 +439,12 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#livetasks" class="tsd-kind-icon">Live<wbr>Tasks</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#env" class="tsd-kind-icon">env</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#repoinfo" class="tsd-kind-icon">repo<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-object-literal tsd-is-not-exported">
 						<a href="globals.html#sandboxoptions" class="tsd-kind-icon">sandbox<wbr>Options</a>
