@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/bitjson/typescript-starter/compare/v2.1.1...v2.2.0) (2018-03-16)
+
+
+### Features
+
+* **CLI:** add support for TYPESCRIPT_STARTER_REPO_BRANCH process.env, default to tag of current rel ([24ef06e](https://github.com/bitjson/typescript-starter/commit/24ef06e))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/bitjson/typescript-starter/compare/v2.1.0...v2.1.1) (2018-03-14)
 
