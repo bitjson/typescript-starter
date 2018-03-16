@@ -39,7 +39,10 @@ const branch = execa.sync('git', [
   '--abbrev-ref',
   'HEAD'
 ]).stdout;
-const repoInfo = { repo: process.cwd(), branch };
+const repoInfo = {
+  branch: branch === 'HEAD' ? 'master' : branch,
+  repo: process.cwd()
+};
 const buildDir = join(process.cwd(), 'build');
 const env = {
   TYPESCRIPT_STARTER_REPO_BRANCH: repoInfo.branch,
