@@ -128,7 +128,10 @@ async function hashAllTheThings(
     (acc, hash, i) => {
       const trimmedNormalizedFilePath = normalize(
         relative(buildDir, filePaths[i])
-      );
+      )
+        // On Windows, normalize returns "\\" as the path separator.
+        // Normalize with POSIX:
+        .replace(/\\/g, '/');
       return {
         ...acc,
         [trimmedNormalizedFilePath]: hash
