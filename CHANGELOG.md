@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/bitjson/typescript-starter/compare/v2.2.0...v2.3.0) (2018-03-16)
+
+
+### Bug Fixes
+
+* **CLI:** update execa to fix bug on Windows ([89722a4](https://github.com/bitjson/typescript-starter/commit/89722a4)), closes [#72](https://github.com/bitjson/typescript-starter/issues/72)
+* **package:** switch to double quotes because single quotes break on Windows ([f315fa4](https://github.com/bitjson/typescript-starter/commit/f315fa4))
+
+
+### Features
+
+* **CLI:** add Travis CI and Appveyor CI as extra options ([bdaafaa](https://github.com/bitjson/typescript-starter/commit/bdaafaa)), closes [#69](https://github.com/bitjson/typescript-starter/issues/69)
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/bitjson/typescript-starter/compare/v2.1.1...v2.2.0) (2018-03-16)
 
