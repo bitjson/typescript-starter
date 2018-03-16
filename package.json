@@ -94,8 +94,8 @@
   },
   "devDependencies": {
     "@types/del": "^3.0.0",
-    "@types/execa": "^0.8.1",
-    "@types/inquirer": "0.0.37",
+    "@types/execa": "^0.9.0",
+    "@types/inquirer": "0.0.38",
     "@types/meow": "^4.0.1",
     "@types/nock": "^9.1.2",
     "@types/node": "^8.9.5",
