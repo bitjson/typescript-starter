@@ -145,6 +145,8 @@ This project is tooled for [conventional changelog](https://github.com/conventio
 npm run changelog
 ```
 
+You may find a tool like [**`wip`**](https://github.com/bitjson/wip) helpful for managing work in progress before you're ready to create a meaningful commit.
+
 ## One-step publish preparation script
 
 Bringing together many of the steps above, this repo includes a one-step release preparation command.
@@ -330,11 +332,13 @@ cd typescript-starter-testing
 TYPESCRIPT_STARTER_REPO_URL='/local/path/to/typescript-starter' typescript-starter
 ```
 
-You can also `TYPESCRIPT_STARTER_REPO_URL` to any valid Git URL, such as your fork of this repo:
+You can also set `TYPESCRIPT_STARTER_REPO_URL` to any valid Git URL, such as your fork of this repo:
 
 ```
 TYPESCRIPT_STARTER_REPO_URL='https://github.com/YOUR_USERNAME/typescript-starter.git' typescript-starter
 ```
+
+If `TYPESCRIPT_STARTER_REPO_BRANCH` is not provided, it will default to `master`.
 
 If you're using [VS Code](https://code.visualstudio.com/), the `Debug CLI` launch configuration also allows you to immediately build and step through execution of the CLI.
 

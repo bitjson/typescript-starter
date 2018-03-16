@@ -7,7 +7,7 @@ import { checkArgs } from '../args';
 import {
   cloneRepo,
   getGithubUsername,
-  getRepoUrl,
+  getRepoInfo,
   getUserInfo,
   initialCommit,
   install,
@@ -32,7 +32,7 @@ test('errors if outdated', async t => {
   t.regex(error.message, /is outdated/);
 });
 
-const passUpdateNotifier = (version: string) => {
+const pretendLatestVersionIs = (version: string) => {
   nock.disableNetConnect();
   nock('https://registry.npmjs.org:443')
     .get('/typescript-starter')
@@ -50,7 +50,7 @@ const passUpdateNotifier = (version: string) => {
 test("doesn't error if not outdated", async t => {
   const currentVersion = meow('').pkg.version;
   t.truthy(typeof currentVersion === 'string');
-  passUpdateNotifier(currentVersion);
+  pretendLatestVersionIs(currentVersion);
   await t.notThrows(checkArgs);
 });
 
@@ -64,7 +64,7 @@ test('errors if update-notifier fails', async t => {
 });
 
 test('checkArgs returns the right options', async t => {
-  passUpdateNotifier('1.0.0');
+  pretendLatestVersionIs('1.0.0');
   // tslint:disable-next-line:no-object-mutation
   process.argv = [
     'path/to/node',
@@ -80,6 +80,7 @@ test('checkArgs returns the right options', async t => {
     '--no-vscode'
   ];
   const opts = await checkArgs();
+  const currentVersion = meow('').pkg.version;
   t.deepEqual(opts, {
     description: '',
     domDefinitions: true,
@@ -88,17 +89,19 @@ test('checkArgs returns the right options', async t => {
     nodeDefinitions: true,
     projectName: 'example-project',
     runner: Runner.Yarn,
+    starterVersion: currentVersion,
     strict: true,
     vscode: false
   });
 });
 
-test('checkArgs always returns { install } (so --no-install works in interactive mode)', async t => {
-  passUpdateNotifier('1.0.0');
+test('checkArgs always returns a TypescriptStarterRequiredConfig, even in interactive mode', async t => {
+  pretendLatestVersionIs('1.0.0');
   // tslint:disable-next-line:no-object-mutation
   process.argv = ['path/to/node', 'path/to/typescript-starter'];
   const opts = await checkArgs();
-  t.deepEqual(opts, { install: true });
+  t.true(typeof opts.install === 'boolean');
+  t.true(typeof opts.starterVersion === 'string');
 });
 
 test('only accepts valid package names', async t => {
@@ -128,12 +131,16 @@ const mockErr = (code?: string | number) =>
   }) as any) as ExecaStatic;
 
 test('cloneRepo: errors when Git is not installed on PATH', async t => {
-  const error = await t.throws(cloneRepo(mockErr('ENOENT'))('r', 'd', 'p'));
+  const error = await t.throws(
+    cloneRepo(mockErr('ENOENT'))({ repo: 'r', branch: 'b' }, 'd', 'p')
+  );
   t.regex(error.message, /Git is not installed on your PATH/);
 });
 
 test('cloneRepo: throws when clone fails', async t => {
-  const error = await t.throws(cloneRepo(mockErr(128))('r', 'd', 'p'));
+  const error = await t.throws(
+    cloneRepo(mockErr(128))({ repo: 'r', branch: 'b' }, 'd', 'p')
+  );
   t.regex(error.message, /Git clone failed./);
 });
 
@@ -144,7 +151,9 @@ test('cloneRepo: throws when rev-parse fails', async t => {
     calls++;
     return calls === 1 ? {} : (mockErr(128) as any)();
   }) as any) as ExecaStatic;
-  const error = await t.throws(cloneRepo(mock)('r', 'd', 'p'));
+  const error = await t.throws(
+    cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
+  );
   t.regex(error.message, /Git rev-parse failed./);
 });
 
@@ -220,6 +229,24 @@ test('install: throws pretty error on failure', async t => {
   t.is(error.message, "Installation failed. You'll need to install manually.");
 });
 
-test("getRepoUrl: returns GitHub repo when TYPESCRIPT_STARTER_REPO_URL isn't set", async t => {
-  t.is(getRepoUrl(), 'https://github.com/bitjson/typescript-starter.git');
+test("getRepoInfo: returns defaults when TYPESCRIPT_STARTER_REPO_URL/BRANCH aren't set", async t => {
+  const thisRelease = '9000.0.1';
+  t.deepEqual(getRepoInfo(thisRelease), {
+    branch: `v${thisRelease}`,
+    repo: 'https://github.com/bitjson/typescript-starter.git'
+  });
+  const url = 'https://another/repo';
+  // tslint:disable-next-line:no-object-mutation
+  process.env.TYPESCRIPT_STARTER_REPO_URL = url;
+  t.deepEqual(getRepoInfo(thisRelease), {
+    branch: `master`,
+    repo: url
+  });
+  const branch = 'test';
+  // tslint:disable-next-line:no-object-mutation
+  process.env.TYPESCRIPT_STARTER_REPO_BRANCH = branch;
+  t.deepEqual(getRepoInfo(thisRelease), {
+    branch,
+    repo: url
+  });
 });

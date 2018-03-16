@@ -2,7 +2,12 @@
 import execa, { ExecaStatic, Options, StdIOOption } from 'execa';
 import githubUsername from 'github-username';
 import { join } from 'path';
-import { Runner, TypescriptStarterInferredOptions } from './utils';
+import {
+  Runner,
+  TypescriptStarterInferredOptions,
+  TypescriptStarterOptions,
+  TypescriptStarterUserOptions
+} from './utils';
 
 // TODO: await https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24209
 const inherit = 'inherit' as StdIOOption;
@@ -18,14 +23,25 @@ export enum Placeholders {
 export const cloneRepo = (
   spawner: ExecaStatic,
   suppressOutput = false
-) => async (repoURL: string, workingDirectory: string, dir: string) => {
+) => async (
+  repoInfo: {
+    readonly branch: string;
+    readonly repo: string;
+  },
+  workingDirectory: string,
+  dir: string
+) => {
   const projectDir = join(workingDirectory, dir);
   const gitHistoryDir = join(projectDir, '.git');
   try {
-    await spawner('git', ['clone', '--depth=1', repoURL, dir], {
-      cwd: workingDirectory,
-      stdio: suppressOutput ? 'pipe' : 'inherit'
-    });
+    await spawner(
+      'git',
+      ['clone', '--depth=1', `--branch=${repoInfo.branch}`, repoInfo.repo, dir],
+      {
+        cwd: workingDirectory,
+        stdio: suppressOutput ? 'pipe' : 'inherit'
+      }
+    );
   } catch (err) {
     if (err.code === 'ENOENT') {
       throw new Error(`
@@ -97,7 +113,7 @@ export const initialCommit = (spawner: ExecaStatic) => async (
     [
       'commit',
       '-m',
-      `Initial commit\n\nCreated with typescript-starter@${hash}`
+      `Initial commit\n\nCreated with bitjson/typescript-starter@${hash}`
     ],
     opts
   );
@@ -121,16 +137,33 @@ export const install = (spawner: ExecaStatic) => async (
   }
 };
 
-export const getRepoUrl = () => {
-  return (
-    process.env.TYPESCRIPT_STARTER_REPO_URL ||
-    'https://github.com/bitjson/typescript-starter.git'
-  );
+/**
+ * Returns the URL and branch to clone. We clone the branch (tag) at the current
+ * release rather than `master`. This ensures we get the exact files expected by
+ * this version of the CLI. (If we cloned master, changes merged to master, but
+ * not yet released, may cause unexpected results.)
+ * @param starterVersion the current version of this CLI
+ */
+export const getRepoInfo = (starterVersion: string) => {
+  return process.env.TYPESCRIPT_STARTER_REPO_URL
+    ? {
+        branch: process.env.TYPESCRIPT_STARTER_REPO_BRANCH
+          ? process.env.TYPESCRIPT_STARTER_REPO_BRANCH
+          : 'master',
+        repo: process.env.TYPESCRIPT_STARTER_REPO_URL
+      }
+    : {
+        branch: `v${starterVersion}`,
+        repo: 'https://github.com/bitjson/typescript-starter.git'
+      };
 };
 
 export interface Tasks {
   readonly cloneRepo: (
-    repoURL: string,
+    repoInfo: {
+      readonly branch: string;
+      readonly repo: string;
+    },
     workingDirectory: string,
     dir: string
   ) => Promise<{ readonly commitHash: string; readonly gitHistoryDir: string }>;
@@ -147,16 +180,28 @@ export const LiveTasks: Tasks = {
   initialCommit: initialCommit(execa),
   install: install(execa)
 };
-export const getInferredOptions = async (): Promise<
-  TypescriptStarterInferredOptions
-> => {
+export const addInferredOptions = async (
+  userOptions: TypescriptStarterUserOptions
+): Promise<TypescriptStarterOptions> => {
   const { gitName, gitEmail } = await getUserInfo(execa)();
   const username = await getGithubUsername(githubUsername)(gitEmail);
-  return {
+  const inferredOptions: TypescriptStarterInferredOptions = {
     email: gitEmail,
     fullName: gitName,
     githubUsername: username,
-    repoURL: getRepoUrl(),
+    repoInfo: getRepoInfo(userOptions.starterVersion),
     workingDirectory: process.cwd()
+  };
+  return {
+    ...inferredOptions,
+    description: userOptions.description,
+    domDefinitions: userOptions.domDefinitions,
+    immutable: userOptions.immutable,
+    install: userOptions.install,
+    nodeDefinitions: userOptions.nodeDefinitions,
+    projectName: userOptions.projectName,
+    runner: userOptions.runner,
+    strict: userOptions.strict,
+    vscode: userOptions.vscode
   };
 };

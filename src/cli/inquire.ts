@@ -1,7 +1,7 @@
 import { prompt, Question } from 'inquirer';
-import { Runner, TypescriptStarterUserOptions, validateName } from './utils';
+import { Runner, TypescriptStarterCLIOptions, validateName } from './utils';
 
-export async function inquire(): Promise<TypescriptStarterUserOptions> {
+export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   const packageNameQuestion: Question = {
     filter: (answer: string) => answer.trim(),
     message: '📦 Enter the new package name:',

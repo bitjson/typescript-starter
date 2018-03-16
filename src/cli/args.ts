@@ -2,11 +2,9 @@
 
 import meow from 'meow';
 import { Package, UpdateInfo, UpdateNotifier } from 'update-notifier';
-import { Runner, TypescriptStarterUserOptions, validateName } from './utils';
+import { Runner, TypescriptStarterArgsOptions, validateName } from './utils';
 
-export async function checkArgs(): Promise<
-  Partial<TypescriptStarterUserOptions>
-> {
+export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
   const cli = meow(
     `
 	Usage
@@ -90,7 +88,8 @@ export async function checkArgs(): Promise<
     // note: we always return `install`, so --no-install always works
     // (important for test performance)
     return {
-      install: cli.flags.install
+      install: cli.flags.install,
+      starterVersion: cli.pkg.version
     };
   }
   const validOrMsg = await validateName(input);
@@ -106,6 +105,7 @@ export async function checkArgs(): Promise<
     nodeDefinitions: cli.flags.node,
     projectName: input,
     runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,
+    starterVersion: cli.pkg.version,
     strict: cli.flags.strict,
     vscode: cli.flags.vscode
   };

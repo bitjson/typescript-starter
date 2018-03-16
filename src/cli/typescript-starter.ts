@@ -19,7 +19,7 @@ export async function typescriptStarter(
     install,
     nodeDefinitions,
     projectName,
-    repoURL,
+    repoInfo,
     runner,
     strict,
     vscode,
@@ -29,7 +29,7 @@ export async function typescriptStarter(
 ): Promise<void> {
   console.log();
   const { commitHash, gitHistoryDir } = await tasks.cloneRepo(
-    repoURL,
+    repoInfo,
     workingDirectory,
     projectName
   );

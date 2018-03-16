@@ -33,8 +33,18 @@ import { Runner } from '../utils';
  * directory for easier clean up.
  */
 
-const repoURL = process.cwd();
+const branch = execa.sync('git', [
+  'rev-parse',
+  '--symbolic-full-name',
+  '--abbrev-ref',
+  'HEAD'
+]).stdout;
+const repoInfo = { repo: process.cwd(), branch };
 const buildDir = join(process.cwd(), 'build');
+const env = {
+  TYPESCRIPT_STARTER_REPO_BRANCH: repoInfo.branch,
+  TYPESCRIPT_STARTER_REPO_URL: repoInfo.repo
+};
 
 enum TestDirectories {
   one = 'test-1',
@@ -134,9 +144,7 @@ test(`${
     ],
     {
       cwd: buildDir,
-      env: {
-        TYPESCRIPT_STARTER_REPO_URL: repoURL
-      }
+      env
     }
   );
   t.regex(stdout, new RegExp(`Created ${TestDirectories.one} 🎉`));
@@ -172,9 +180,7 @@ test(`${
     ],
     {
       cwd: buildDir,
-      env: {
-        TYPESCRIPT_STARTER_REPO_URL: repoURL
-      }
+      env
     }
   );
   t.regex(stdout, new RegExp(`Created ${TestDirectories.two} 🎉`));
@@ -210,9 +216,7 @@ async function testInteractive(
   const typeDefs = entry[3] !== '';
   const proc = execa(`../bin/typescript-starter`, ['--no-install'], {
     cwd: buildDir,
-    env: {
-      TYPESCRIPT_STARTER_REPO_URL: repoURL
-    }
+    env
   });
 
   // TODO: missing in Node.js type definition's ChildProcess.stdin?
@@ -351,7 +355,7 @@ const sandboxTasks = (
 const sandboxOptions = {
   description: 'this is an example description',
   githubUsername: 'SOME_GITHUB_USERNAME',
-  repoURL,
+  repoInfo,
   workingDirectory: buildDir
 };
 

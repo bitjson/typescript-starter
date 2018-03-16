@@ -7,7 +7,7 @@ export enum Runner {
   Yarn = 'yarn'
 }
 
-export interface TypescriptStarterUserOptions {
+export interface TypescriptStarterCLIOptions {
   readonly description: string;
   readonly domDefinitions: boolean;
   readonly immutable: boolean;
@@ -19,17 +19,40 @@ export interface TypescriptStarterUserOptions {
   readonly vscode: boolean;
 }
 
+export interface TypescriptStarterRequiredConfig {
+  readonly starterVersion: string;
+  readonly install: boolean;
+}
+
+export type TypescriptStarterUserOptions = TypescriptStarterCLIOptions &
+  TypescriptStarterRequiredConfig;
+
+export type TypescriptStarterArgsOptions =
+  | TypescriptStarterUserOptions
+  | TypescriptStarterRequiredConfig;
+
 export interface TypescriptStarterInferredOptions {
   readonly githubUsername: string;
   readonly fullName: string;
   readonly email: string;
-  readonly repoURL: string;
+  readonly repoInfo: {
+    readonly repo: string;
+    readonly branch: string;
+  };
   readonly workingDirectory: string;
 }
 
 export interface TypescriptStarterOptions
-  extends TypescriptStarterUserOptions,
-    TypescriptStarterInferredOptions {}
+  extends TypescriptStarterCLIOptions,
+    TypescriptStarterInferredOptions {
+  // readonly starterVersion?: string;
+}
+
+export function hasCLIOptions(
+  opts: TypescriptStarterArgsOptions
+): opts is TypescriptStarterUserOptions {
+  return (opts as TypescriptStarterUserOptions).projectName !== undefined;
+}
 
 export function validateName(input: string): true | string {
   return !validateNpmPackageName(input).validForNewPackages
