@@ -1,0 +1,20 @@
+environment:
+  matrix:
+    - nodejs_version: 8
+    - nodejs_version: 9
+
+version: "{build}"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - node --version
+  - npm --version
+  - npm install
+
+test_script:
+  - npm test
+  - npx nyc report --reporter=lcov | npx codecov
+  - npm run cov:check
+
+build: off
+deploy: off
