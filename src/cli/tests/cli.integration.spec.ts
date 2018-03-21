@@ -40,7 +40,8 @@ const branch = execa.sync('git', [
   'HEAD'
 ]).stdout;
 const repoInfo = {
-  branch: branch === 'HEAD' ? 'master' : branch,
+  // if local repo is in a detached HEAD state, providing --branch to `git clone` will fail.
+  branch: branch === 'HEAD' ? '.' : branch,
   repo: process.cwd()
 };
 const buildDir = join(process.cwd(), 'build');

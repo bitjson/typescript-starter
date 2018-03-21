@@ -33,15 +33,21 @@ export const cloneRepo = (
 ) => {
   const projectDir = join(workingDirectory, dir);
   const gitHistoryDir = join(projectDir, '.git');
+  const args =
+    repoInfo.branch === '.'
+      ? ['clone', '--depth=1', repoInfo.repo, dir]
+      : [
+          'clone',
+          '--depth=1',
+          `--branch=${repoInfo.branch}`,
+          repoInfo.repo,
+          dir
+        ];
   try {
-    await spawner(
-      'git',
-      ['clone', '--depth=1', `--branch=${repoInfo.branch}`, repoInfo.repo, dir],
-      {
-        cwd: workingDirectory,
-        stdio: suppressOutput ? 'pipe' : 'inherit'
-      }
-    );
+    await spawner('git', args, {
+      cwd: workingDirectory,
+      stdio: suppressOutput ? 'pipe' : 'inherit'
+    });
   } catch (err) {
     if (err.code === 'ENOENT') {
       throw new Error(`

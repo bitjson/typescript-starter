@@ -138,7 +138,7 @@ const mockErr = (code?: string | number) =>
 
 test('cloneRepo: errors when Git is not installed on PATH', async t => {
   const error = await t.throws(
-    cloneRepo(mockErr('ENOENT'))({ repo: 'r', branch: 'b' }, 'd', 'p')
+    cloneRepo(mockErr('ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
   );
   t.regex(error.message, /Git is not installed on your PATH/);
 });
