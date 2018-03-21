@@ -123,6 +123,11 @@ export async function typescriptStarter(
     from: 'Jason Dreyzehner',
     to: fullName
   });
+  await replace({
+    files: join(projectPath, 'LICENSE'),
+    from: '2017',
+    to: new Date().getUTCFullYear()
+  });
   spinnerLicense.succeed();
 
   const spinnerDelete = ora('Deleting unnecessary files').start();
