@@ -210,7 +210,7 @@ export async function typescriptStarter(
     });
     await replace({
       files: join(projectPath, 'src', 'index.ts'),
-      from: `export * from './lib/hash';\n`,
+      from: /^export[\S\s]*hash';\s*/,
       to: ''
     });
     await del([
