@@ -5,7 +5,6 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/bitjson/typescript-starter.svg)](https://circleci.com/gh/bitjson/typescript-starter)
 [![Travis](https://img.shields.io/travis/bitjson/typescript-starter.svg)](https://travis-ci.org/bitjson/typescript-starter)
 [![AppVeyor](https://img.shields.io/appveyor/ci/bitjson/typescript-starter.svg)](https://ci.appveyor.com/project/bitjson/typescript-starter)
-[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 [![GitHub stars](https://img.shields.io/github/stars/bitjson/typescript-starter.svg?style=social&logo=github&label=Stars)](https://github.com/bitjson/typescript-starter)
 
 <p align="center">
