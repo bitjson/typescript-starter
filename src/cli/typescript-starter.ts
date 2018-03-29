@@ -88,6 +88,7 @@ export async function typescriptStarter(
     description,
     devDependencies: filterAllBut(keptDevDeps, pkg.devDependencies),
     keywords: [],
+    name: projectName,
     repository: `https://github.com/${githubUsername}/${projectName}`,
     scripts:
       runner === Runner.Yarn
