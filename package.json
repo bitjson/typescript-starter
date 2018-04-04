@@ -92,7 +92,7 @@
   "devDependencies": {
     "@types/del": "^3.0.0",
     "@types/execa": "^0.9.0",
-    "@types/inquirer": "0.0.40",
+    "@types/inquirer": "0.0.41",
     "@types/meow": "^4.0.1",
     "@types/nock": "^9.1.2",
     "@types/node": "^8.9.5",
