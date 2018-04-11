@@ -99,7 +99,7 @@ This will create an HTML report of test coverage – source-mapped back to Types
 The src folder is analyzed and documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc).
 
 ```bash
-npm run docs
+npm run doc
 ```
 
 This command generates API documentation for your library in HTML format and opens it in a browser.
@@ -109,7 +109,7 @@ Since types are tracked by Typescript, there's no need to indicate types in JSDo
 To generate and publish your documentation to [GitHub Pages](https://pages.github.com/) use the following command:
 
 ```bash
-npm run docs:publish
+npm run doc:publish
 ```
 
 Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [`typescript-starter`'s GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
@@ -121,7 +121,7 @@ Once published, your documentation should be available at the proper GitHub Page
 For more advanced documentation generation, you can provide your own [TypeDoc theme](http://typedoc.org/guides/themes/), or [build your own documentation](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) using the JSON TypeDoc export:
 
 ```bash
-npm run docs:json
+npm run doc:json
 ```
 
 ## Update the changelog, commit, & tag release
@@ -167,7 +167,7 @@ npm run version -- --sign # PGP sign it
 npm run version -- --prerelease alpha # alpha release
 
 # And don't forget to push the docs to GitHub pages:
-npm run docs:publish
+npm run doc:publish
 ```
 
 This command runs the following tasks:
