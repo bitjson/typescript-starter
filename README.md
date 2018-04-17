@@ -124,7 +124,7 @@ For more advanced documentation generation, you can provide your own [TypeDoc th
 npm run doc:json
 ```
 
-## Update the changelog, commit, & tag release
+## Bump version, update changelog, commit, & tag release
 
 It's recommended that you install [`commitizen`](https://github.com/commitizen/cz-cli) to make commits to your project.
 
@@ -139,7 +139,7 @@ This project is tooled for [conventional changelog](https://github.com/conventio
 
 ```bash
 # bump package.json version, update CHANGELOG.md, git tag the release
-npm run changelog
+npm run version
 ```
 
 You may find a tool like [**`wip`**](https://github.com/bitjson/wip) helpful for managing work in progress before you're ready to create a meaningful commit.
@@ -153,30 +153,13 @@ Bringing together many of the steps above, this repo includes a one-step release
 npm run prepare-release
 ```
 
-You can also prepare a non-standard release:
-
-```bash
-# Or a non-standard release:
-
-# Build everything
-npm run all
-
-# Then version it
-npm run version -- --first-release # don't bump package.json version
-npm run version -- --sign # PGP sign it
-npm run version -- --prerelease alpha # alpha release
-
-# And don't forget to push the docs to GitHub pages:
-npm run doc:publish
-```
-
 This command runs the following tasks:
 
 * `reset`: cleans the repo by removing all untracked files and resetting `--hard` to the latest commit. (**Note: this could be destructive.**)
 * `test`: build and fully test the project
 * `docs:html`: generate the latest version of the documentation
 * `docs:publish`: publish the documentation to GitHub Pages
-* `changelog`: bump package.json version, update CHANGELOG.md, and git tag the release
+* `version`: bump package.json version, update CHANGELOG.md, and git tag the release
 
 When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the `npm` registry:
 
@@ -185,6 +168,30 @@ git push --follow-tags origin master; npm publish
 ```
 
 Look over the release if you'd like, then execute the command to publish everything.
+
+You can also prepare a non-standard release:
+
+```bash
+# Or a non-standard release:
+
+# Build everything
+npm run all
+
+# Then version it with standard-version options. e.g.:
+# don't bump package.json version
+npm run version -- --first-release
+
+# Other popular options include:
+
+# PGP sign it:
+# $ npm run version -- --sign
+
+# alpha release:
+# $ npm run version -- --prerelease alpha
+
+# And don't forget to push the docs to GitHub pages:
+npm run doc:publish
+```
 
 ## Get scripts info
 
@@ -211,11 +218,11 @@ doc:
   Generate HTML API documentation and open it in a browser
 doc:json:
   Generate API documentation in typedoc JSON format
-changelog:
+version:
   Bump package.json version, update CHANGELOG.md, tag release
 reset:
   Delete all untracked files and reset the repo to the last commit
-release:
+prepare-release:
   One-step: clean, build, test, publish docs, and prep a release
 ```
 
