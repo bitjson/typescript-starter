@@ -80,7 +80,7 @@
     "github-username": "^4.1.0",
     "globby": "^8.0.1",
     "gradient-string": "^1.0.0",
-    "inquirer": "^5.1.0",
+    "inquirer": "^6.0.0",
     "meow": "^4.0.0",
     "ora": "^2.0.0",
     "project-version": "^1.0.0",
