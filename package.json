@@ -73,48 +73,48 @@
   "NOTE": "These dependencies are for the CLI, and will be removed automatically.",
   "dependencies": {
     "@types/globby": "^6.1.0",
-    "chalk": "^2.3.1",
+    "chalk": "^2.4.1",
     "del": "^3.0.0",
     "execa": "^0.10.0",
     "github-username": "^4.1.0",
     "globby": "^8.0.1",
-    "gradient-string": "^1.0.0",
-    "inquirer": "^5.1.0",
-    "meow": "^4.0.0",
-    "ora": "^2.0.0",
+    "gradient-string": "^1.1.0",
+    "inquirer": "^6.0.0",
+    "meow": "^5.0.0",
+    "ora": "^2.1.0",
     "project-version": "^1.0.0",
-    "replace-in-file": "^3.1.1",
-    "sha.js": "^2.4.10",
+    "replace-in-file": "^3.4.0",
+    "sha.js": "^2.4.11",
     "update-notifier": "^2.5.0",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
-    "@types/del": "^3.0.0",
+    "@types/del": "^3.0.1",
     "@types/execa": "^0.9.0",
     "@types/inquirer": "0.0.41",
     "@types/meow": "^4.0.1",
-    "@types/nock": "^9.1.2",
-    "@types/node": "^8.9.5",
-    "@types/ora": "^1.3.2",
+    "@types/nock": "^9.1.3",
+    "@types/node": "^10.3.0",
+    "@types/ora": "^1.3.4",
     "@types/update-notifier": "^2.2.0",
-    "ava": "^1.0.0-beta.3",
-    "codecov": "^3.0.0",
+    "ava": "^1.0.0-beta.5.1",
+    "codecov": "^3.0.2",
     "cz-conventional-changelog": "^2.1.0",
-    "gh-pages": "^1.0.0",
+    "gh-pages": "^1.2.0",
     "md5-file": "^4.0.0",
-    "nock": "^9.2.3",
-    "npm-run-all": "^4.1.2",
-    "nyc": "^11.5.0",
+    "nock": "^9.3.0",
+    "npm-run-all": "^4.1.3",
+    "nyc": "^12.0.2",
     "opn-cli": "^3.1.0",
-    "prettier": "^1.10.2",
-    "standard-version": "^4.0.0",
+    "prettier": "^1.13.4",
+    "standard-version": "^4.4.0",
     "trash-cli": "^1.4.0",
-    "tslint": "^5.4.3",
-    "tslint-config-prettier": "^1.8.0",
-    "tslint-immutable": "^4.5.1",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "tslint-immutable": "^4.5.4",
     "typedoc": "^0.11.1",
-    "typescript": "^2.4.1"
+    "typescript": "^2.9.1"
   },
   "ava": {
     "failFast": true,
@@ -129,11 +129,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "greenkeeper": {
-    "ignore": [
-      "@types/node"
-    ]
   },
   "prettier": {
     "singleQuote": true
