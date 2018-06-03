@@ -39,7 +39,6 @@
     "test": "run-s build test:*",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
     "test:unit": "nyc --silent ava",
-    "test:nsp": "nsp check",
     "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
     "cov": "run-s build test:unit cov:html && opn coverage/index.html",
     "cov:html": "nyc report --reporter=html",
@@ -86,7 +85,7 @@
     "project-version": "^1.0.0",
     "replace-in-file": "^3.1.1",
     "sha.js": "^2.4.10",
-    "update-notifier": "^2.3.0",
+    "update-notifier": "^2.5.0",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
@@ -106,7 +105,6 @@
     "md5-file": "^4.0.0",
     "nock": "^9.2.3",
     "npm-run-all": "^4.1.2",
-    "nsp": "^3.2.1",
     "nyc": "^11.5.0",
     "opn-cli": "^3.1.0",
     "prettier": "^1.10.2",
