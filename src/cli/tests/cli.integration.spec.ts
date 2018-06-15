@@ -168,7 +168,7 @@ test(`${
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-1/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
-    'test-1/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-1/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-1/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-1/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
@@ -213,7 +213,7 @@ test(`${
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-2/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
-    'test-2/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-2/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-2/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-2/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
@@ -326,7 +326,7 @@ test(`${
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-3/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
-    'test-3/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-3/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-3/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-3/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
@@ -365,7 +365,7 @@ test(`${
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-4/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
-    'test-4/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-4/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-4/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-4/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
@@ -444,7 +444,7 @@ test(`${
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-5/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
-    'test-5/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-5/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '8786d80048d9c837477dc3b807aaf598',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
@@ -487,7 +487,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-6/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
-    'test-6/.npmignore': 'd32d96087924f360f31b0438bb69d17e',
+    'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': '37c491db59862df6ae963ee1250ed1bf',
     'test-6/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
