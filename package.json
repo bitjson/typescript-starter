@@ -81,7 +81,7 @@
     "gradient-string": "^1.1.0",
     "inquirer": "^6.0.0",
     "meow": "^5.0.0",
-    "ora": "^2.1.0",
+    "ora": "^3.0.0",
     "project-version": "^1.0.0",
     "replace-in-file": "^3.4.0",
     "sha.js": "^2.4.11",
