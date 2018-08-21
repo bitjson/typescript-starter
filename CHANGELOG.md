@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.9"></a>
+## [2.3.9](https://github.com/bitjson/typescript-starter/compare/v2.3.8...v2.3.9) (2018-08-21)
+
+
+### Bug Fixes
+
+* **dependencies:** upgrade dependencies, fix issues caused by breaking changes ([8a692bf](https://github.com/bitjson/typescript-starter/commit/8a692bf))
+* **test:** use recommended AVA import style ([b2af806](https://github.com/bitjson/typescript-starter/commit/b2af806))
+
+
+
 <a name="2.3.8"></a>
 ## [2.3.8](https://github.com/bitjson/typescript-starter/compare/v2.3.7...v2.3.8) (2018-06-15)
 
