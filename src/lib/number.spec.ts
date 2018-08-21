@@ -1,5 +1,5 @@
 // tslint:disable:no-expression-statement
-import { test } from 'ava';
+import test from 'ava';
 import { double, power } from './number';
 
 test('double', t => {
