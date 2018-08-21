@@ -28,7 +28,7 @@ test('errors if outdated', async t => {
         }
       }
     });
-  const error = await t.throws(checkArgs);
+  const error = await t.throwsAsync(checkArgs);
   t.regex(error.message, /is outdated/);
 });
 
@@ -59,7 +59,7 @@ test('errors if update-notifier fails', async t => {
   nock('https://registry.npmjs.org:443')
     .get('/typescript-starter')
     .reply(404, {});
-  const error = await t.throws(checkArgs);
+  const error = await t.throwsAsync(checkArgs);
   t.regex(error.message, /doesn\'t exist/);
 });
 
@@ -137,14 +137,14 @@ const mockErr = (code?: string | number) =>
   }) as any) as ExecaStatic;
 
 test('cloneRepo: errors when Git is not installed on PATH', async t => {
-  const error = await t.throws(
+  const error = await t.throwsAsync(
     cloneRepo(mockErr('ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
   );
   t.regex(error.message, /Git is not installed on your PATH/);
 });
 
 test('cloneRepo: throws when clone fails', async t => {
-  const error = await t.throws(
+  const error = await t.throwsAsync(
     cloneRepo(mockErr(128))({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
   t.regex(error.message, /Git clone failed./);
@@ -157,7 +157,7 @@ test('cloneRepo: throws when rev-parse fails', async t => {
     calls++;
     return calls === 1 ? {} : (mockErr(128) as any)();
   }) as any) as ExecaStatic;
-  const error = await t.throws(
+  const error = await t.throwsAsync(
     cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
   t.regex(error.message, /Git rev-parse failed./);
@@ -211,7 +211,9 @@ test('getUserInfo: returns results properly', async t => {
 });
 
 test('initialCommit: throws generated errors', async t => {
-  const error = await t.throws(initialCommit(mockErr(1))('deadbeef', 'fail'));
+  const error = await t.throwsAsync(
+    initialCommit(mockErr(1))('deadbeef', 'fail')
+  );
   t.is(error.code, 1);
 });
 
@@ -220,7 +222,7 @@ test('initialCommit: spawns 3 times', async t => {
   const mock = ((async () => {
     t.pass();
   }) as any) as ExecaStatic;
-  await t.notThrows(initialCommit(mock)('commit', 'dir'));
+  await t.notThrowsAsync(initialCommit(mock)('commit', 'dir'));
 });
 
 test('install: uses the correct runner', async t => {
@@ -231,7 +233,7 @@ test('install: uses the correct runner', async t => {
 });
 
 test('install: throws pretty error on failure', async t => {
-  const error = await t.throws(install(mockErr())(Runner.Npm, 'fail'));
+  const error = await t.throwsAsync(install(mockErr())(Runner.Npm, 'fail'));
   t.is(error.message, "Installation failed. You'll need to install manually.");
 });
 

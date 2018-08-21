@@ -85,14 +85,14 @@ test('returns help/usage', async t => {
 
 test('errors if project name collides with an existing path', async t => {
   const existingDir = 'build';
-  const error = await t.throws(
+  const error = await t.throwsAsync(
     execa(`./bin/typescript-starter`, [existingDir])
   );
   t.regex(error.stderr, /"build" path already exists/);
 });
 
 test('errors if project name is not in kebab-case', async t => {
-  const error = await t.throws(
+  const error = await t.throwsAsync(
     execa(`./bin/typescript-starter`, ['name with spaces'])
   );
   t.regex(error.stderr, /should be in-kebab-case/);
@@ -167,14 +167,14 @@ test(`${
     'test-1/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-1/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
+    'test-1/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
     'test-1/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-1/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-1/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-1/README.md': '7a9f4efa9213266c3800f3cc82a53ba7',
     'test-1/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
-    'test-1/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-1/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-1/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-1/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-1/tsconfig.json': '0e04adfce2f26c6473f079f6dabd108a',
@@ -212,18 +212,18 @@ test(`${
     'test-2/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-2/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
+    'test-2/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-2/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-2/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-2/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-2/README.md': 'ddaf27da4cc4ca5225785f0ac8f4da58',
     'test-2/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
-    'test-2/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-2/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-2/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
-    'test-2/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-2/src/lib/hash.spec.ts': '1644d8e40a8812a63f79db318973bb82',
     'test-2/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
-    'test-2/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-2/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-2/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-2/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-2/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
@@ -325,18 +325,18 @@ test(`${
     'test-3/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-3/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
+    'test-3/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-3/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-3/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-3/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-3/README.md': 'c52631ebf78f6b030af9a109b769b647',
     'test-3/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
-    'test-3/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-3/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-3/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
-    'test-3/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-3/src/lib/hash.spec.ts': '1644d8e40a8812a63f79db318973bb82',
     'test-3/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
-    'test-3/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-3/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-3/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-3/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-3/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
@@ -364,18 +364,18 @@ test(`${
     'test-4/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-4/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
+    'test-4/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
     'test-4/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-4/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
     'test-4/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-4/README.md': 'a3e0699b39498df4843c9dde95f1e000',
     'test-4/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
-    'test-4/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-4/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-4/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
-    'test-4/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-4/src/lib/hash.spec.ts': '1644d8e40a8812a63f79db318973bb82',
     'test-4/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
-    'test-4/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-4/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-4/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-4/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-4/tsconfig.json': 'e41d08f0aca16cb05430b61e4b6286db',
@@ -443,14 +443,14 @@ test(`${
     'test-5/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-5/.gitignore': '71f7e4ca0e9977a8815c0290c9ddbb1a',
+    'test-5/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
     'test-5/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '8786d80048d9c837477dc3b807aaf598',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
-    'test-5/package.json': 'c22c12409249c504ca5acfe6621e9e50',
+    'test-5/package.json': 'b46c07508b857225c71ff8ab98aad67b',
     'test-5/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
-    'test-5/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-5/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-5/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-5/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-5/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
@@ -486,7 +486,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-6/.gitignore': 'a5d12062173e075833f8ca6f754d6d43',
+    'test-6/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': '37c491db59862df6ae963ee1250ed1bf',
@@ -495,13 +495,13 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/LICENSE': '1f08fdd25d16c4ee8d5233b9cb7f6051',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
     'test-6/appveyor.yml': 'ad473b824b29edfd21c18cfc8ae8e0ea',
-    'test-6/package.json': '769a21a20344af7a44f218a4739ef611',
+    'test-6/package.json': 'cbdfce602508fba7ebbca7ef125d3710',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
-    'test-6/src/lib/async.spec.ts': '1e83b84de3f3b068244885219acb42bd',
+    'test-6/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-6/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
-    'test-6/src/lib/hash.spec.ts': '87bfca3c0116fd86a353750fcf585ecf',
+    'test-6/src/lib/hash.spec.ts': '1644d8e40a8812a63f79db318973bb82',
     'test-6/src/lib/hash.ts': 'a4c552897f25da5963f410e375264bd1',
-    'test-6/src/lib/number.spec.ts': '40ebb014eb7871d1f810c618aba1d589',
+    'test-6/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-6/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
     'test-6/src/types/example.d.ts': '4221812f6f0434eec77ccb1fba1e3759',
     'test-6/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
