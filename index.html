@@ -70,14 +70,13 @@
 					<a href="https://circleci.com/gh/bitjson/typescript-starter"><img src="https://img.shields.io/circleci/project/github/bitjson/typescript-starter.svg" alt="CircleCI"></a>
 					<a href="https://travis-ci.org/bitjson/typescript-starter"><img src="https://img.shields.io/travis/bitjson/typescript-starter.svg" alt="Travis"></a>
 					<a href="https://ci.appveyor.com/project/bitjson/typescript-starter"><img src="https://img.shields.io/appveyor/ci/bitjson/typescript-starter.svg" alt="AppVeyor"></a>
-				<a href="https://github.com/bitjson/typescript-starter"><img src="https://img.shields.io/github/stars/bitjson/typescript-starter.svg?style=social&amp;logo=github&amp;label=Stars" alt="GitHub stars"></a></p>
+				<a href="https://github.com/bitjson/typescript-starter"><img src="https://img.shields.io/github/stars/bitjson/typescript-starter.svg?style=social&logo=github&label=Stars" alt="GitHub stars"></a></p>
 				<p align="center">
 					<img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/c3e3b7ec/demo.svg">
 				</p>
 				<h2 id="start-now">Start Now</h2>
 				<p>Run one simple command to install and use the interactive project generator. You&#39;ll need <a href="https://nodejs.org/">Node</a> <code>v8.9</code> (the current LTS release) or later.</p>
-				<pre><code class="lang-bash">npx typescript-starter
-</code></pre>
+				<pre><code class="language-bash">npx typescript-starter</code></pre>
 				<p>The interactive CLI will help you create and configure your project automatically.</p>
 				<blockquote>
 					<p>Since this repo includes <a href="./src/cli">the CLI and it&#39;s tests</a>, you&#39;ll only need to fork or clone this project if you want to contribute. If you find this project useful, please consider <a href="https://github.com/bitjson/typescript-starter/stargazers">leaving a star</a> so others can find it. Thanks!</p>
@@ -110,8 +109,7 @@
 				<h1 id="developing-with-typescript-starter">Developing with typescript-starter</h1>
 				<h2 id="development-zen">Development zen</h2>
 				<p>To start working, run the <code>watch</code> task using <a href="https://docs.npmjs.com/getting-started/what-is-npm"><code>npm</code></a> or <a href="https://yarnpkg.com/"><code>yarn</code></a>.</p>
-				<pre><code class="lang-bash">npm run watch
-</code></pre>
+				<pre><code class="language-bash">npm run watch</code></pre>
 				<p>This starter includes a watch task which makes development faster and more interactive. It&#39;s particularly helpful for <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>/<a href="https://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a> workflows.</p>
 				<p>The watch task will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.</p>
 				<p align="center">
@@ -124,45 +122,38 @@
 				<p>To enable additional Typescript type checking features (a good idea for mission-critical or large projects), review the commented-out lines in your <a href="./tsconfig.json">typescript compiler options</a>.</p>
 				<h2 id="view-test-coverage">View test coverage</h2>
 				<p>To generate and view test coverage, run:</p>
-				<pre><code class="lang-bash">npm run cov
-</code></pre>
+				<pre><code class="language-bash">npm run cov</code></pre>
 				<p>This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.</p>
 				<p align="center">
 					<img height="600" alt="source-mapped typescript test coverage example" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png">
 				</p>
 				<h2 id="generate-your-api-docs">Generate your API docs</h2>
 				<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">TypeDoc</a>.</p>
-				<pre><code class="lang-bash">npm run doc
-</code></pre>
+				<pre><code class="language-bash">npm run doc</code></pre>
 				<p>This command generates API documentation for your library in HTML format and opens it in a browser.</p>
 				<p>Since types are tracked by Typescript, there&#39;s no need to indicate types in JSDoc format. For more information, see the <a href="http://typedoc.org/guides/doccomments/">TypeDoc documentation</a>.</p>
 				<p>To generate and publish your documentation to <a href="https://pages.github.com/">GitHub Pages</a> use the following command:</p>
-				<pre><code class="lang-bash">npm run doc:publish
-</code></pre>
+				<pre><code class="language-bash">npm run doc:publish</code></pre>
 				<p>Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See <a href="https://bitjson.github.io/typescript-starter/"><code>typescript-starter</code>&#39;s GitHub Pages</a> for an example.</p>
 				<p align="center">
 					<img height="500" alt="TypeDoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
 				</p>
 				<p>For more advanced documentation generation, you can provide your own <a href="http://typedoc.org/guides/themes/">TypeDoc theme</a>, or <a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/">build your own documentation</a> using the JSON TypeDoc export:</p>
-				<pre><code class="lang-bash">npm run doc:json
-</code></pre>
+				<pre><code class="language-bash">npm run doc:json</code></pre>
 				<h2 id="bump-version-update-changelog-commit-tag-release">Bump version, update changelog, commit, &amp; tag release</h2>
 				<p>It&#39;s recommended that you install <a href="https://github.com/commitizen/cz-cli"><code>commitizen</code></a> to make commits to your project.</p>
-				<pre><code class="lang-bash">npm install -g commitizen
+				<pre><code class="language-bash">npm install -g commitizen
 
 <span class="hljs-comment"># commit your changes:</span>
-git cz
-</code></pre>
+git cz</code></pre>
 				<p>This project is tooled for <a href="https://github.com/conventional-changelog/conventional-changelog">conventional changelog</a> to make managing releases easier. See the <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> documentation for more information on the workflow, or <a href="CHANGELOG.md"><code>CHANGELOG.md</code></a> for an example.</p>
-				<pre><code class="lang-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
-npm run version
-</code></pre>
+				<pre><code class="language-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
+npm run version</code></pre>
 				<p>You may find a tool like <a href="https://github.com/bitjson/wip"><strong><code>wip</code></strong></a> helpful for managing work in progress before you&#39;re ready to create a meaningful commit.</p>
 				<h2 id="one-step-publish-preparation-script">One-step publish preparation script</h2>
 				<p>Bringing together many of the steps above, this repo includes a one-step release preparation command.</p>
-				<pre><code class="lang-bash"><span class="hljs-comment"># Prepare a standard release:</span>
-npm run prepare-release
-</code></pre>
+				<pre><code class="language-bash"><span class="hljs-comment"># Prepare a standard release:</span>
+npm run prepare-release</code></pre>
 				<p>This command runs the following tasks:</p>
 				<ul>
 					<li><code>reset</code>: cleans the repo by removing all untracked files and resetting <code>--hard</code> to the latest commit. (<strong>Note: this could be destructive.</strong>)</li>
@@ -172,11 +163,10 @@ npm run prepare-release
 					<li><code>version</code>: bump package.json version, update CHANGELOG.md, and git tag the release</li>
 				</ul>
 				<p>When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the <code>npm</code> registry:</p>
-				<pre><code class="lang-bash">git push --follow-tags origin master; npm publish
-</code></pre>
+				<pre><code class="language-bash">git push --follow-tags origin master; npm publish</code></pre>
 				<p>Look over the release if you&#39;d like, then execute the command to publish everything.</p>
 				<p>You can also prepare a non-standard release:</p>
-				<pre><code class="lang-bash"><span class="hljs-comment"># Or a non-standard release:</span>
+				<pre><code class="language-bash"><span class="hljs-comment"># Or a non-standard release:</span>
 
 <span class="hljs-comment"># Build everything</span>
 npm run all
@@ -194,8 +184,7 @@ npm run version -- --first-release
 <span class="hljs-comment"># $ npm run version -- --prerelease alpha</span>
 
 <span class="hljs-comment"># And don't forget to push the docs to GitHub pages:</span>
-npm run doc:publish
-</code></pre>
+npm run doc:publish</code></pre>
 				<h2 id="get-scripts-info">Get scripts info</h2>
 				<p>You can run the <code>info</code> script for information on each script intended to be individually run.</p>
 				<pre><code>npm run info
@@ -223,8 +212,7 @@ doc:json:
 reset:
   Delete all untracked <span class="hljs-built_in">files</span> <span class="hljs-keyword">and</span> reset <span class="hljs-keyword">the</span> repo <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">last</span> commit
 <span class="hljs-built_in">prepare</span>-release:
-  One-step: clean, build, test, publish docs, <span class="hljs-keyword">and</span> prep <span class="hljs-keyword">a</span> release
-</code></pre><h1 id="faqs">FAQs</h1>
+  One-step: clean, build, test, publish docs, <span class="hljs-keyword">and</span> prep <span class="hljs-keyword">a</span> release</code></pre><h1 id="faqs">FAQs</h1>
 				<h2 id="why-are-there-two-builds-main-and-module-">Why are there two builds? (<code>main</code> and <code>module</code>)</h2>
 				<p>The <code>src</code> of <code>typescript-starter</code> is compiled into two separate builds: <code>main</code> and <code>module</code>. The <code>main</code> build is <a href="https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8">configured to use the CommonJS module system</a>. The <code>module</code> build <a href="https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json">uses the new es6 module system</a>.</p>
 				<p>Because Node.js LTS releases do not yet support the es6 module system, some projects which depend on your project will follow the <code>main</code> field in <a href="https://github.com/bitjson/typescript-starter/blob/master/package.json"><code>package.json</code></a>. Tools which support the new system (like <a href="https://github.com/rollup/rollup">Rollup</a>, <a href="https://webpack.js.org/">Webpack</a>, or <a href="https://parceljs.org/">Parcel</a>) will follow the <code>module</code> field, giving them the ability to statically analyze your project. These tools can tree-shake your <code>module</code> build to import only the code they need.</p>
@@ -260,18 +248,16 @@ reset:
 				<p>Providing a public API where consumer code is the same between browsers and Node.js is desirable, but it comes at the cost of significant configuration and complexity. In many cases, it requires that code be aware of its environment at runtime, requiring additional complexity and testing.</p>
 				<p>A better way to provide this developer experience is to provide similar APIs for each environment, and then encourage the use of es6 import aliasing to standardize between them.</p>
 				<p>For example, in the documentation for <code>typescript-starter</code>, we encourage Node.js users to import <code>sha256Native as sha256</code>. With this convention, we get a standard API without loaders or dependency substitution hacks.</p>
-				<pre><code class="lang-js"><span class="hljs-comment">// browser-application.js</span>
+				<pre><code class="language-js"><span class="hljs-comment">// browser-application.js</span>
 <span class="hljs-keyword">import</span> { sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">'typescript-starter'</span>;
 
 <span class="hljs-comment">// fully-portable code</span>
-<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));
-</code></pre>
-				<pre><code class="lang-js"><span class="hljs-comment">// node-application.js</span>
+<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));</code></pre>
+				<pre><code class="language-js"><span class="hljs-comment">// node-application.js</span>
 <span class="hljs-keyword">import</span> { sha256Native <span class="hljs-keyword">as</span> sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">'typescript-starter'</span>;
 
 <span class="hljs-comment">// fully-portable code</span>
-<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));
-</code></pre>
+<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));</code></pre>
 				<h2 id="what-about-git-hooks-to-validate-commit-messages-">What about Git hooks to validate commit messages?</h2>
 				<p>This project uses <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> to automatically update the changelog based on commit messages since the last release. To do this, each relevant commit must be properly formatted.</p>
 				<p>To ensure all commits follow the proper conventions, you can use a package like <a href="https://github.com/marionebl/commitlint">commitlint</a> with <a href="https://github.com/typicode/husky">Husky</a>. However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.</p>
@@ -283,14 +269,11 @@ reset:
 <span class="hljs-built_in">cd</span> typescript-starter
 npm install
 npm <span class="hljs-built_in">test</span>
-npm link
-</code></pre><p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run watch</code> as you&#39;re developing, then in a different testing directory:</p>
+npm link</code></pre><p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run watch</code> as you&#39;re developing, then in a different testing directory:</p>
 				<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
 <span class="hljs-built_in">cd</span> typescript-starter-testing
-TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter
-</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
-				<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">'https://github.com/YOUR_USERNAME/typescript-starter.git'</span> typescript-starter
-</code></pre><p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
+TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
+				<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">'https://github.com/YOUR_USERNAME/typescript-starter.git'</span> typescript-starter</code></pre><p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
 				<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
 				<h1 id="in-the-wild">In the wild</h1>
 				<p>You can find more advanced configurations, usage examples, and inspiration from other projects using <code>typescript-starter</code>:</p>
