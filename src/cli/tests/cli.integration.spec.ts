@@ -408,7 +408,7 @@ const sandboxOptions = {
 };
 
 const silenceConsole = (console: any) => {
-  // tslint:disable-next-line:no-object-mutation
+  // tslint:disable-next-line:no-object-mutation no-console
   console.log = () => {
     // mock console.log to silence it
     return;
@@ -448,7 +448,7 @@ test(`${
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '8786d80048d9c837477dc3b807aaf598',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
-    'test-5/package.json': 'b46c07508b857225c71ff8ab98aad67b',
+    'test-5/package.json': 'a65f81edb16dac81d211df7dde9f0399',
     'test-5/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
     'test-5/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-5/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
@@ -495,7 +495,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/LICENSE': '1f08fdd25d16c4ee8d5233b9cb7f6051',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
     'test-6/appveyor.yml': 'ad473b824b29edfd21c18cfc8ae8e0ea',
-    'test-6/package.json': 'cbdfce602508fba7ebbca7ef125d3710',
+    'test-6/package.json': 'c415862d8637ac200a6d2b025d588aa9',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-6/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
