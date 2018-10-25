@@ -142,6 +142,19 @@ async function hashAllTheThings(
   );
 }
 
+/**
+ * Since we're using Greenkeeper to keep dependencies fresh, including
+ * `package.json` in these file fingerprint tests guarantees that every
+ * Greenkeeper PR will trigger a false-positive test failure.
+ *
+ * Here we trade complete assurance that `package.json` is correct for much less
+ * noisy build results.
+ */
+const ignorePackageJson = (map: { readonly [file: string]: string }) =>
+  Object.entries(map)
+    .filter(entry => !entry[0].includes('package.json'))
+    .reduce((ret, [path, hash]) => ({ ...ret, [path]: hash }), {});
+
 test(`${
   TestDirectories.one
 }: parses CLI arguments, handles default options`, async t => {
@@ -170,7 +183,8 @@ test(`${
     'test-1/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
     'test-1/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-1/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
+    'test-1/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
+    'test-1/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-1/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-1/README.md': '7a9f4efa9213266c3800f3cc82a53ba7',
     'test-1/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
@@ -215,7 +229,8 @@ test(`${
     'test-2/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-2/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-2/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
+    'test-2/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
+    'test-2/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-2/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-2/README.md': 'ddaf27da4cc4ca5225785f0ac8f4da58',
     'test-2/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
@@ -328,7 +343,8 @@ test(`${
     'test-3/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-3/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-3/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
+    'test-3/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
+    'test-3/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-3/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-3/README.md': 'c52631ebf78f6b030af9a109b769b647',
     'test-3/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
@@ -367,7 +383,8 @@ test(`${
     'test-4/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
     'test-4/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-4/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
+    'test-4/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
+    'test-4/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-4/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-4/README.md': 'a3e0699b39498df4843c9dde95f1e000',
     'test-4/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
@@ -438,7 +455,7 @@ test(`${
   silenceConsole(console);
   await typescriptStarter(options, sandboxTasks(t, true, true));
   const map = await hashAllTheThings(TestDirectories.five, true);
-  t.deepEqual(map, {
+  t.deepEqual(ignorePackageJson(map), {
     'test-5/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-5/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
@@ -448,7 +465,6 @@ test(`${
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '8786d80048d9c837477dc3b807aaf598',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
-    'test-5/package.json': 'a65f81edb16dac81d211df7dde9f0399',
     'test-5/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
     'test-5/src/lib/number.spec.ts': '6a9a00630b10e7d57a79678c74a0e4df',
     'test-5/src/lib/number.ts': '43756f90e6ac0b1c4ee6c81d8ab969c7',
@@ -480,7 +496,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
   silenceConsole(console);
   await typescriptStarter(options, sandboxTasks(t, false, true));
   const map = await hashAllTheThings(TestDirectories.six, true);
-  t.deepEqual(map, {
+  t.deepEqual(ignorePackageJson(map), {
     'test-6/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
     'test-6/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-6/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -490,12 +506,12 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': '37c491db59862df6ae963ee1250ed1bf',
-    'test-6/.vscode/launch.json': '17407a15e4276d088a9bbe9ae886fa65',
+    'test-6/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
+    'test-6/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-6/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-6/LICENSE': '1f08fdd25d16c4ee8d5233b9cb7f6051',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
     'test-6/appveyor.yml': 'ad473b824b29edfd21c18cfc8ae8e0ea',
-    'test-6/package.json': 'c415862d8637ac200a6d2b025d588aa9',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-6/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
