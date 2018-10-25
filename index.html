@@ -265,11 +265,11 @@ reset:
 				<p>Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the <code>Squash and Merge</code> option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, <code>typescript-starter</code> does not bundle any commit message validation.</p>
 				<h1 id="contributing">Contributing</h1>
 				<p>To work on the CLI, clone and build the repo, then use <code>npm link</code> to install it globally.</p>
-				<pre><code>git <span class="hljs-built_in">clone</span> https://github.com/bitjson/typescript-starter.git
-<span class="hljs-built_in">cd</span> typescript-starter
-npm install
-npm <span class="hljs-built_in">test</span>
-npm link</code></pre><p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run watch</code> as you&#39;re developing, then in a different testing directory:</p>
+				<pre><code><span class="hljs-attr">git</span> <span class="hljs-string">clone https://github.com/bitjson/typescript-starter.git</span>
+<span class="hljs-attr">cd</span> <span class="hljs-string">typescript-starter</span>
+<span class="hljs-attr">npm</span> <span class="hljs-string">install</span>
+<span class="hljs-attr">npm</span> <span class="hljs-string">test</span>
+<span class="hljs-attr">npm</span> <span class="hljs-string">link</span></code></pre><p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run watch</code> as you&#39;re developing, then in a different testing directory:</p>
 				<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
 <span class="hljs-built_in">cd</span> typescript-starter-testing
 TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
@@ -377,6 +377,9 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#hashallthethings" class="tsd-kind-icon">hash<wbr>All<wbr>The<wbr>Things</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#ignorepackagejson" class="tsd-kind-icon">ignore<wbr>Package<wbr>Json</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#initialcommit" class="tsd-kind-icon">initial<wbr>Commit</a>
