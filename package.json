@@ -29,7 +29,7 @@
     "appveyor"
   ],
   "scripts": {
-    "info": "npm-scripts-info",
+    "describe": "npm-scripts-info",
     "build": "run-s clean && run-p build:*",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",

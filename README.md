@@ -198,7 +198,7 @@ npm run doc:publish
 You can run the `info` script for information on each script intended to be individually run.
 
 ```
-npm run info
+npm run describe
 
 > npm-scripts-info
 
