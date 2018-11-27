@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.4.1"></a>
+## [2.4.1](https://github.com/bitjson/typescript-starter/compare/v2.4.0...v2.4.1) (2018-11-27)
+
+
+### Bug Fixes
+
+* **tslint:** silence some unnecessary tslint warnings ([82b7f45](https://github.com/bitjson/typescript-starter/commit/82b7f45))
+* **typedoc:** exclude spec files from typedoc generation ([#133](https://github.com/bitjson/typescript-starter/issues/133)) ([bd7f021](https://github.com/bitjson/typescript-starter/commit/bd7f021))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/bitjson/typescript-starter/compare/v2.3.10...v2.4.0) (2018-10-25)
 

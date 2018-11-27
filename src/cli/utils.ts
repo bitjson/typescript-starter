@@ -61,8 +61,8 @@ export function validateName(input: string): true | string {
   return !validateNpmPackageName(input).validForNewPackages
     ? 'Name should be in-kebab-case (for npm)'
     : existsSync(input)
-      ? `The "${input}" path already exists in this directory.`
-      : true;
+    ? `The "${input}" path already exists in this directory.`
+    : true;
 }
 
 export function getIntro(columns: number | undefined): string {
@@ -86,6 +86,6 @@ _                             _      _          _            _
   return columns && columns >= 85
     ? chalk.bold(gradient.mind(ascii))
     : columns && columns >= 74
-      ? chalk.bold(gradient.mind(asciiSmaller))
-      : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
+    ? chalk.bold(gradient.mind(asciiSmaller))
+    : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
 }
