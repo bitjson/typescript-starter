@@ -52,7 +52,7 @@ export const cloneRepo = (
     if (err.code === 'ENOENT') {
       throw new Error(`
     Git is not installed on your PATH. Please install Git and try again.
-      
+
     For more information, visit: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 `);
     } else {
@@ -206,6 +206,7 @@ export const addInferredOptions = async (
     circleci: userOptions.circleci,
     description: userOptions.description,
     domDefinitions: userOptions.domDefinitions,
+    editorconfig: userOptions.editorconfig,
     immutable: userOptions.immutable,
     install: userOptions.install,
     nodeDefinitions: userOptions.nodeDefinitions,

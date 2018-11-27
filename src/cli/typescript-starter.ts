@@ -14,6 +14,7 @@ export async function typescriptStarter(
     circleci,
     description,
     domDefinitions,
+    editorconfig,
     email,
     fullName,
     githubUsername,
@@ -150,6 +151,9 @@ export async function typescriptStarter(
   }
   if (!travis) {
     del([join(projectPath, '.travis.yml')]);
+  }
+  if (!editorconfig) {
+    del([join(projectPath, '.editorconfig')]);
   }
   if (!vscode) {
     del([join(projectPath, '.vscode')]);

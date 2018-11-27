@@ -12,7 +12,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
 
   Non-Interactive Usage
     $ npx typescript-starter <project-name> [options]
-  
+
 	Options
     --appveyor          include Appveyor for Windows CI
     --description, -d   package.json description
@@ -22,7 +22,8 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     --travis            include Travis CI configuration
     --yarn              use yarn (default: npm)
 
-    --no-circleci       don't include CircleCI 
+    --no-circleci       don't include CircleCI
+    --no-editorconfig   don't include .editorconfig
     --no-immutable      don't enable tslint-immutable
     --no-install        skip yarn/npm install
     --no-vscode         don't include VS Code debugging config
@@ -47,6 +48,10 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
         },
         dom: {
           default: false,
+          type: 'boolean'
+        },
+        editorconfig: {
+          default: true,
           type: 'boolean'
         },
         immutable: {
@@ -118,6 +123,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     circleci: cli.flags.circleci,
     description: cli.flags.description,
     domDefinitions: cli.flags.dom,
+    editorconfig: cli.flags.editorconfig,
     immutable: cli.flags.immutable,
     install: cli.flags.install,
     nodeDefinitions: cli.flags.node,

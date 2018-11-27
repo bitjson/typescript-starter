@@ -445,6 +445,7 @@ test(`${
     appveyor: false,
     circleci: false,
     domDefinitions: false,
+    editorconfig: false,
     email: 'email@example.com',
     fullName: 'Satoshi Nakamoto',
     immutable: true,
@@ -460,7 +461,6 @@ test(`${
   await typescriptStarter(options, sandboxTasks(t, true, true));
   const map = await hashAllTheThings(TestDirectories.five, true);
   t.deepEqual(ignorePackageJson(map), {
-    'test-5/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-5/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-5/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
@@ -487,6 +487,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     appveyor: true,
     circleci: true,
     domDefinitions: true,
+    editorconfig: true,
     email: Placeholders.email,
     fullName: Placeholders.name,
     immutable: true,
