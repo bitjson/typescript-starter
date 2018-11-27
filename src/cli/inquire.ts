@@ -15,6 +15,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     Library = 'lib'
   }
   const projectTypeQuestion: Question = {
+    // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'Node.js application', value: ProjectType.Node },
       { name: 'Javascript library', value: ProjectType.Library }
@@ -33,6 +34,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   };
 
   const runnerQuestion: Question = {
+    // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'npm', value: Runner.Npm },
       { name: 'yarn', value: Runner.Yarn }
@@ -50,6 +52,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   }
 
   const typeDefsQuestion: Question = {
+    // tslint:disable-next-line:readonly-array
     choices: [
       {
         name: `None — the library won't use any globals or modules from Node.js or the DOM`,
@@ -83,6 +86,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     vscode = 'vscode'
   }
   const extrasQuestion: Question = {
+    // tslint:disable-next-line:readonly-array
     choices: [
       {
         name: 'Enable stricter type-checking',

@@ -63,6 +63,7 @@ export const cloneRepo = (
     const revParseResult = await spawner('git', ['rev-parse', 'HEAD'], {
       cwd: projectDir,
       encoding: 'utf8',
+      // tslint:disable-next-line:readonly-array
       stdio: ['pipe', 'pipe', inherit]
     });
     const commitHash = revParseResult.stdout;
@@ -86,6 +87,7 @@ export const getGithubUsername = (fetcher: any) => async (
 export const getUserInfo = (spawner: ExecaStatic) => async () => {
   const opts: Options = {
     encoding: 'utf8',
+    // tslint:disable-next-line:readonly-array
     stdio: ['pipe', 'pipe', inherit]
   };
   try {

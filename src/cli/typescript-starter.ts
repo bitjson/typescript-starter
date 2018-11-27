@@ -87,6 +87,7 @@ export async function typescriptStarter(
       : {},
     description,
     devDependencies: filterAllBut(keptDevDeps, pkg.devDependencies),
+    // tslint:disable-next-line:readonly-array
     keywords: [],
     name: projectName,
     repository: `https://github.com/${githubUsername}/${projectName}`,
