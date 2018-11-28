@@ -1,12 +1,12 @@
 sudo: false
 language: node_js
 node_js:
-  - 8
-  - 9
+  - '10'
+  - '11'
 # keep the npm cache to speed up installs
 cache:
   directories:
-  - "$HOME/.npm"
+    - '$HOME/.npm'
 after_success:
   - npx nyc report --reporter=lcov | npx codecov
   - npm run cov:check

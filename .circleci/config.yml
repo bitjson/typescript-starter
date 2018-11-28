@@ -1,18 +1,18 @@
 # https://circleci.com/docs/2.0/language-javascript/
 version: 2
 jobs:
-  "node-8":
+  'node-10':
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     working_directory: ~/typescript-starter
     steps:
       - checkout
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: npm install
       - save_cache:
           paths:
@@ -21,7 +21,7 @@ jobs:
       - run: npm test
       - run: npx nyc report --reporter=lcov | npx codecov
       - run: npm run cov:check
-  "node-latest":
+  'node-latest':
     docker:
       - image: circleci/node:latest
     working_directory: ~/typescript-starter
@@ -29,8 +29,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run: npm install
       - save_cache:
           paths:
@@ -44,5 +44,5 @@ workflows:
   version: 2
   build:
     jobs:
-      - "node-8"
-      - "node-latest"
+      - 'node-10'
+      - 'node-latest'

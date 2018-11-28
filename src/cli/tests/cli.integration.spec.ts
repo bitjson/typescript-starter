@@ -175,7 +175,7 @@ test(`${
   t.regex(stdout, new RegExp(`Created ${TestDirectories.one} 🎉`));
   const map = await hashAllTheThings(TestDirectories.one);
   t.deepEqual(map, {
-    'test-1/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-1/.circleci/config.yml': '1d432962f0691700b337ccf0638ca626',
     'test-1/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-1/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-1/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -222,7 +222,7 @@ test(`${
   t.regex(stdout, new RegExp(`Created ${TestDirectories.two} 🎉`));
   const map = await hashAllTheThings(TestDirectories.two);
   t.deepEqual(map, {
-    'test-2/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-2/.circleci/config.yml': '1d432962f0691700b337ccf0638ca626',
     'test-2/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-2/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-2/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -337,7 +337,7 @@ test(`${
   await proc;
   const map = await hashAllTheThings(TestDirectories.three);
   t.deepEqual(map, {
-    'test-3/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-3/.circleci/config.yml': '1d432962f0691700b337ccf0638ca626',
     'test-3/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-3/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-3/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -378,7 +378,7 @@ test(`${
   await proc;
   const map = await hashAllTheThings(TestDirectories.four);
   t.deepEqual(map, {
-    'test-4/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-4/.circleci/config.yml': '1d432962f0691700b337ccf0638ca626',
     'test-4/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-4/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-4/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -503,7 +503,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
   await typescriptStarter(options, sandboxTasks(t, false, true));
   const map = await hashAllTheThings(TestDirectories.six, true);
   t.deepEqual(ignorePackageJson(map), {
-    'test-6/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-6/.circleci/config.yml': '1d432962f0691700b337ccf0638ca626',
     'test-6/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-6/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-6/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
@@ -512,13 +512,13 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-6/.travis.yml': '37c491db59862df6ae963ee1250ed1bf',
+    'test-6/.travis.yml': 'e7a7503bc36dc0881fffbf1916b3fa56',
     'test-6/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
     'test-6/.vscode/launch.json': '669e4d1dda91c781177c6adae7aa7e00',
     'test-6/.vscode/settings.json': '10c634c5fef6ecd298b6e41bf159f2cc',
     'test-6/LICENSE': '1f08fdd25d16c4ee8d5233b9cb7f6051',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
-    'test-6/appveyor.yml': 'ad473b824b29edfd21c18cfc8ae8e0ea',
+    'test-6/appveyor.yml': '56b1771c13e61307f917782f8feba0dd',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '1f51a721fffe53832fb289429baba971',
     'test-6/src/lib/async.ts': '9012c267bb25fa98ad2561929de3d4e2',
