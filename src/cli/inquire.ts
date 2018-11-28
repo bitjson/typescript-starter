@@ -80,6 +80,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   enum Extras {
     appveyor = 'appveyor',
     circleci = 'circleci',
+    editorconfig = 'editorconfig',
     immutable = 'immutable',
     strict = 'strict',
     travis = 'travis',
@@ -96,6 +97,11 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
         checked: true,
         name: 'Enable tslint-immutable',
         value: Extras.immutable
+      },
+      {
+        checked: true,
+        name: 'Include .editorconfig',
+        value: Extras.editorconfig
       },
       {
         checked: true,
@@ -155,6 +161,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
             definitions
           )
         : false,
+      editorconfig: extras.includes(Extras.editorconfig),
       immutable: extras.includes(Extras.immutable),
       install: true,
       nodeDefinitions: definitions

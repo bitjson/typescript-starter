@@ -176,6 +176,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.one);
   t.deepEqual(map, {
     'test-1/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-1/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-1/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-1/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
@@ -222,6 +223,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.two);
   t.deepEqual(map, {
     'test-2/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-2/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-2/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-2/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
@@ -336,6 +338,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.three);
   t.deepEqual(map, {
     'test-3/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-3/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-3/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-3/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
@@ -376,6 +379,7 @@ test(`${
   const map = await hashAllTheThings(TestDirectories.four);
   t.deepEqual(map, {
     'test-4/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-4/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-4/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-4/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
@@ -441,6 +445,7 @@ test(`${
     appveyor: false,
     circleci: false,
     domDefinitions: false,
+    editorconfig: false,
     email: 'email@example.com',
     fullName: 'Satoshi Nakamoto',
     immutable: true,
@@ -482,6 +487,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     appveyor: true,
     circleci: true,
     domDefinitions: true,
+    editorconfig: true,
     email: Placeholders.email,
     fullName: Placeholders.name,
     immutable: true,
@@ -498,6 +504,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
   const map = await hashAllTheThings(TestDirectories.six, true);
   t.deepEqual(ignorePackageJson(map), {
     'test-6/.circleci/config.yml': '30cc59229facf29bfca712fc6e2ddade',
+    'test-6/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-6/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-6/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':

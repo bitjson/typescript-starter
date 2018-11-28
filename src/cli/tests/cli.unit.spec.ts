@@ -78,6 +78,7 @@ test('checkArgs returns the right options', async t => {
     '--travis',
     '--yarn',
     '--no-circleci',
+    '--no-editorconfig',
     '--no-immutable',
     '--no-install',
     '--no-vscode'
@@ -89,6 +90,7 @@ test('checkArgs returns the right options', async t => {
     circleci: false,
     description: '',
     domDefinitions: true,
+    editorconfig: false,
     immutable: false,
     install: false,
     nodeDefinitions: true,
