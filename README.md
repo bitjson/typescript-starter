@@ -193,9 +193,9 @@ npm run version -- --first-release
 npm run doc:publish
 ```
 
-## Get scripts info
+## Describe package scripts
 
-You can run the `info` script for information on each script intended to be individually run.
+You can run the `describe` script for a description of the available package scripts.
 
 ```
 npm run describe
