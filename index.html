@@ -185,34 +185,34 @@ npm run version -- --first-release
 
 <span class="hljs-comment"># And don't forget to push the docs to GitHub pages:</span>
 npm run doc:publish</code></pre>
-				<h2 id="get-scripts-info">Get scripts info</h2>
-				<p>You can run the <code>info</code> script for information on each script intended to be individually run.</p>
-				<pre><code>npm run info
+				<h2 id="describe-package-scripts">Describe package scripts</h2>
+				<p>You can run the <code>describe</code> script for a description of the available package scripts.</p>
+				<pre><code>npm run <span class="hljs-keyword">describe</span>
 
 &gt; npm-scripts-info
 
 info:
-  Display information about <span class="hljs-keyword">the</span> package scripts
-build:
-  Clean <span class="hljs-keyword">and</span> rebuild <span class="hljs-keyword">the</span> project
+  Display information about the <span class="hljs-keyword">package</span> scripts
+<span class="hljs-keyword">build</span>:
+  Clean <span class="hljs-keyword">and</span> <span class="hljs-keyword">rebuild</span> the <span class="hljs-keyword">project</span>
 fix:
-  Try <span class="hljs-built_in">to</span> automatically fix <span class="hljs-keyword">any</span> linting problems
-test:
-  Lint <span class="hljs-keyword">and</span> unit test <span class="hljs-keyword">the</span> project
+  Try <span class="hljs-keyword">to</span> automatically fix <span class="hljs-keyword">any</span> linting problems
+<span class="hljs-keyword">test</span>:
+  Lint <span class="hljs-keyword">and</span> unit <span class="hljs-keyword">test</span> the <span class="hljs-keyword">project</span>
 watch:
-  Watch <span class="hljs-keyword">and</span> rebuild <span class="hljs-keyword">the</span> project <span class="hljs-keyword">on</span> <span class="hljs-title">save</span>, <span class="hljs-title">then</span> <span class="hljs-title">rerun</span> <span class="hljs-title">relevant</span> <span class="hljs-title">tests</span>
+  Watch <span class="hljs-keyword">and</span> <span class="hljs-keyword">rebuild</span> the <span class="hljs-keyword">project</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">save</span>, <span class="hljs-keyword">then</span> rerun relevant tests
 cov:
-  Rebuild, run tests, <span class="hljs-keyword">then</span> <span class="hljs-built_in">create</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">open</span> <span class="hljs-keyword">the</span> coverage report
+  <span class="hljs-keyword">Rebuild</span>, run tests, <span class="hljs-keyword">then</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">open</span> the coverage report
 doc:
-  Generate HTML API documentation <span class="hljs-keyword">and</span> <span class="hljs-built_in">open</span> <span class="hljs-keyword">it</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> browser
-doc:json:
-  Generate API documentation <span class="hljs-keyword">in</span> typedoc JSON <span class="hljs-built_in">format</span>
-<span class="hljs-built_in">version</span>:
-  Bump package.json <span class="hljs-built_in">version</span>, update CHANGELOG.md, tag release
-reset:
-  Delete all untracked <span class="hljs-built_in">files</span> <span class="hljs-keyword">and</span> reset <span class="hljs-keyword">the</span> repo <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">last</span> commit
-<span class="hljs-built_in">prepare</span>-release:
-  One-step: clean, build, test, publish docs, <span class="hljs-keyword">and</span> prep <span class="hljs-keyword">a</span> release</code></pre><h1 id="faqs">FAQs</h1>
+  Generate HTML API documentation <span class="hljs-keyword">and</span> <span class="hljs-keyword">open</span> it <span class="hljs-keyword">in</span> a browser
+doc:<span class="hljs-keyword">json</span>:
+  Generate API documentation <span class="hljs-keyword">in</span> typedoc <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">format</span>
+<span class="hljs-keyword">version</span>:
+  Bump package.json <span class="hljs-keyword">version</span>, <span class="hljs-keyword">update</span> CHANGELOG.md, tag <span class="hljs-keyword">release</span>
+<span class="hljs-keyword">reset</span>:
+  <span class="hljs-keyword">Delete</span> all untracked files <span class="hljs-keyword">and</span> <span class="hljs-keyword">reset</span> the repo <span class="hljs-keyword">to</span> the <span class="hljs-keyword">last</span> <span class="hljs-keyword">commit</span>
+<span class="hljs-keyword">prepare</span>-<span class="hljs-keyword">release</span>:
+  One-step: clean, <span class="hljs-keyword">build</span>, <span class="hljs-keyword">test</span>, publish docs, <span class="hljs-keyword">and</span> prep a <span class="hljs-keyword">release</span></code></pre><h1 id="faqs">FAQs</h1>
 				<h2 id="why-are-there-two-builds-main-and-module-">Why are there two builds? (<code>main</code> and <code>module</code>)</h2>
 				<p>The <code>src</code> of <code>typescript-starter</code> is compiled into two separate builds: <code>main</code> and <code>module</code>. The <code>main</code> build is <a href="https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8">configured to use the CommonJS module system</a>. The <code>module</code> build <a href="https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json">uses the new es6 module system</a>.</p>
 				<p>Because Node.js LTS releases do not yet support the es6 module system, some projects which depend on your project will follow the <code>main</code> field in <a href="https://github.com/bitjson/typescript-starter/blob/master/package.json"><code>package.json</code></a>. Tools which support the new system (like <a href="https://github.com/rollup/rollup">Rollup</a>, <a href="https://webpack.js.org/">Webpack</a>, or <a href="https://parceljs.org/">Parcel</a>) will follow the <code>module</code> field, giving them the ability to statically analyze your project. These tools can tree-shake your <code>module</code> build to import only the code they need.</p>
