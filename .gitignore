@@ -4,6 +4,7 @@ test
 src/**.js
 .idea/*
 
+report
 coverage
 .nyc_output
 *.log
