@@ -181,7 +181,7 @@ test(`${
     'test-1/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-1/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-1/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-1/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-1/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
@@ -228,7 +228,7 @@ test(`${
     'test-2/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-2/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-2/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-2/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-2/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
@@ -343,7 +343,7 @@ test(`${
     'test-3/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-3/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-3/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-3/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-3/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
@@ -384,7 +384,7 @@ test(`${
     'test-4/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-4/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-4/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-4/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-4/.vscode/debug-ts.js': '23eb6ab10faaa25a95f5bd3325d0455c',
@@ -465,7 +465,7 @@ test(`${
     'test-5/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-5/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-5/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-5/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '8786d80048d9c837477dc3b807aaf598',
@@ -509,7 +509,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.github/ISSUE_TEMPLATE.md': '82d1b99b29f32d851627b317195e73d2',
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
-    'test-6/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-6/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
     'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': 'e7a7503bc36dc0881fffbf1916b3fa56',
