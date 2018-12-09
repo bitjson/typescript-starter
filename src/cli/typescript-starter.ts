@@ -20,6 +20,7 @@ export async function typescriptStarter(
     githubUsername,
     immutable,
     install,
+    jscpd,
     nodeDefinitions,
     projectName,
     repoInfo,
@@ -57,6 +58,7 @@ export async function typescriptStarter(
     'nyc',
     'opn-cli',
     'prettier',
+    'jscpd',
     'standard-version',
     'trash-cli',
     'tslint',
@@ -106,6 +108,13 @@ export async function typescriptStarter(
   delete newPkg.bin;
   delete newPkg.NOTE;
   // tslint:enable:no-delete no-object-mutation
+
+  if (!jscpd) {
+    del([join(projectPath, '.jscpd.json')]);
+    // tslint:disable:no-delete no-object-mutation
+    delete newPkg.scripts['test:cpd'];
+    // tslint:enable:no-delete no-object-mutation
+  }
 
   writePackageJson(pkgPath, newPkg);
   spinnerPackage.succeed();

@@ -1,0 +1,8 @@
+{
+  "threshold": 0.1,
+  "ignore": [
+    "**/.circleci/**",
+    "**/.idea/**"
+  ],
+  "gitignore": true
+}

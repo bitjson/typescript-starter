@@ -209,6 +209,7 @@ export const addInferredOptions = async (
     editorconfig: userOptions.editorconfig,
     immutable: userOptions.immutable,
     install: userOptions.install,
+    jscpd: userOptions.jscpd,
     nodeDefinitions: userOptions.nodeDefinitions,
     projectName: userOptions.projectName,
     runner: userOptions.runner,

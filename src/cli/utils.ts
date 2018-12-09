@@ -15,6 +15,7 @@ export interface TypescriptStarterCLIOptions {
   readonly editorconfig: boolean;
   readonly immutable: boolean;
   readonly install: boolean;
+  readonly jscpd: boolean;
   readonly nodeDefinitions: boolean;
   readonly projectName: string;
   readonly runner: Runner;

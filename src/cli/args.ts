@@ -21,7 +21,8 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     --strict            enable stricter type-checking
     --travis            include Travis CI configuration
     --yarn              use yarn (default: npm)
-
+    --jscpd             use copy/paste detector (default: false)
+    
     --no-circleci       don't include CircleCI
     --no-editorconfig   don't include .editorconfig
     --no-immutable      don't enable tslint-immutable
@@ -60,6 +61,10 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
         },
         install: {
           default: true,
+          type: 'boolean'
+        },
+        jscpd: {
+          default: false,
           type: 'boolean'
         },
         node: {
@@ -126,6 +131,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     editorconfig: cli.flags.editorconfig,
     immutable: cli.flags.immutable,
     install: cli.flags.install,
+    jscpd: cli.flags.jscpd,
     nodeDefinitions: cli.flags.node,
     projectName: input,
     runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,

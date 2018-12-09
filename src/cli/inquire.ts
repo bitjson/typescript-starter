@@ -81,6 +81,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     appveyor = 'appveyor',
     circleci = 'circleci',
     editorconfig = 'editorconfig',
+    jscpd = 'jscpd',
     immutable = 'immutable',
     strict = 'strict',
     travis = 'travis',
@@ -122,6 +123,11 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
         checked: false,
         name: 'Include Travis CI config',
         value: Extras.travis
+      },
+      {
+        checked: false,
+        name: 'Enable Copy/Paste detection',
+        value: Extras.jscpd
       }
     ],
     message: '🚀 More fun stuff:',
@@ -164,6 +170,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
       editorconfig: extras.includes(Extras.editorconfig),
       immutable: extras.includes(Extras.immutable),
       install: true,
+      jscpd: extras.includes(Extras.jscpd),
       nodeDefinitions: definitions
         ? [TypeDefinitions.node, TypeDefinitions.nodeAndDom].includes(
             definitions
