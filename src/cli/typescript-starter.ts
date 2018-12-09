@@ -58,7 +58,6 @@ export async function typescriptStarter(
     'nyc',
     'opn-cli',
     'prettier',
-    'jscpd',
     'standard-version',
     'trash-cli',
     'tslint',
@@ -89,7 +88,10 @@ export async function typescriptStarter(
       ? filterAllBut(nodeKeptDeps, pkg.dependencies)
       : {},
     description,
-    devDependencies: filterAllBut(keptDevDeps, pkg.devDependencies),
+    devDependencies: filterAllBut(
+      jscpd ? ['jscpd', ...keptDevDeps] : keptDevDeps,
+      pkg.devDependencies
+    ),
     // tslint:disable-next-line:readonly-array
     keywords: [],
     name: projectName,

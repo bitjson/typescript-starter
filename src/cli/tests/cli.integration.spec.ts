@@ -493,7 +493,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     fullName: Placeholders.name,
     immutable: true,
     install: true,
-    jscpd: false,
+    jscpd: true,
     nodeDefinitions: true,
     projectName: TestDirectories.six,
     runner: Runner.Yarn,
@@ -512,6 +512,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async t => {
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '710eb5973a8cda83fc568cb1bbe7c026',
     'test-6/.gitignore': '1715ab8a66b08514ccfad0f168b9d441',
+    'test-6/.jscpd.json': 'c1a3001a9ce50cc68fd7a7300ccedc3b',
     'test-6/.npmignore': '49c9375c9a1b4a1b74076f62379b0297',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': 'e7a7503bc36dc0881fffbf1916b3fa56',
