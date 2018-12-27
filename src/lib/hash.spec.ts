@@ -2,7 +2,7 @@
 import test, { Macro } from 'ava';
 import { sha256, sha256Native } from './hash';
 
-const hash: Macro = (t, input: string, expected: string) => {
+const hash: Macro<[string, string]> = (t, input: string, expected: string) => {
   t.is(sha256(input), expected);
   t.is(sha256Native(input), expected);
 };
