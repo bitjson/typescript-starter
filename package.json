@@ -77,7 +77,7 @@
     "del": "^3.0.0",
     "execa": "^1.0.0",
     "github-username": "^4.1.0",
-    "globby": "^8.0.1",
+    "globby": "^9.1.0",
     "gradient-string": "^1.2.0",
     "inquirer": "^6.2.0",
     "meow": "^5.0.0",
