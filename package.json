@@ -74,7 +74,7 @@
   "dependencies": {
     "@types/globby": "^8.0.0",
     "chalk": "^2.4.1",
-    "del": "^3.0.0",
+    "del": "^4.0.0",
     "execa": "^1.0.0",
     "github-username": "^4.1.0",
     "globby": "^8.0.1",
