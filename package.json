@@ -72,7 +72,7 @@
   },
   "NOTE": "These dependencies are for the CLI, and will be removed automatically.",
   "dependencies": {
-    "@types/globby": "^8.0.0",
+    "@types/globby": "^9.1.0",
     "chalk": "^2.4.1",
     "del": "^3.0.0",
     "execa": "^1.0.0",
