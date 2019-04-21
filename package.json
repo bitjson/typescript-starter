@@ -83,7 +83,7 @@
     "meow": "^5.0.0",
     "ora": "^3.0.0",
     "project-version": "^1.2.0",
-    "replace-in-file": "^3.4.2",
+    "replace-in-file": "^4.0.0",
     "sha.js": "^2.4.11",
     "update-notifier": "^2.5.0",
     "validate-npm-package-name": "^3.0.0"
