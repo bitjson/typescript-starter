@@ -1,5 +1,5 @@
 // tslint:disable:no-console no-if-statement no-expression-statement
-import execa, { ExecaStatic, Options, StdIOOption } from 'execa';
+import execa, { Options } from 'execa';
 import githubUsername from 'github-username';
 import { join } from 'path';
 import {
@@ -8,9 +8,6 @@ import {
   TypescriptStarterOptions,
   TypescriptStarterUserOptions
 } from './utils';
-
-// TODO: await https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24209
-const inherit = 'inherit' as StdIOOption;
 
 export enum Placeholders {
   email = 'YOUR_EMAIL',
@@ -21,7 +18,7 @@ export enum Placeholders {
 // We implement these as function factories to make unit testing easier.
 
 export const cloneRepo = (
-  spawner: ExecaStatic,
+  spawner: typeof execa,
   suppressOutput = false
 ) => async (
   repoInfo: {
@@ -49,7 +46,7 @@ export const cloneRepo = (
       stdio: suppressOutput ? 'pipe' : 'inherit'
     });
   } catch (err) {
-    if (err.code === 'ENOENT') {
+    if (err.exitCodeName === 'ENOENT') {
       throw new Error(`
     Git is not installed on your PATH. Please install Git and try again.
 
@@ -64,7 +61,7 @@ export const cloneRepo = (
       cwd: projectDir,
       encoding: 'utf8',
       // tslint:disable-next-line:readonly-array
-      stdio: ['pipe', 'pipe', inherit]
+      stdio: ['pipe', 'pipe', 'inherit']
     });
     const commitHash = revParseResult.stdout;
     return { commitHash, gitHistoryDir };
@@ -84,11 +81,11 @@ export const getGithubUsername = (fetcher: any) => async (
   });
 };
 
-export const getUserInfo = (spawner: ExecaStatic) => async () => {
+export const getUserInfo = (spawner: typeof execa) => async () => {
   const opts: Options = {
     encoding: 'utf8',
     // tslint:disable-next-line:readonly-array
-    stdio: ['pipe', 'pipe', inherit]
+    stdio: ['pipe', 'pipe', 'inherit']
   };
   try {
     const nameResult = await spawner('git', ['config', 'user.name'], opts);
@@ -105,7 +102,7 @@ export const getUserInfo = (spawner: ExecaStatic) => async () => {
   }
 };
 
-export const initialCommit = (spawner: ExecaStatic) => async (
+export const initialCommit = (spawner: typeof execa) => async (
   hash: string,
   projectDir: string
 ): Promise<void> => {
@@ -127,7 +124,7 @@ export const initialCommit = (spawner: ExecaStatic) => async (
   );
 };
 
-export const install = (spawner: ExecaStatic) => async (
+export const install = (spawner: typeof execa) => async (
   runner: Runner,
   projectDir: string
 ) => {

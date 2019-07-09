@@ -1,6 +1,6 @@
 // tslint:disable:no-expression-statement
 import test from 'ava';
-import { ExecaStatic } from 'execa';
+import execa from 'execa';
 import meow from 'meow';
 import nock from 'nock';
 import { checkArgs } from '../args';
@@ -60,7 +60,7 @@ test('errors if update-notifier fails', async t => {
     .get('/typescript-starter')
     .reply(404, {});
   const error = await t.throwsAsync(checkArgs);
-  t.regex(error.message, /doesn\'t exist/);
+  t.regex(error.message, /could not be found/);
 });
 
 test('checkArgs returns the right options', async t => {
@@ -130,17 +130,19 @@ test('small ascii art shows if stdout has 74-84 columns', async t => {
   t.regex(jumbo, new RegExp(snippet));
 });
 
-const mockErr = (code?: string | number) =>
+const mockErr = (code: number = 1, name: string = 'ERR') =>
   ((() => {
-    const err = new Error();
+    const err: any = new Error();
     // tslint:disable-next-line:no-object-mutation
-    (err as any).code = code;
+    err.exitCode = code;
+    // tslint:disable-next-line:no-object-mutation
+    err.exitCodeName = name;
     throw err;
-  }) as any) as ExecaStatic;
+  }) as any) as typeof execa;
 
 test('cloneRepo: errors when Git is not installed on PATH', async t => {
   const error = await t.throwsAsync(
-    cloneRepo(mockErr('ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
+    cloneRepo(mockErr(1, 'ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
   );
   t.regex(error.message, /Git is not installed on your PATH/);
 });
@@ -158,7 +160,7 @@ test('cloneRepo: throws when rev-parse fails', async t => {
   const mock = ((async () => {
     calls++;
     return calls === 1 ? {} : (mockErr(128) as any)();
-  }) as any) as ExecaStatic;
+  }) as any) as typeof execa;
   const error = await t.throwsAsync(
     cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
@@ -204,7 +206,7 @@ test('getUserInfo: returns results properly', async t => {
     return {
       stdout: 'result'
     };
-  }) as any) as ExecaStatic;
+  }) as any) as typeof execa;
   const result = await getUserInfo(mock)();
   t.deepEqual(result, {
     gitEmail: 'result',
@@ -213,24 +215,24 @@ test('getUserInfo: returns results properly', async t => {
 });
 
 test('initialCommit: throws generated errors', async t => {
-  const error = await t.throwsAsync(
+  const error = await t.throwsAsync<execa.ExecaError>(
     initialCommit(mockErr(1))('deadbeef', 'fail')
   );
-  t.is(error.code, 1);
+  t.is(error.exitCode, 1);
 });
 
 test('initialCommit: spawns 3 times', async t => {
   t.plan(4);
   const mock = ((async () => {
     t.pass();
-  }) as any) as ExecaStatic;
+  }) as any) as typeof execa;
   await t.notThrowsAsync(initialCommit(mock)('commit', 'dir'));
 });
 
 test('install: uses the correct runner', async t => {
   const mock = ((async (runner: Runner) => {
     runner === Runner.Yarn ? t.pass() : t.fail();
-  }) as any) as ExecaStatic;
+  }) as any) as typeof execa;
   await install(mock)(Runner.Yarn, 'pass');
 });
 

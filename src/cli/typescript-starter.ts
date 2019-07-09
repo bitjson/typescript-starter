@@ -6,7 +6,7 @@ import ora from 'ora';
 import { join } from 'path';
 import replace from 'replace-in-file';
 import { Placeholders, Tasks } from './tasks';
-import { Runner, TypescriptStarterOptions } from './utils';
+import { normalizePath, Runner, TypescriptStarterOptions } from './utils';
 
 export async function typescriptStarter(
   {
@@ -37,7 +37,7 @@ export async function typescriptStarter(
     workingDirectory,
     projectName
   );
-  await del([gitHistoryDir]);
+  await del([normalizePath(gitHistoryDir)]);
   console.log(`
   ${chalk.dim(`Cloned at commit: ${commitHash}`)}
 `);
@@ -53,7 +53,6 @@ export async function typescriptStarter(
     'gh-pages',
     'npm-run-all',
     'npm-scripts-info',
-    'nsp',
     'nyc',
     'opn-cli',
     'prettier',
@@ -129,34 +128,34 @@ export async function typescriptStarter(
   await replace({
     files: join(projectPath, 'LICENSE'),
     from: '2017',
-    to: new Date().getUTCFullYear()
+    to: new Date().getUTCFullYear().toString()
   });
   spinnerLicense.succeed();
 
   const spinnerDelete = ora('Deleting unnecessary files').start();
 
   await del([
-    join(projectPath, 'CHANGELOG.md'),
-    join(projectPath, 'README.md'),
-    join(projectPath, 'package-lock.json'),
-    join(projectPath, 'bin'),
-    join(projectPath, 'src', 'cli'),
-    join(projectPath, 'src', 'types', 'cli.d.ts')
+    normalizePath(join(projectPath, 'CHANGELOG.md')),
+    normalizePath(join(projectPath, 'README.md')),
+    normalizePath(join(projectPath, 'package-lock.json')),
+    normalizePath(join(projectPath, 'bin')),
+    normalizePath(join(projectPath, 'src', 'cli')),
+    normalizePath(join(projectPath, 'src', 'types', 'cli.d.ts'))
   ]);
   if (!appveyor) {
-    del([join(projectPath, 'appveyor.yml')]);
+    del([normalizePath(join(projectPath, 'appveyor.yml'))]);
   }
   if (!circleci) {
-    del([join(projectPath, '.circleci')]);
+    del([normalizePath(join(projectPath, '.circleci'))]);
   }
   if (!travis) {
-    del([join(projectPath, '.travis.yml')]);
+    del([normalizePath(join(projectPath, '.travis.yml'))]);
   }
   if (!editorconfig) {
-    del([join(projectPath, '.editorconfig')]);
+    del([normalizePath(join(projectPath, '.editorconfig'))]);
   }
   if (!vscode) {
-    del([join(projectPath, '.vscode')]);
+    del([normalizePath(join(projectPath, '.vscode'))]);
   }
   spinnerDelete.succeed();
 
@@ -225,10 +224,10 @@ export async function typescriptStarter(
       to: ''
     });
     await del([
-      join(projectPath, 'src', 'lib', 'hash.ts'),
-      join(projectPath, 'src', 'lib', 'hash.spec.ts'),
-      join(projectPath, 'src', 'lib', 'async.ts'),
-      join(projectPath, 'src', 'lib', 'async.spec.ts')
+      normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
+      normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
+      normalizePath(join(projectPath, 'src', 'lib', 'async.ts')),
+      normalizePath(join(projectPath, 'src', 'lib', 'async.spec.ts'))
     ]);
     spinnerNode.succeed();
   }
