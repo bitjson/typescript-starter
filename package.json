@@ -1,6 +1,6 @@
 {
   "name": "typescript-starter",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "A typescript starter for building javascript libraries and projects",
   "bin": {
     "typescript-starter": "./bin/typescript-starter"
