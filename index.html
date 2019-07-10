@@ -74,14 +74,18 @@
 				<p align="center">
 					<img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/c3e3b7ec/demo.svg">
 				</p>
-				<h2 id="start-now">Start Now</h2>
-				<p>Run one simple command to install and use the interactive project generator. You&#39;ll need <a href="https://nodejs.org/">Node</a> <code>v8.9</code> (the current LTS release) or later.</p>
+				<a href="#start-now" id="start-now" style="color: inherit; text-decoration: none;">
+					<h2>Start Now</h2>
+				</a>
+				<p>Run one simple command to install and use the interactive project generator. You&#39;ll need <a href="https://nodejs.org/">Node</a> <code>v10</code> or later.</p>
 				<pre><code class="language-bash">npx typescript-starter</code></pre>
 				<p>The interactive CLI will help you create and configure your project automatically.</p>
 				<blockquote>
 					<p>Since this repo includes <a href="./src/cli">the CLI and it&#39;s tests</a>, you&#39;ll only need to fork or clone this project if you want to contribute. If you find this project useful, please consider <a href="https://github.com/bitjson/typescript-starter/stargazers">leaving a star</a> so others can find it. Thanks!</p>
 				</blockquote>
-				<h1 id="features">Features</h1>
+				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+					<h1>Features</h1>
+				</a>
 				<ul>
 					<li>Write <strong>standard, future javascript</strong> – with stable ESNext features – today (<a href="https://github.com/tc39/proposals">stage 3</a> or <a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md">finished</a> features)</li>
 					<li><a href="https://medium.freecodecamp.org/its-time-to-give-typescript-another-chance-2caaf7fabe61">Optionally use typescript</a> to improve tooling, linting, and documentation generation</li>
@@ -97,17 +101,22 @@
 					<li>Source-mapped code coverage reports with <a href="https://github.com/istanbuljs/nyc">nyc</a></li>
 					<li>Configurable code coverage testing (for continuous integration)</li>
 					<li>Automatic linting and formatting using <a href="https://github.com/palantir/tslint">TSLint</a> and <a href="https://prettier.io/">Prettier</a></li>
-					<li>Automatically check for known vulnerabilities in your dependencies with <a href="https://github.com/nodesecurity/nsp"><code>nsp</code></a></li>
 				</ul>
-				<h2 id="but-first-a-good-editor">But first, a good editor</h2>
+				<a href="#but-first-a-good-editor" id="but-first-a-good-editor" style="color: inherit; text-decoration: none;">
+					<h2>But first, a good editor</h2>
+				</a>
 				<p>Before you start, consider using an <a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support">editor with good typescript support</a>.</p>
 				<p><a href="https://code.visualstudio.com/">VS Code</a> (below) is a popular option. Editors with typescript support can provide helpful autocomplete, inline documentation, and code refactoring features.</p>
 				<p>Also consider installing editor extensions for <a href="https://github.com/Microsoft/vscode-tslint">TSLint</a> and <a href="https://github.com/prettier/prettier-vscode">Prettier</a>. These extensions automatically format your code each time you save, and may quickly become invaluable.</p>
 				<p align="center">
 					<img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
 				</p>
-				<h1 id="developing-with-typescript-starter">Developing with typescript-starter</h1>
-				<h2 id="development-zen">Development zen</h2>
+				<a href="#developing-with-typescript-starter" id="developing-with-typescript-starter" style="color: inherit; text-decoration: none;">
+					<h1>Developing with typescript-starter</h1>
+				</a>
+				<a href="#development-zen" id="development-zen" style="color: inherit; text-decoration: none;">
+					<h2>Development zen</h2>
+				</a>
 				<p>To start working, run the <code>watch</code> task using <a href="https://docs.npmjs.com/getting-started/what-is-npm"><code>npm</code></a> or <a href="https://yarnpkg.com/"><code>yarn</code></a>.</p>
 				<pre><code class="language-bash">npm run watch</code></pre>
 				<p>This starter includes a watch task which makes development faster and more interactive. It&#39;s particularly helpful for <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>/<a href="https://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a> workflows.</p>
@@ -117,17 +126,23 @@
 					<img alt="typescript-starter's watch task" src="https://user-images.githubusercontent.com/904007/37270842-c05f5192-25a6-11e8-83bb-1981ae48e38e.png">
 				</p>
 				<p>Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.</p>
-				<h2 id="enable-stronger-type-checking-recommended-">Enable stronger type checking (recommended)</h2>
+				<a href="#enable-stronger-type-checking-recommended" id="enable-stronger-type-checking-recommended" style="color: inherit; text-decoration: none;">
+					<h2>Enable stronger type checking (recommended)</h2>
+				</a>
 				<p>To make getting started easier, the default <code>tsconfig.json</code> is using a very flexible configuration. This will allow you to get started without many warnings from Typescript.</p>
 				<p>To enable additional Typescript type checking features (a good idea for mission-critical or large projects), review the commented-out lines in your <a href="./tsconfig.json">typescript compiler options</a>.</p>
-				<h2 id="view-test-coverage">View test coverage</h2>
+				<a href="#view-test-coverage" id="view-test-coverage" style="color: inherit; text-decoration: none;">
+					<h2>View test coverage</h2>
+				</a>
 				<p>To generate and view test coverage, run:</p>
 				<pre><code class="language-bash">npm run cov</code></pre>
 				<p>This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.</p>
 				<p align="center">
 					<img height="600" alt="source-mapped typescript test coverage example" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png">
 				</p>
-				<h2 id="generate-your-api-docs">Generate your API docs</h2>
+				<a href="#generate-your-api-docs" id="generate-your-api-docs" style="color: inherit; text-decoration: none;">
+					<h2>Generate your API docs</h2>
+				</a>
 				<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">TypeDoc</a>.</p>
 				<pre><code class="language-bash">npm run doc</code></pre>
 				<p>This command generates API documentation for your library in HTML format and opens it in a browser.</p>
@@ -140,7 +155,9 @@
 				</p>
 				<p>For more advanced documentation generation, you can provide your own <a href="http://typedoc.org/guides/themes/">TypeDoc theme</a>, or <a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/">build your own documentation</a> using the JSON TypeDoc export:</p>
 				<pre><code class="language-bash">npm run doc:json</code></pre>
-				<h2 id="bump-version-update-changelog-commit-tag-release">Bump version, update changelog, commit, &amp; tag release</h2>
+				<a href="#bump-version-update-changelog-commit-amp-tag-release" id="bump-version-update-changelog-commit-amp-tag-release" style="color: inherit; text-decoration: none;">
+					<h2>Bump version, update changelog, commit, &amp; tag release</h2>
+				</a>
 				<p>It&#39;s recommended that you install <a href="https://github.com/commitizen/cz-cli"><code>commitizen</code></a> to make commits to your project.</p>
 				<pre><code class="language-bash">npm install -g commitizen
 
@@ -150,7 +167,9 @@ git cz</code></pre>
 				<pre><code class="language-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
 npm run version</code></pre>
 				<p>You may find a tool like <a href="https://github.com/bitjson/wip"><strong><code>wip</code></strong></a> helpful for managing work in progress before you&#39;re ready to create a meaningful commit.</p>
-				<h2 id="one-step-publish-preparation-script">One-step publish preparation script</h2>
+				<a href="#one-step-publish-preparation-script" id="one-step-publish-preparation-script" style="color: inherit; text-decoration: none;">
+					<h2>One-step publish preparation script</h2>
+				</a>
 				<p>Bringing together many of the steps above, this repo includes a one-step release preparation command.</p>
 				<pre><code class="language-bash"><span class="hljs-comment"># Prepare a standard release:</span>
 npm run prepare-release</code></pre>
@@ -185,7 +204,9 @@ npm run version -- --first-release
 
 <span class="hljs-comment"># And don't forget to push the docs to GitHub pages:</span>
 npm run doc:publish</code></pre>
-				<h2 id="describe-package-scripts">Describe package scripts</h2>
+				<a href="#describe-package-scripts" id="describe-package-scripts" style="color: inherit; text-decoration: none;">
+					<h2>Describe package scripts</h2>
+				</a>
 				<p>You can run the <code>describe</code> script for a description of the available package scripts.</p>
 				<pre><code>npm run <span class="hljs-keyword">describe</span>
 
@@ -210,13 +231,20 @@ doc:<span class="hljs-keyword">json</span>:
 <span class="hljs-keyword">version</span>:
   Bump package.json <span class="hljs-keyword">version</span>, <span class="hljs-keyword">update</span> CHANGELOG.md, tag <span class="hljs-keyword">release</span>
 <span class="hljs-keyword">reset</span>:
-  <span class="hljs-keyword">Delete</span> all untracked files <span class="hljs-keyword">and</span> <span class="hljs-keyword">reset</span> the repo <span class="hljs-keyword">to</span> the <span class="hljs-keyword">last</span> <span class="hljs-keyword">commit</span>
+  <span class="hljs-keyword">Delete</span> <span class="hljs-keyword">all</span> untracked files <span class="hljs-keyword">and</span> <span class="hljs-keyword">reset</span> the repo <span class="hljs-keyword">to</span> the <span class="hljs-keyword">last</span> <span class="hljs-keyword">commit</span>
 <span class="hljs-keyword">prepare</span>-<span class="hljs-keyword">release</span>:
-  One-step: clean, <span class="hljs-keyword">build</span>, <span class="hljs-keyword">test</span>, publish docs, <span class="hljs-keyword">and</span> prep a <span class="hljs-keyword">release</span></code></pre><h1 id="faqs">FAQs</h1>
-				<h2 id="why-are-there-two-builds-main-and-module-">Why are there two builds? (<code>main</code> and <code>module</code>)</h2>
+  One-step: clean, <span class="hljs-keyword">build</span>, <span class="hljs-keyword">test</span>, publish docs, <span class="hljs-keyword">and</span> prep a <span class="hljs-keyword">release</span></code></pre>
+				<a href="#faqs" id="faqs" style="color: inherit; text-decoration: none;">
+					<h1>FAQs</h1>
+				</a>
+				<a href="#why-are-there-two-builds-codemaincode-and-codemodulecode" id="why-are-there-two-builds-codemaincode-and-codemodulecode" style="color: inherit; text-decoration: none;">
+					<h2>Why are there two builds? (<code>main</code> and <code>module</code>)</h2>
+				</a>
 				<p>The <code>src</code> of <code>typescript-starter</code> is compiled into two separate builds: <code>main</code> and <code>module</code>. The <code>main</code> build is <a href="https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8">configured to use the CommonJS module system</a>. The <code>module</code> build <a href="https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json">uses the new es6 module system</a>.</p>
 				<p>Because Node.js LTS releases do not yet support the es6 module system, some projects which depend on your project will follow the <code>main</code> field in <a href="https://github.com/bitjson/typescript-starter/blob/master/package.json"><code>package.json</code></a>. Tools which support the new system (like <a href="https://github.com/rollup/rollup">Rollup</a>, <a href="https://webpack.js.org/">Webpack</a>, or <a href="https://parceljs.org/">Parcel</a>) will follow the <code>module</code> field, giving them the ability to statically analyze your project. These tools can tree-shake your <code>module</code> build to import only the code they need.</p>
-				<h2 id="why-put-tests-next-to-the-source-code-">Why put tests next to the source code?</h2>
+				<a href="#why-put-tests-next-to-the-source-code" id="why-put-tests-next-to-the-source-code" style="color: inherit; text-decoration: none;">
+					<h2>Why put tests next to the source code?</h2>
+				</a>
 				<p>By convention, sample tests in this project are adjacent to the files they test.</p>
 				<ul>
 					<li>Such tests are easy to find.</li>
@@ -226,20 +254,28 @@ doc:<span class="hljs-keyword">json</span>:
 					<li>When you rename the source file (inevitable), you remember to rename the test file.</li>
 				</ul>
 				<p>(Bullet points taken from <a href="https://angular.io/guide/testing#q-spec-file-location">Angular&#39;s Testing Guide</a>.)</p>
-				<h2 id="can-i-move-the-tests-">Can I move the tests?</h2>
+				<a href="#can-i-move-the-tests" id="can-i-move-the-tests" style="color: inherit; text-decoration: none;">
+					<h2>Can I move the tests?</h2>
+				</a>
 				<p>Yes. For some projects, separating tests from the code they test may be desirable. This project is already configured to test any <code>*.spec.ts</code> files located in the <code>src</code> directory, so reorganize your tests however you&#39;d like. You can put them all in a single folder, add tests that test more than one file, or mix and match strategies (e.g. for other types of tests, like integration or e2e tests).</p>
-				<h2 id="can-i-use-ts-node-for-all-the-things-">Can I use ts-node for all the things?</h2>
+				<a href="#can-i-use-ts-node-for-all-the-things" id="can-i-use-ts-node-for-all-the-things" style="color: inherit; text-decoration: none;">
+					<h2>Can I use ts-node for all the things?</h2>
+				</a>
 				<p>Tests are compiled and performed on the final builds in the standard Node.js runtime (rather than an alternative like <a href="https://github.com/TypeStrong/ts-node">ts-node</a>) to ensure that they pass in that environment. If you are build a Node.js application, and you are using <a href="https://github.com/TypeStrong/ts-node/issues/104">ts-node in production</a>, you can modify this project to use <code>ts-node</code> rather than a <code>build</code> step.</p>
 				<p><strong>However, if you&#39;re building any kind of library, you should always compile to javascript.</strong></p>
 				<p>Library authors sometimes make the mistake of distributing their libraries in typescript. Intuitively, this seems like a reasonable course of action, especially if all of your intended consumers will be using typescript as well.</p>
 				<p>TypeScript has versions, and different versions of TypeScript may not be compatible. Upgrading to a new major version of TypeScript sometimes requires code changes, and must be done project-by-project. Additionally, if you&#39;re using the latest version of TypeScript to build your library, and one of your consumers is using an older version in their application, their compiler will be unable to compile your library.</p>
-				<h2 id="how-do-i-bundle-my-library-for-the-browser-">How do I bundle my library for the browser?</h2>
+				<a href="#how-do-i-bundle-my-library-for-the-browser" id="how-do-i-bundle-my-library-for-the-browser" style="color: inherit; text-decoration: none;">
+					<h2>How do I bundle my library for the browser?</h2>
+				</a>
 				<p>The short answer is: <strong>don&#39;t pre-bundle your library</strong>.</p>
 				<p>Previous versions of <code>typescript-starter</code> included browser bundling using <a href="https://github.com/rollup/rollup">Rollup</a>. This feature has since been removed, since very few libraries should ever be pre-bundled.</p>
 				<p>If the consumer of your library is using Node.js, bundling is especially unnecessary, since Node.js can reliably resolve dependencies, and bundling may even make debugging more difficult.</p>
 				<p>If the consumer of your library is a browser application, <strong>the application likely has its own build tooling</strong>. Very few serious applications are manually bundling their javascript, especially with easy to use, no configuration tools like <a href="https://parceljs.org/">Parcel</a> available.</p>
 				<p>Your library is most useful to downstream consumers as a clean, modular codebase, properly exporting features using es6 exports. Consumers can import the exact es6 exports they need from your library, and tree-shake the rest.</p>
-				<h2 id="how-can-my-library-provide-different-functionality-between-node-js-and-the-browser-">How can my library provide different functionality between Node.js and the browser?</h2>
+				<a href="#how-can-my-library-provide-different-functionality-between-nodejs-and-the-browser" id="how-can-my-library-provide-different-functionality-between-nodejs-and-the-browser" style="color: inherit; text-decoration: none;">
+					<h2>How can my library provide different functionality between Node.js and the browser?</h2>
+				</a>
 				<p>In the past, complex javascript libraries have used solutions like <a href="http://browserify.org/">Browserify</a> to bundle a version of their application for the browser. Most of these solutions work by allowing library developers to extensively configure and manually override various dependencies with respective browser versions.</p>
 				<p>For example, where a Node.js application might use Node.js&#39; built-in <a href="https://nodejs.org/api/crypto.html"><code>crypto</code> module</a>, a browser version would need to fall back to a polyfill-like alternative dependency like <a href="https://github.com/crypto-browserify/crypto-browserify"><code>crypto-browserify</code></a>.</p>
 				<p>With es6, this customization and configuration is no longer necessary. Your library can now export different functionality for different consumers. While browser consumers may import a native JavaScript crypto implementation which your library exports, Node.js users can choose to import a different, faster implementation which your library exports.</p>
@@ -258,12 +294,16 @@ doc:<span class="hljs-keyword">json</span>:
 
 <span class="hljs-comment">// fully-portable code</span>
 <span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));</code></pre>
-				<h2 id="what-about-git-hooks-to-validate-commit-messages-">What about Git hooks to validate commit messages?</h2>
+				<a href="#what-about-git-hooks-to-validate-commit-messages" id="what-about-git-hooks-to-validate-commit-messages" style="color: inherit; text-decoration: none;">
+					<h2>What about Git hooks to validate commit messages?</h2>
+				</a>
 				<p>This project uses <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> to automatically update the changelog based on commit messages since the last release. To do this, each relevant commit must be properly formatted.</p>
 				<p>To ensure all commits follow the proper conventions, you can use a package like <a href="https://github.com/marionebl/commitlint">commitlint</a> with <a href="https://github.com/typicode/husky">Husky</a>. However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.</p>
 				<p>If your project is private, or will primarily receive contributions from long-running contributors, this may be a good fit. Otherwise, this setup may raise the barrier to one-off contributions slightly.</p>
 				<p>Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the <code>Squash and Merge</code> option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, <code>typescript-starter</code> does not bundle any commit message validation.</p>
-				<h1 id="contributing">Contributing</h1>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h1>Contributing</h1>
+				</a>
 				<p>To work on the CLI, clone and build the repo, then use <code>npm link</code> to install it globally.</p>
 				<pre><code><span class="hljs-attr">git</span> <span class="hljs-string">clone https://github.com/bitjson/typescript-starter.git</span>
 <span class="hljs-attr">cd</span> <span class="hljs-string">typescript-starter</span>
@@ -275,7 +315,9 @@ doc:<span class="hljs-keyword">json</span>:
 TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
 				<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">'https://github.com/YOUR_USERNAME/typescript-starter.git'</span> typescript-starter</code></pre><p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
 				<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
-				<h1 id="in-the-wild">In the wild</h1>
+				<a href="#in-the-wild" id="in-the-wild" style="color: inherit; text-decoration: none;">
+					<h1>In the wild</h1>
+				</a>
 				<p>You can find more advanced configurations, usage examples, and inspiration from other projects using <code>typescript-starter</code>:</p>
 				<ul>
 					<li><a href="https://github.com/bitauth/">BitAuth</a> – A universal identity and authentication protocol, based on bitcoin</li>
@@ -321,9 +363,6 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#typescriptstarteruseroptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>User<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#inherit" class="tsd-kind-icon">inherit</a>
-					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#addinferredoptions" class="tsd-kind-icon">add<wbr>Inferred<wbr>Options</a>
 					</li>
@@ -362,6 +401,9 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#install" class="tsd-kind-icon">install</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#normalizepath" class="tsd-kind-icon">normalize<wbr>Path</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#power" class="tsd-kind-icon">power</a>
@@ -404,6 +446,7 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -452,7 +495,7 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
