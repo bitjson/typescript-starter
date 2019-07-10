@@ -173,8 +173,8 @@ You can also prepare a non-standard release:
 ```bash
 # Or a non-standard release:
 
-# Build everything
-npm run all
+# Reset the repo to the latest commit and build everything
+npm run reset && npm run test && npm run cov:check && npm run doc:html
 
 # Then version it with standard-version options. e.g.:
 # don't bump package.json version
