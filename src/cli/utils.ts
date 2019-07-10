@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { existsSync } from 'fs';
 import gradient from 'gradient-string';
+import { normalize } from 'path';
 import validateNpmPackageName from 'validate-npm-package-name';
 export enum Runner {
   Npm = 'npm',
@@ -90,3 +91,10 @@ _                             _      _          _            _
     ? chalk.bold(gradient.mind(asciiSmaller))
     : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
 }
+
+/**
+ * On Windows, normalize returns "\\" as the path separator.
+ * This method normalizes with POSIX.
+ */
+export const normalizePath = (path: string) =>
+  normalize(path).replace(/\\/g, '/');

@@ -13,7 +13,7 @@
 
 ## Start Now
 
-Run one simple command to install and use the interactive project generator. You'll need [Node](https://nodejs.org/) `v8.9` (the current LTS release) or later.
+Run one simple command to install and use the interactive project generator. You'll need [Node](https://nodejs.org/) `v10` or later.
 
 ```bash
 npx typescript-starter
@@ -39,7 +39,6 @@ So we can have nice things:
 * Source-mapped code coverage reports with [nyc](https://github.com/istanbuljs/nyc)
 * Configurable code coverage testing (for continuous integration)
 * Automatic linting and formatting using [TSLint](https://github.com/palantir/tslint) and [Prettier](https://prettier.io/)
-* Automatically check for known vulnerabilities in your dependencies with [`nsp`](https://github.com/nodesecurity/nsp)
 
 ## But first, a good editor
 

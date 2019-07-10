@@ -19,7 +19,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
-      - run: npx nyc report --reporter=lcov | npx codecov
+      - run: npm run cov:send
       - run: npm run cov:check
   'node-latest':
     docker:
@@ -37,7 +37,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
-      - run: npx nyc report --reporter=lcov | npx codecov
+      - run: npm run cov:send
       - run: npm run cov:check
 
 workflows:
