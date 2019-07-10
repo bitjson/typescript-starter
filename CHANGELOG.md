@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.4](https://github.com/bitjson/typescript-starter/compare/v2.4.3...v2.4.4) (2019-07-10)
+
+
+### Bug Fixes
+
+* **package:** remove misleading 'all' script ([e68e2b4](https://github.com/bitjson/typescript-starter/commit/e68e2b4)), closes [#186](https://github.com/bitjson/typescript-starter/issues/186)
+
+
+
 ### [2.4.3](https://github.com/bitjson/typescript-starter/compare/v2.4.2...v2.4.3) (2019-07-10)
 
 
