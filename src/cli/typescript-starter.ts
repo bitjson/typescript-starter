@@ -53,6 +53,7 @@ export async function typescriptStarter(
     'gh-pages',
     'npm-run-all',
     'npm-scripts-info',
+    '@bitjson/npm-scripts-info',
     'nyc',
     'opn-cli',
     'prettier',
