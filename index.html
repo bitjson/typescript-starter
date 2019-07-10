@@ -187,8 +187,8 @@ npm run prepare-release</code></pre>
 				<p>You can also prepare a non-standard release:</p>
 				<pre><code class="language-bash"><span class="hljs-comment"># Or a non-standard release:</span>
 
-<span class="hljs-comment"># Build everything</span>
-npm run all
+<span class="hljs-comment"># Reset the repo to the latest commit and build everything</span>
+npm run reset &amp;&amp; npm run <span class="hljs-built_in">test</span> &amp;&amp; npm run cov:check &amp;&amp; npm run doc:html
 
 <span class="hljs-comment"># Then version it with standard-version options. e.g.:</span>
 <span class="hljs-comment"># don't bump package.json version</span>
