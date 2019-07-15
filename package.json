@@ -93,7 +93,7 @@
     "@types/inquirer": "^6.0.3",
     "@types/meow": "^5.0.0",
     "@types/nock": "^10.0.3",
-    "@types/node": "^10",
+    "@types/node": "^12.6.3",
     "@types/update-notifier": "^2.5.0",
     "ava": "2.2.0",
     "codecov": "^3.5.0",
