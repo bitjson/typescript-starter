@@ -77,7 +77,7 @@
     "github-username": "^5.0.1",
     "globby": "^10.0.1",
     "gradient-string": "^1.2.0",
-    "inquirer": "^6.4.1",
+    "inquirer": "^7.0.0",
     "meow": "^5.0.0",
     "ora": "^3.4.0",
     "project-version": "^1.2.0",
