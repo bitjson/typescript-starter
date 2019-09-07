@@ -55,7 +55,7 @@ export async function typescriptStarter(
     'npm-scripts-info',
     '@bitjson/npm-scripts-info',
     'nyc',
-    'opn-cli',
+    'open-cli',
     'prettier',
     'standard-version',
     'trash-cli',
