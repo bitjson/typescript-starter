@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.6](https://github.com/bitjson/typescript-starter/compare/v2.4.5...v2.4.6) (2019-09-08)
+
+
+### Bug Fixes
+
+* **cli:** fix typo that was causing missing dependency in build output ([3896ed1](https://github.com/bitjson/typescript-starter/commit/3896ed1))
+
+
+
 ### [2.4.5](https://github.com/bitjson/typescript-starter/compare/v2.4.4...v2.4.5) (2019-07-10)
 
 
