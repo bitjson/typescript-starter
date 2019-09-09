@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.7](https://github.com/bitjson/typescript-starter/compare/v2.4.6...v2.4.7) (2019-09-09)
+
+
+### Bug Fixes
+
+* **cli:** fix coverage commands ([710bf3e](https://github.com/bitjson/typescript-starter/commit/710bf3e))
+
+
+
 ### [2.4.6](https://github.com/bitjson/typescript-starter/compare/v2.4.5...v2.4.6) (2019-09-08)
 
 
