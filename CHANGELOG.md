@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.8](https://github.com/bitjson/typescript-starter/compare/v2.4.7...v2.4.8) (2019-09-09)
+
+
+### Bug Fixes
+
+* **types:** fix breaking change in @types/inquirer types ([d1bc9fa](https://github.com/bitjson/typescript-starter/commit/d1bc9fa))
+
+
+
 ### [2.4.7](https://github.com/bitjson/typescript-starter/compare/v2.4.6...v2.4.7) (2019-09-09)
 
 
