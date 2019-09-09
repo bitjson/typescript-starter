@@ -1,8 +1,8 @@
-import { prompt, Question } from 'inquirer';
+import { DistinctQuestion, prompt } from 'inquirer';
 import { Runner, TypescriptStarterCLIOptions, validateName } from './utils';
 
 export async function inquire(): Promise<TypescriptStarterCLIOptions> {
-  const packageNameQuestion: Question = {
+  const packageNameQuestion: DistinctQuestion = {
     filter: (answer: string) => answer.trim(),
     message: '📦 Enter the new package name:',
     name: 'projectName',
@@ -14,7 +14,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     Node = 'node',
     Library = 'lib'
   }
-  const projectTypeQuestion: Question = {
+  const projectTypeQuestion: DistinctQuestion = {
     // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'Node.js application', value: ProjectType.Node },
@@ -25,7 +25,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     type: 'list'
   };
 
-  const packageDescriptionQuestion: Question = {
+  const packageDescriptionQuestion: DistinctQuestion = {
     filter: (answer: string) => answer.trim(),
     message: '💬 Enter the package description:',
     name: 'description',
@@ -33,7 +33,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     validate: (answer: string) => answer.length > 0
   };
 
-  const runnerQuestion: Question = {
+  const runnerQuestion: DistinctQuestion = {
     // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'npm', value: Runner.Npm },
@@ -51,7 +51,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     nodeAndDom = 'both'
   }
 
-  const typeDefsQuestion: Question = {
+  const typeDefsQuestion: DistinctQuestion = {
     // tslint:disable-next-line:readonly-array
     choices: [
       {
@@ -86,7 +86,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     travis = 'travis',
     vscode = 'vscode'
   }
-  const extrasQuestion: Question = {
+  const extrasQuestion: DistinctQuestion = {
     // tslint:disable-next-line:readonly-array
     choices: [
       {
