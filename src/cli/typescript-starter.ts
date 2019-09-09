@@ -47,13 +47,15 @@ export async function typescriptStarter(
   const pkgPath = join(projectPath, 'package.json');
 
   const keptDevDeps: ReadonlyArray<string> = [
+    '@bitjson/npm-scripts-info',
+    '@bitjson/typedoc',
+    '@istanbuljs/nyc-config-typescript',
     'ava',
     'codecov',
     'cz-conventional-changelog',
     'gh-pages',
     'npm-run-all',
     'npm-scripts-info',
-    '@bitjson/npm-scripts-info',
     'nyc',
     'open-cli',
     'prettier',
