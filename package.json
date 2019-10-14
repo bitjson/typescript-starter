@@ -73,7 +73,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "del": "^5.0.0",
-    "execa": "^2.0.3",
+    "execa": "^3.0.0",
     "github-username": "^5.0.1",
     "globby": "^10.0.1",
     "gradient-string": "^1.2.0",
