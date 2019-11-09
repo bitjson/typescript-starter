@@ -71,7 +71,7 @@
   },
   "NOTE": "These dependencies are for the CLI, and will be removed automatically.",
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "del": "^5.0.0",
     "execa": "^2.0.3",
     "github-username": "^5.0.1",
