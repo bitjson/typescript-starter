@@ -83,7 +83,7 @@
     "project-version": "^1.2.0",
     "replace-in-file": "^4.1.1",
     "sha.js": "^2.4.11",
-    "update-notifier": "^3.0.1",
+    "update-notifier": "^4.0.0",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
