@@ -1,20 +1,22 @@
-import chalk from 'chalk';
 import { existsSync } from 'fs';
-import gradient from 'gradient-string';
 import { normalize } from 'path';
+
+import chalk from 'chalk';
+import gradient from 'gradient-string';
 import validateNpmPackageName from 'validate-npm-package-name';
 export enum Runner {
   Npm = 'npm',
-  Yarn = 'yarn'
+  Yarn = 'yarn',
 }
 
-export interface TypescriptStarterCLIOptions {
+export type TypescriptStarterCLIOptions = {
   readonly appveyor: boolean;
   readonly circleci: boolean;
+  readonly cspell: boolean;
   readonly description: string;
   readonly domDefinitions: boolean;
   readonly editorconfig: boolean;
-  readonly immutable: boolean;
+  readonly functional: boolean;
   readonly install: boolean;
   readonly nodeDefinitions: boolean;
   readonly projectName: string;
@@ -22,12 +24,12 @@ export interface TypescriptStarterCLIOptions {
   readonly strict: boolean;
   readonly travis: boolean;
   readonly vscode: boolean;
-}
+};
 
-export interface TypescriptStarterRequiredConfig {
+export type TypescriptStarterRequiredConfig = {
   readonly starterVersion: string;
   readonly install: boolean;
-}
+};
 
 export type TypescriptStarterUserOptions = TypescriptStarterCLIOptions &
   TypescriptStarterRequiredConfig;
@@ -36,7 +38,7 @@ export type TypescriptStarterArgsOptions =
   | TypescriptStarterUserOptions
   | TypescriptStarterRequiredConfig;
 
-export interface TypescriptStarterInferredOptions {
+export type TypescriptStarterInferredOptions = {
   readonly githubUsername: string;
   readonly fullName: string;
   readonly email: string;
@@ -45,13 +47,12 @@ export interface TypescriptStarterInferredOptions {
     readonly branch: string;
   };
   readonly workingDirectory: string;
-}
+};
 
-export interface TypescriptStarterOptions
-  extends TypescriptStarterCLIOptions,
-    TypescriptStarterInferredOptions {
-  // readonly starterVersion?: string;
-}
+export type TypescriptStarterOptions = TypescriptStarterCLIOptions &
+  TypescriptStarterInferredOptions & {
+    // readonly starterVersion?: string;
+  };
 
 export function hasCLIOptions(
   opts: TypescriptStarterArgsOptions
@@ -96,5 +97,5 @@ _                             _      _          _            _
  * On Windows, normalize returns "\\" as the path separator.
  * This method normalizes with POSIX.
  */
-export const normalizePath = (path: string) =>
+export const normalizePath = (path: string): string =>
   normalize(path).replace(/\\/g, '/');

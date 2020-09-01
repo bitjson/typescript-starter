@@ -1,84 +1,44 @@
 {
   "version": "0.2.0",
-  "configurations": [{
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Project",
-      // we test in `build` to make cleanup fast and easy
-      "cwd": "${workspaceFolder}/build",
-      // Replace this with your project root. If there are multiple, you can
-      // automatically run the currently visible file with: "program": ${file}"
-      "program": "${workspaceFolder}/src/cli/cli.ts",
-      // "args": ["--no-install"],
-      "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
-      "skipFiles": [
-        "<node_internals>/**/*.js",
-        "${workspaceFolder}/node_modules/**/*.js"
-      ],
-      "preLaunchTask": "npm: build",
-      "stopOnEntry": true,
-      "smartStep": true,
-      "runtimeArgs": ["--nolazy"],
-      "env": {
-        "TYPESCRIPT_STARTER_REPO_URL": "${workspaceFolder}"
-      },
-      "console": "externalTerminal"
-    },
+  "configurations": [
+    // To debug, make sure a *.spec.ts file is active in the editor, then run a configuration
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Spec",
-      "program": "${workspaceRoot}/.vscode/debug-ts.js",
-      "args": ["${file}"],
+      "name": "Debug Active Spec",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ava",
+      "runtimeArgs": ["debug", "--break", "--serial", "${file}"],
+      "port": 9229,
+      "outputCapture": "std",
       "skipFiles": ["<node_internals>/**/*.js"],
-      // Consider using `npm run watch` or `yarn watch` for faster debugging
-      // "preLaunchTask": "npm: build",
-      // "smartStep": true,
-      "runtimeArgs": ["--nolazy"]
+      "preLaunchTask": "npm: build"
+      // "smartStep": true
+    },
+    {
+      // Use this one if you're already running `yarn watch`
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Active Spec (no build)",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ava",
+      "runtimeArgs": ["debug", "--break", "--serial", "${file}"],
+      "port": 9229,
+      "outputCapture": "std",
+      "skipFiles": ["<node_internals>/**/*.js"]
+      // "smartStep": true
     },
     // --- cut here ---
-    // TODO: Simpler test debugging option. Discussion:
-    // https://github.com/avajs/ava/issues/1505#issuecomment-370654427
-    // {
-    //   "type": "node",
-    //   "request": "launch",
-    //   "name": "Debug Visible Compiled Spec",
-    //   "program": "${file}",
-    //   "outFiles": ["${workspaceFolder}/build/main/**/*.js"],
-    //   "skipFiles": ["<node_internals>/**/*.js"],
-    //   // Consider using `npm run watch` or `yarn watch` for faster debugging
-    //   // "preLaunchTask": "npm: build",
-    //   // "stopOnEntry": true,
-    //   // "smartStep": true,
-    //   "runtimeArgs": ["--nolazy"],
-    //   "env": {
-    //     "AVA_DEBUG_MODE": "1"
-    //   }
-    // }
     // CLI:
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug CLI Unit Tests",
-      "program": "${workspaceFolder}/node_modules/ava/profile.js",
-      "args": ["${workspaceFolder}/build/main/cli/tests/cli.unit.spec.js"],
-      "skipFiles": ["<node_internals>/**/*.js"],
-      // "preLaunchTask": "npm: build",
-      // "smartStep": true,
-      "runtimeArgs": ["--nolazy"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug CLI Integration Tests",
-      "program": "${workspaceFolder}/node_modules/ava/profile.js",
-      "args": [
-        "${workspaceFolder}/build/main/cli/tests/cli.integration.spec.js"
-      ],
-      "skipFiles": ["<node_internals>/**/*.js"],
-      // "preLaunchTask": "npm: build",
-      // "smartStep": true,
-      "runtimeArgs": ["--nolazy"]
+      "name": "Try CLI",
+      "program": "${workspaceFolder}/bin/typescript-starter",
+      "cwd": "${workspaceFolder}/build",
+      "env": {
+        "TYPESCRIPT_STARTER_REPO_URL": "${workspaceFolder}"
+      },
+      "args": ["debug"],
+      "skipFiles": ["<node_internals>/**/*.js"]
     }
   ]
 }

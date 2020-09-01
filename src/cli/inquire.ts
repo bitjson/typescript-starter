@@ -1,4 +1,5 @@
 import { DistinctQuestion, prompt } from 'inquirer';
+
 import { Runner, TypescriptStarterCLIOptions, validateName } from './utils';
 
 export async function inquire(): Promise<TypescriptStarterCLIOptions> {
@@ -7,22 +8,21 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     message: '📦 Enter the new package name:',
     name: 'projectName',
     type: 'input',
-    validate: validateName
+    validate: validateName,
   };
 
   enum ProjectType {
     Node = 'node',
-    Library = 'lib'
+    Library = 'lib',
   }
   const projectTypeQuestion: DistinctQuestion = {
-    // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'Node.js application', value: ProjectType.Node },
-      { name: 'Javascript library', value: ProjectType.Library }
+      { name: 'Javascript library', value: ProjectType.Library },
     ],
     message: '🔨 What are you making?',
     name: 'type',
-    type: 'list'
+    type: 'list',
   };
 
   const packageDescriptionQuestion: DistinctQuestion = {
@@ -30,103 +30,106 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     message: '💬 Enter the package description:',
     name: 'description',
     type: 'input',
-    validate: (answer: string) => answer.length > 0
+    validate: (answer: string) => answer.length > 0,
   };
 
   const runnerQuestion: DistinctQuestion = {
-    // tslint:disable-next-line:readonly-array
     choices: [
       { name: 'npm', value: Runner.Npm },
-      { name: 'yarn', value: Runner.Yarn }
+      { name: 'yarn', value: Runner.Yarn },
     ],
     message: '🚄 Will this project use npm or yarn?',
     name: 'runner',
-    type: 'list'
+    type: 'list',
   };
 
   enum TypeDefinitions {
     none = 'none',
     node = 'node',
     dom = 'dom',
-    nodeAndDom = 'both'
+    nodeAndDom = 'both',
   }
 
   const typeDefsQuestion: DistinctQuestion = {
-    // tslint:disable-next-line:readonly-array
     choices: [
       {
         name: `None — the library won't use any globals or modules from Node.js or the DOM`,
-        value: TypeDefinitions.none
+        value: TypeDefinitions.none,
       },
       {
         name: `Node.js — parts of the library require access to Node.js globals or built-in modules`,
-        value: TypeDefinitions.node
+        value: TypeDefinitions.node,
       },
       {
         name: `DOM — parts of the library require access to the Document Object Model (DOM)`,
-        value: TypeDefinitions.dom
+        value: TypeDefinitions.dom,
       },
       {
         name: `Both Node.js and DOM — some parts of the library require Node.js, other parts require DOM access`,
-        value: TypeDefinitions.nodeAndDom
-      }
+        value: TypeDefinitions.nodeAndDom,
+      },
     ],
     message: '📚 Which global type definitions do you want to include?',
     name: 'definitions',
     type: 'list',
-    when: (answers: any) => answers.type === ProjectType.Library
+    when: (answers) => answers.type === ProjectType.Library,
   };
 
   enum Extras {
     appveyor = 'appveyor',
     circleci = 'circleci',
+    cspell = 'cspell',
     editorconfig = 'editorconfig',
-    immutable = 'immutable',
+    functional = 'functional',
     strict = 'strict',
     travis = 'travis',
-    vscode = 'vscode'
+    vscode = 'vscode',
   }
   const extrasQuestion: DistinctQuestion = {
-    // tslint:disable-next-line:readonly-array
     choices: [
       {
         name: 'Enable stricter type-checking',
-        value: Extras.strict
+        value: Extras.strict,
       },
       {
         checked: true,
-        name: 'Enable tslint-immutable',
-        value: Extras.immutable
+        name: 'Enable eslint-plugin-functional',
+        value: Extras.functional,
       },
       {
         checked: true,
         name: 'Include .editorconfig',
-        value: Extras.editorconfig
+        value: Extras.editorconfig,
+      },
+      {
+        checked: true,
+        name: 'Include cspell',
+        value: Extras.cspell,
       },
       {
         checked: true,
         name: 'Include VS Code debugging config',
-        value: Extras.vscode
+        value: Extras.vscode,
       },
       {
         checked: true,
         name: 'Include CircleCI config',
-        value: Extras.circleci
+        value: Extras.circleci,
       },
       {
         checked: false,
         name: 'Include Appveyor (Windows-based CI) config',
-        value: Extras.appveyor
+        value: Extras.appveyor,
       },
       {
         checked: false,
         name: 'Include Travis CI config',
-        value: Extras.travis
-      }
+        value: Extras.travis,
+      },
     ],
     message: '🚀 More fun stuff:',
     name: 'extras',
-    type: 'checkbox'
+    type: 'checkbox',
   };
 
   return prompt([
@@ -135,15 +138,15 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     packageDescriptionQuestion,
     runnerQuestion,
     typeDefsQuestion,
-    extrasQuestion
-  ]).then(answers => {
+    extrasQuestion,
+  ]).then((answers) => {
     const {
       definitions,
       description,
       extras,
       projectName,
       runner,
-      type
+      type,
     } = answers as {
       readonly definitions?: TypeDefinitions;
       readonly description: string;
@@ -155,6 +158,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     return {
       appveyor: extras.includes(Extras.appveyor),
       circleci: extras.includes(Extras.circleci),
+      cspell: extras.includes(Extras.cspell),
       description,
       domDefinitions: definitions
         ? [TypeDefinitions.dom, TypeDefinitions.nodeAndDom].includes(
@@ -162,7 +166,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
           )
         : false,
       editorconfig: extras.includes(Extras.editorconfig),
-      immutable: extras.includes(Extras.immutable),
+      functional: extras.includes(Extras.functional),
       install: true,
       nodeDefinitions: definitions
         ? [TypeDefinitions.node, TypeDefinitions.nodeAndDom].includes(
@@ -173,7 +177,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
       runner,
       strict: extras.includes(Extras.strict),
       travis: extras.includes(Extras.travis),
-      vscode: extras.includes(Extras.vscode)
+      vscode: extras.includes(Extras.vscode),
     };
   });
 }

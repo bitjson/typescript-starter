@@ -1,5 +1,5 @@
 /**
- * Multiplies a value by 2. (Also a full example of Typedoc's functionality.)
+ * Multiplies a value by 2. (Also a full example of TypeDoc's functionality.)
  *
  * ### Example (es module)
  * ```js
@@ -15,16 +15,17 @@
  * // => 8
  * ```
  *
- * @param value   Comment describing the `value` parameter.
- * @returns       Comment describing the return type.
- * @anotherNote   Some other value.
+ * @param value - Comment describing the `value` parameter.
+ * @returns Comment describing the return type.
+ * @anotherNote Some other value.
  */
-export function double(value: number): number {
+export const double = (value: number) => {
   return value * 2;
-}
+};
 
 /**
- * Raise the value of the first parameter to the power of the second using the es7 `**` operator.
+ * Raise the value of the first parameter to the power of the second using the
+ * es7 exponentiation operator (`**`).
  *
  * ### Example (es module)
  * ```js
@@ -39,8 +40,12 @@ export function double(value: number): number {
  * console.log(power(2,3))
  * // => 8
  * ```
+ * @param base - the base to exponentiate
+ * @param exponent - the power to which to raise the base
  */
-export function power(base: number, exponent: number): number {
-  // This is a proposed es7 operator, which should be transpiled by Typescript
+export const power = (base: number, exponent: number) => {
+  /**
+   * This es7 exponentiation operator is transpiled by TypeScript
+   */
   return base ** exponent;
-}
+};

@@ -1,24 +1,36 @@
-// tslint:disable:no-console no-if-statement no-expression-statement
+import { readFileSync, renameSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
 import chalk from 'chalk';
 import del from 'del';
-import { readFileSync, renameSync, writeFileSync } from 'fs';
 import ora from 'ora';
-import { join } from 'path';
-import replace from 'replace-in-file';
+import { replaceInFile } from 'replace-in-file';
+
 import { Placeholders, Tasks } from './tasks';
 import { normalizePath, Runner, TypescriptStarterOptions } from './utils';
+
+const readPackageJson = (path: string) =>
+  JSON.parse(readFileSync(path, 'utf8'));
+
+const writePackageJson = (path: string, pkg: unknown) => {
+  // write using the same format as npm:
+  // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48
+  const stringified = JSON.stringify(pkg, null, 2) + '\n';
+  return writeFileSync(path, stringified);
+};
 
 export async function typescriptStarter(
   {
     appveyor,
     circleci,
+    cspell,
     description,
     domDefinitions,
     editorconfig,
     email,
     fullName,
     githubUsername,
-    immutable,
+    functional,
     install,
     nodeDefinitions,
     projectName,
@@ -27,7 +39,7 @@ export async function typescriptStarter(
     strict,
     travis,
     vscode,
-    workingDirectory
+    workingDirectory,
   }: TypescriptStarterOptions,
   tasks: Tasks
 ): Promise<void> {
@@ -47,29 +59,35 @@ export async function typescriptStarter(
   const pkgPath = join(projectPath, 'package.json');
 
   const keptDevDeps: ReadonlyArray<string> = [
-    '@bitjson/npm-scripts-info',
-    '@bitjson/typedoc',
+    '@ava/typescript',
     '@istanbuljs/nyc-config-typescript',
+    '@typescript-eslint/eslint-plugin',
+    '@typescript-eslint/parser',
     'ava',
     'codecov',
+    'cspell',
     'cz-conventional-changelog',
+    'eslint',
+    'eslint-config-prettier',
+    'eslint-plugin-eslint-comments',
+    ...(functional ? ['eslint-plugin-functional'] : []),
+    'eslint-plugin-import',
     'gh-pages',
     'npm-run-all',
-    'npm-scripts-info',
     'nyc',
     'open-cli',
     'prettier',
     'standard-version',
     'trash-cli',
-    'tslint',
-    'tslint-config-prettier',
-    'tslint-immutable',
+    'ts-node',
     'typedoc',
-    'typescript'
+    'typescript',
   ];
 
-  // dependencies to retain for Node.js applications
-  const nodeKeptDeps: ReadonlyArray<string> = ['sha.js'];
+  /**
+   * dependencies to retain for Node.js applications
+   */
+  const nodeKeptDeps: ReadonlyArray<string> = ['@bitauth/libauth'];
 
   const filterAllBut = (
     keep: ReadonlyArray<string>,
@@ -90,7 +108,6 @@ export async function typescriptStarter(
       : {},
     description,
     devDependencies: filterAllBut(keptDevDeps, pkg.devDependencies),
-    // tslint:disable-next-line:readonly-array
     keywords: [],
     name: projectName,
     repository: `https://github.com/${githubUsername}/${projectName}`,
@@ -98,40 +115,43 @@ export async function typescriptStarter(
       runner === Runner.Yarn
         ? {
             ...pkg.scripts,
-            preinstall: `node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('${projectName} must be installed with Yarn: https://yarnpkg.com/')\"`
+            'reset-hard': `git clean -dfx && git reset --hard && yarn`,
           }
         : { ...pkg.scripts },
-    version: '1.0.0'
+    version: '1.0.0',
   };
 
-  // tslint:disable:no-delete no-object-mutation
+  // eslint-disable-next-line functional/immutable-data
   delete newPkg.bin;
+  // eslint-disable-next-line functional/immutable-data
   delete newPkg.NOTE;
-  // tslint:enable:no-delete no-object-mutation
+  // eslint-disable-next-line functional/immutable-data
+  delete newPkg.NOTE_2;
 
   writePackageJson(pkgPath, newPkg);
   spinnerPackage.succeed();
 
   const spinnerGitignore = ora('Updating .gitignore').start();
   if (runner === Runner.Yarn) {
-    await replace({
+    await replaceInFile({
       files: join(projectPath, '.gitignore'),
       from: 'yarn.lock',
-      to: 'package-lock.json'
+      to: 'package-lock.json',
     });
   }
   spinnerGitignore.succeed();
 
   const spinnerLicense = ora('Updating LICENSE').start();
-  await replace({
+  await replaceInFile({
     files: join(projectPath, 'LICENSE'),
+    // cspell: disable-next-line
     from: 'Jason Dreyzehner',
-    to: fullName
+    to: fullName,
   });
-  await replace({
+  await replaceInFile({
     files: join(projectPath, 'LICENSE'),
     from: '2017',
-    to: new Date().getUTCFullYear().toString()
+    to: new Date().getUTCFullYear().toString(),
   });
   spinnerLicense.succeed();
 
@@ -143,13 +163,27 @@ export async function typescriptStarter(
     normalizePath(join(projectPath, 'package-lock.json')),
     normalizePath(join(projectPath, 'bin')),
     normalizePath(join(projectPath, 'src', 'cli')),
-    normalizePath(join(projectPath, 'src', 'types', 'cli.d.ts'))
   ]);
   if (!appveyor) {
     del([normalizePath(join(projectPath, 'appveyor.yml'))]);
   }
   if (!circleci) {
     del([normalizePath(join(projectPath, '.circleci'))]);
+  }
+  if (!cspell) {
+    del([normalizePath(join(projectPath, '.cspell.json'))]);
+    if (vscode) {
+      await replaceInFile({
+        files: join(projectPath, '.vscode', 'settings.json'),
+        from: `  "cSpell.userWords": [], // only use words from .cspell.json\n`,
+        to: '',
+      });
+      await replaceInFile({
+        files: join(projectPath, '.vscode', 'settings.json'),
+        from: `  "cSpell.enabled": true,\n`,
+        to: '',
+      });
+    }
   }
   if (!travis) {
     del([normalizePath(join(projectPath, '.travis.yml'))]);
@@ -163,16 +197,16 @@ export async function typescriptStarter(
   spinnerDelete.succeed();
 
   const spinnerTsconfigModule = ora('Removing traces of the CLI').start();
-  await replace({
+  await replaceInFile({
     files: join(projectPath, 'tsconfig.module.json'),
     from: /,\s+\/\/ typescript-starter:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
-    to: ''
+    to: '',
   });
   if (vscode) {
-    await replace({
+    await replaceInFile({
       files: join(projectPath, '.vscode', 'launch.json'),
       from: /,[\s]*\/\/ --- cut here ---[\s\S]*]/,
-      to: ']'
+      to: ']',
     });
   }
   spinnerTsconfigModule.succeed();
@@ -182,67 +216,74 @@ export async function typescriptStarter(
     join(projectPath, 'README-starter.md'),
     join(projectPath, 'README.md')
   );
-  await replace({
+  await replaceInFile({
     files: join(projectPath, 'README.md'),
     from: '[package-name]',
-    to: projectName
+    to: projectName,
   });
-  await replace({
+  await replaceInFile({
     files: join(projectPath, 'README.md'),
     from: '[description]',
-    to: description
+    to: description,
   });
   spinnerReadme.succeed();
 
   if (!strict) {
     const spinnerStrict = ora(`tsconfig: disable strict`).start();
-    await replace({
+    await replaceInFile({
       files: join(projectPath, 'tsconfig.json'),
       from: '"strict": true',
-      to: '// "strict": true'
+      to: '// "strict": true',
     });
     spinnerStrict.succeed();
   }
 
   if (!domDefinitions) {
     const spinnerDom = ora(`tsconfig: don't include "dom" lib`).start();
-    await replace({
+    await replaceInFile({
       files: join(projectPath, 'tsconfig.json'),
       from: '"lib": ["es2017", "dom"]',
-      to: '"lib": ["es2017"]'
+      to: '"lib": ["es2017"]',
     });
     spinnerDom.succeed();
   }
 
   if (!nodeDefinitions) {
     const spinnerNode = ora(`tsconfig: don't include "node" types`).start();
-    await replace({
+    await replaceInFile({
       files: join(projectPath, 'tsconfig.json'),
       from: '"types": ["node"]',
-      to: '"types": []'
+      to: '"types": []',
     });
-    await replace({
+    await replaceInFile({
       files: join(projectPath, 'src', 'index.ts'),
       from: /^export[\S\s]*hash';\s*/,
-      to: ''
+      to: '',
     });
     await del([
       normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'async.ts')),
-      normalizePath(join(projectPath, 'src', 'lib', 'async.spec.ts'))
+      normalizePath(join(projectPath, 'src', 'lib', 'async.spec.ts')),
     ]);
     spinnerNode.succeed();
   }
 
-  if (!immutable) {
-    const spinnerTslint = ora(`tslint: disable tslint-immutable`).start();
-    await replace({
-      files: join(projectPath, 'tslint.json'),
-      from: /,[\s]*\/\* tslint-immutable rules \*\/[\s\S]*\/\* end tslint-immutable rules \*\//,
-      to: ''
+  if (!functional) {
+    const spinnerEslint = ora(
+      `eslint: disable eslint-plugin-functional`
+    ).start();
+    await replaceInFile({
+      files: join(projectPath, '.eslintrc.json'),
+      from: '"plugins": ["import", "eslint-comments", "functional"]',
+      to: '"plugins": ["import", "eslint-comments"]',
     });
-    spinnerTslint.succeed();
+    await replaceInFile({
+      files: join(projectPath, '.eslintrc.json'),
+      from: '"plugin:functional/lite",\n',
+      to: '',
+    });
+    spinnerEslint.succeed();
   }
 
   if (install) {
@@ -261,13 +302,3 @@ export async function typescriptStarter(
 
   console.log(`\n${chalk.blue.bold(`Created ${projectName} 🎉`)}\n`);
 }
-
-const readPackageJson = (path: string) =>
-  JSON.parse(readFileSync(path, 'utf8'));
-
-const writePackageJson = (path: string, pkg: any) => {
-  // write using the same format as npm:
-  // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48
-  const stringified = JSON.stringify(pkg, null, 2) + '\n';
-  return writeFileSync(path, stringified);
-};
