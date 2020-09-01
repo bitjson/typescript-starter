@@ -30,7 +30,7 @@ The interactive CLI will help you create and configure your project automaticall
 - Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers capable of using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
 - Export type declarations to improve your downstream development experience
 - Backwards compatibility for Node.js-style (CommonJS) imports
-- Both strict and flexible [typescript configurations](config/tsconfig.json) available
+- Both strict and flexible [typescript configurations](./tsconfig.json) available
 
 So we can have nice things:
 
