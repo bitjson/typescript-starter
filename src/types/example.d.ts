@@ -10,25 +10,15 @@
  * for the package, you may want to declare your own. (If you're using the
  * `noImplicitAny` compiler options, you'll be required to declare it.)
  *
- * This is an example type definition for the `sha.js` package, used in hash.ts.
- *
- * (This definition was primarily extracted from:
- * https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/v8/index.d.ts
+ * This is an example type definition which allows import from `module-name`,
+ * e.g.:
+ * ```ts
+ * import something from 'module-name';
+ * something();
+ * ```
  */
-declare module 'sha.js' {
-  export default function shaJs(algorithm: string): Hash;
-
-  type Utf8AsciiLatin1Encoding = 'utf8' | 'ascii' | 'latin1';
-  type HexBase64Latin1Encoding = 'latin1' | 'hex' | 'base64';
-
-  export interface Hash extends NodeJS.ReadWriteStream {
-    // tslint:disable:no-method-signature
-    update(
-      data: string | Buffer | DataView,
-      inputEncoding?: Utf8AsciiLatin1Encoding
-    ): Hash;
-    digest(): Buffer;
-    digest(encoding: HexBase64Latin1Encoding): string;
-    // tslint:enable:no-method-signature
-  }
+declare module 'module-name' {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const whatever: any;
+  export = whatever;
 }

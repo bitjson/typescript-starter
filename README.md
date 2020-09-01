@@ -25,20 +25,20 @@ The interactive CLI will help you create and configure your project automaticall
 
 # Features
 
-* Write **standard, future javascript** – with stable ESNext features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
-* [Optionally use typescript](https://medium.freecodecamp.org/its-time-to-give-typescript-another-chance-2caaf7fabe61) to improve tooling, linting, and documentation generation
-* Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers capable of using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
-* Export type declarations to improve your downstream development experience
-* Backwards compatibility for Node.js-style (CommonJS) imports
-* Both strict and flexible [typescript configurations](config/tsconfig.json) available
+- Write **standard, future javascript** – with stable ESNext features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
+- [Optionally use typescript](https://medium.freecodecamp.org/its-time-to-give-typescript-another-chance-2caaf7fabe61) to improve tooling, linting, and documentation generation
+- Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers capable of using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
+- Export type declarations to improve your downstream development experience
+- Backwards compatibility for Node.js-style (CommonJS) imports
+- Both strict and flexible [typescript configurations](config/tsconfig.json) available
 
 So we can have nice things:
 
-* Generate API documentation (HTML or JSON) [without a mess of JSDoc tags](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) to maintain
-* Collocated, atomic, concurrent unit tests with [AVA](https://github.com/avajs/ava)
-* Source-mapped code coverage reports with [nyc](https://github.com/istanbuljs/nyc)
-* Configurable code coverage testing (for continuous integration)
-* Automatic linting and formatting using [TSLint](https://github.com/palantir/tslint) and [Prettier](https://prettier.io/)
+- Generate API documentation (HTML or JSON) [without a mess of JSDoc tags](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) to maintain
+- Collocated, atomic, concurrent unit tests with [AVA](https://github.com/avajs/ava)
+- Source-mapped code coverage reports with [nyc](https://github.com/istanbuljs/nyc)
+- Configurable code coverage testing (for continuous integration)
+- Automatic linting and formatting using [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint) and [Prettier](https://prettier.io/)
 
 ## But first, a good editor
 
@@ -46,7 +46,7 @@ Before you start, consider using an [editor with good typescript support](https:
 
 [VS Code](https://code.visualstudio.com/) (below) is a popular option. Editors with typescript support can provide helpful autocomplete, inline documentation, and code refactoring features.
 
-Also consider installing editor extensions for [TSLint](https://github.com/Microsoft/vscode-tslint) and [Prettier](https://github.com/prettier/prettier-vscode). These extensions automatically format your code each time you save, and may quickly become invaluable.
+Also consider installing editor extensions for [ESLint](https://github.com/Microsoft/vscode-eslint) and [Prettier](https://github.com/prettier/prettier-vscode). These extensions automatically format your code each time you save, and may quickly become invaluable.
 
 <p align="center">
   <img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
@@ -78,6 +78,14 @@ Since only changed files are rebuilt and retested, this workflow remains fast ev
 To make getting started easier, the default `tsconfig.json` is using a very flexible configuration. This will allow you to get started without many warnings from Typescript.
 
 To enable additional Typescript type checking features (a good idea for mission-critical or large projects), review the commented-out lines in your [typescript compiler options](./tsconfig.json).
+
+## Auto-fix and format project
+
+To automatically fix `eslint` and `prettier` formatting issues, run:
+
+```
+npm run fix
+```
 
 ## View test coverage
 
@@ -154,11 +162,11 @@ npm run prepare-release
 
 This command runs the following tasks:
 
-* `reset`: cleans the repo by removing all untracked files and resetting `--hard` to the latest commit. (**Note: this could be destructive.**)
-* `test`: build and fully test the project
-* `docs:html`: generate the latest version of the documentation
-* `docs:publish`: publish the documentation to GitHub Pages
-* `version`: bump package.json version, update CHANGELOG.md, and git tag the release
+- `hard-reset`: cleans the repo by removing all untracked files and resetting `--hard` to the latest commit. (**Note: this could be destructive.**)
+- `test`: build and fully test the project
+- `docs:html`: generate the latest version of the documentation
+- `docs:publish`: publish the documentation to GitHub Pages
+- `version`: bump package.json version, update CHANGELOG.md, and git tag the release
 
 When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the `npm` registry:
 
@@ -174,7 +182,7 @@ You can also prepare a non-standard release:
 # Or a non-standard release:
 
 # Reset the repo to the latest commit and build everything
-npm run reset && npm run test && npm run cov:check && npm run doc:html
+npm run hard-reset && npm run test && npm run cov:check && npm run doc:html
 
 # Then version it with standard-version options. e.g.:
 # don't bump package.json version
@@ -192,39 +200,6 @@ npm run version -- --first-release
 npm run doc:publish
 ```
 
-## Describe package scripts
-
-You can run the `describe` script for a description of the available package scripts.
-
-```
-npm run describe
-
-> npm-scripts-info
-
-info:
-  Display information about the package scripts
-build:
-  Clean and rebuild the project
-fix:
-  Try to automatically fix any linting problems
-test:
-  Lint and unit test the project
-watch:
-  Watch and rebuild the project on save, then rerun relevant tests
-cov:
-  Rebuild, run tests, then create and open the coverage report
-doc:
-  Generate HTML API documentation and open it in a browser
-doc:json:
-  Generate API documentation in typedoc JSON format
-version:
-  Bump package.json version, update CHANGELOG.md, tag release
-reset:
-  Delete all untracked files and reset the repo to the last commit
-prepare-release:
-  One-step: clean, build, test, publish docs, and prep a release
-```
-
 # FAQs
 
 ## Why are there two builds? (`main` and `module`)
@@ -237,13 +212,13 @@ Because Node.js LTS releases do not yet support the es6 module system, some proj
 
 By convention, sample tests in this project are adjacent to the files they test.
 
-* Such tests are easy to find.
-* You see at a glance if a part of your project lacks tests.
-* Nearby tests can reveal how a part works in context.
-* When you move the source (inevitable), you remember to move the test.
-* When you rename the source file (inevitable), you remember to rename the test file.
+- Such tests are easy to find.
+- You see at a glance if a part of your project lacks tests.
+- Nearby tests can reveal how a part works in context.
+- When you move the source (inevitable), you remember to move the test.
+- When you rename the source file (inevitable), you remember to rename the test file.
 
-(Bullet points taken from [Angular's Testing Guide](https://angular.io/guide/testing#q-spec-file-location).)
+(Bullet points taken from [the Angular Testing Guide](https://angular.io/guide/testing#q-spec-file-location).)
 
 ## Can I move the tests?
 
@@ -309,15 +284,18 @@ console.log(sha256('test'));
 
 This project uses [standard-version](https://github.com/conventional-changelog/standard-version) to automatically update the changelog based on commit messages since the last release. To do this, each relevant commit must be properly formatted.
 
-To ensure all commits follow the proper conventions, you can use a package like [commitlint](https://github.com/marionebl/commitlint) with [Husky](https://github.com/typicode/husky). However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.
+To ensure all commits follow the proper conventions, you can use a package like [`commitlint`](https://github.com/marionebl/commitlint) with [Husky](https://github.com/typicode/husky). However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.
 
 If your project is private, or will primarily receive contributions from long-running contributors, this may be a good fit. Otherwise, this setup may raise the barrier to one-off contributions slightly.
 
 Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the `Squash and Merge` option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, `typescript-starter` does not bundle any commit message validation.
 
-# Contributing
+---
 
-To work on the CLI, clone and build the repo, then use `npm link` to install it globally.
+<details>
+<summary><strong>Contributing</strong></summary>
+
+Pull Requests welcome! To work on the CLI, clone and build the repo, then use `npm link` to install it globally.
 
 ```
 git clone https://github.com/bitjson/typescript-starter.git
@@ -327,7 +305,7 @@ npm test
 npm link
 ```
 
-To manually test the CLI, you can use the `TYPESCRIPT_STARTER_REPO_URL` environment variable to test a clone from your local repo. Run `npm run watch` as you're developing, then in a different testing directory:
+To manually test the CLI, you can use the `TYPESCRIPT_STARTER_REPO_URL` environment variable to test a clone from your local repo. Run `npm run build:main -- -w` as you're developing, then in a different testing directory:
 
 ```
 mkdir typescript-starter-testing
@@ -345,11 +323,4 @@ If `TYPESCRIPT_STARTER_REPO_BRANCH` is not provided, it will default to `master`
 
 If you're using [VS Code](https://code.visualstudio.com/), the `Debug CLI` launch configuration also allows you to immediately build and step through execution of the CLI.
 
-# In the wild
-
-You can find more advanced configurations, usage examples, and inspiration from other projects using `typescript-starter`:
-
-* [BitAuth](https://github.com/bitauth/) – A universal identity and authentication protocol, based on bitcoin
-* [s6: Super Simple Secrets \* Simple Secure Storage](https://gitlab.com/td7x/s6/) – An NPM library and tool to sprawl secrets with S3, ease, and encryption
-
-Using `typescript-starter` for your project? Please send a pull request to add it to the list!
+</details>

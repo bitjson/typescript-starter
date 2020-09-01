@@ -1,7 +1,6 @@
-// tslint:disable:no-console no-if-statement no-expression-statement
-
 import meow from 'meow';
-import { Package, UpdateInfo, UpdateNotifier } from 'update-notifier';
+import { Package, UpdateNotifier } from 'update-notifier';
+
 import { Runner, TypescriptStarterArgsOptions, validateName } from './utils';
 
 export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
@@ -23,8 +22,9 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     --yarn              use yarn (default: npm)
 
     --no-circleci       don't include CircleCI
+    --no-cspell         don't include cspell
     --no-editorconfig   don't include .editorconfig
-    --no-immutable      don't enable tslint-immutable
+    --no-functional     don't enable eslint-plugin-functional
     --no-install        skip yarn/npm install
     --no-vscode         don't include VS Code debugging config
 
@@ -35,103 +35,107 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
       flags: {
         appveyor: {
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         },
         circleci: {
           default: true,
-          type: 'boolean'
+          type: 'boolean',
+        },
+        cspell: {
+          default: true,
+          type: 'boolean',
         },
         description: {
           alias: 'd',
           default: 'a typescript-starter project',
-          type: 'string'
+          type: 'string',
         },
         dom: {
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         },
         editorconfig: {
           default: true,
-          type: 'boolean'
+          type: 'boolean',
         },
-        immutable: {
+        functional: {
           default: true,
-          type: 'boolean'
+          type: 'boolean',
         },
         install: {
           default: true,
-          type: 'boolean'
+          type: 'boolean',
         },
         node: {
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         },
         strict: {
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         },
         travis: {
           default: false,
-          type: 'boolean'
+          type: 'boolean',
         },
         vscode: {
           default: true,
-          type: 'boolean'
+          type: 'boolean',
         },
         yarn: {
           default: false,
-          type: 'boolean'
-        }
-      }
+          type: 'boolean',
+        },
+      },
     }
   );
 
-  // immediately check for updates every time we run typescript-starter
-  const updateInfo = await new Promise<UpdateInfo>((resolve, reject) => {
-    const notifier = new UpdateNotifier({
-      callback: (error, update) => {
-        error ? reject(error) : resolve(update);
-      },
-      pkg: cli.pkg as Package
-    });
-    notifier.check();
-  });
-  if (updateInfo.type !== 'latest') {
+  const info = await new UpdateNotifier({
+    pkg: cli.pkg as Package,
+  }).fetchInfo();
+  if (info.type !== 'latest') {
+    // eslint-disable-next-line functional/no-throw-statement
     throw new Error(`
-    Your version of typescript-starter is outdated.
-    Consider using 'npx typescript-starter' to always get the latest version.
-    `);
+      Your version of typescript-starter is outdated.
+      Consider using 'npx typescript-starter' to always get the latest version.
+      `);
   }
+
+  const version = cli.pkg.version as string;
 
   const input = cli.input[0];
   if (!input) {
-    // no project-name provided, return to collect options in interactive mode
-    // note: we always return `install`, so --no-install always works
-    // (important for test performance)
+    /**
+     * No project-name provided, return to collect options in interactive mode.
+     * Note: we always return `install`, so --no-install always works
+     * (important for test performance).
+     */
     return {
       install: cli.flags.install,
-      starterVersion: cli.pkg.version
+      starterVersion: version,
     };
   }
-  const validOrMsg = await validateName(input);
+  const validOrMsg = validateName(input);
   if (typeof validOrMsg === 'string') {
+    // eslint-disable-next-line functional/no-throw-statement
     throw new Error(validOrMsg);
   }
 
   return {
     appveyor: cli.flags.appveyor,
     circleci: cli.flags.circleci,
+    cspell: cli.flags.cspell,
     description: cli.flags.description,
     domDefinitions: cli.flags.dom,
     editorconfig: cli.flags.editorconfig,
-    immutable: cli.flags.immutable,
+    functional: cli.flags.functional,
     install: cli.flags.install,
     nodeDefinitions: cli.flags.node,
     projectName: input,
     runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,
-    starterVersion: cli.pkg.version,
+    starterVersion: version,
     strict: cli.flags.strict,
     travis: cli.flags.travis,
-    vscode: cli.flags.vscode
+    vscode: cli.flags.vscode,
   };
 }

@@ -1,5 +1,5 @@
-// tslint:disable:no-expression-statement no-console
 import chalk from 'chalk';
+
 import { checkArgs } from './args';
 import { inquire } from './inquire';
 import { addInferredOptions, LiveTasks } from './tasks';
@@ -15,7 +15,7 @@ import { getIntro, hasCLIOptions, TypescriptStarterUserOptions } from './utils';
           console.log(getIntro(process.stdout.columns));
           return inquire();
         })()),
-        ...argInfo
+        ...argInfo,
       };
   const options = await addInferredOptions(userOptions);
   return typescriptStarter(options, LiveTasks);

@@ -1,5 +1,5 @@
 /**
- * A sample async function (to demo Typescript's es7 async/await downleveling).
+ * A sample async function (to demo Typescript's es7 async/await down-leveling).
  *
  * ### Example (es imports)
  * ```js
@@ -15,18 +15,18 @@
  * // => ['a','b','c']
  * ```
  *
- * @returns       a Promise which should contain `['a','b','c']`
+ * @returns a Promise which should contain `['a','b','c']`
  */
-export async function asyncABC(): Promise<ReadonlyArray<string>> {
-  function somethingSlow(index: 0 | 1 | 2): Promise<string> {
+export const asyncABC = async () => {
+  const somethingSlow = (index: 0 | 1 | 2) => {
     const storage = 'abc'.charAt(index);
-    return new Promise<string>(resolve =>
+    return new Promise<string>((resolve) =>
       // later...
       resolve(storage)
     );
-  }
+  };
   const a = await somethingSlow(0);
   const b = await somethingSlow(1);
   const c = await somethingSlow(2);
   return [a, b, c];
-}
+};
