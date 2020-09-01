@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/bitjson/typescript-starter/compare/v2.4.8...v3.0.0) (2020-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrated from tslint (deprecated) to eslint.
+
+### Features
+
+* TS v4, tslint -> eslint, add cspell support ([#240](https://github.com/bitjson/typescript-starter/issues/240)) ([390041b](https://github.com/bitjson/typescript-starter/commit/390041b5105c45794518b1819702375ab57928fd))
+
 ### [2.4.8](https://github.com/bitjson/typescript-starter/compare/v2.4.7...v2.4.8) (2019-09-09)
 
 
