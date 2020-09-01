@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>typescript-starter</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for typescript-starter">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> typescript-starter</h1>
+			<h1>typescript-starter</h1>
 		</div>
 	</div>
 </header>
@@ -100,14 +100,14 @@
 					<li>Collocated, atomic, concurrent unit tests with <a href="https://github.com/avajs/ava">AVA</a></li>
 					<li>Source-mapped code coverage reports with <a href="https://github.com/istanbuljs/nyc">nyc</a></li>
 					<li>Configurable code coverage testing (for continuous integration)</li>
-					<li>Automatic linting and formatting using <a href="https://github.com/palantir/tslint">TSLint</a> and <a href="https://prettier.io/">Prettier</a></li>
+					<li>Automatic linting and formatting using <a href="https://github.com/typescript-eslint/typescript-eslint"><code>typescript-eslint</code></a> and <a href="https://prettier.io/">Prettier</a></li>
 				</ul>
 				<a href="#but-first-a-good-editor" id="but-first-a-good-editor" style="color: inherit; text-decoration: none;">
 					<h2>But first, a good editor</h2>
 				</a>
 				<p>Before you start, consider using an <a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support">editor with good typescript support</a>.</p>
 				<p><a href="https://code.visualstudio.com/">VS Code</a> (below) is a popular option. Editors with typescript support can provide helpful autocomplete, inline documentation, and code refactoring features.</p>
-				<p>Also consider installing editor extensions for <a href="https://github.com/Microsoft/vscode-tslint">TSLint</a> and <a href="https://github.com/prettier/prettier-vscode">Prettier</a>. These extensions automatically format your code each time you save, and may quickly become invaluable.</p>
+				<p>Also consider installing editor extensions for <a href="https://github.com/Microsoft/vscode-eslint">ESLint</a> and <a href="https://github.com/prettier/prettier-vscode">Prettier</a>. These extensions automatically format your code each time you save, and may quickly become invaluable.</p>
 				<p align="center">
 					<img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
 				</p>
@@ -131,6 +131,11 @@
 				</a>
 				<p>To make getting started easier, the default <code>tsconfig.json</code> is using a very flexible configuration. This will allow you to get started without many warnings from Typescript.</p>
 				<p>To enable additional Typescript type checking features (a good idea for mission-critical or large projects), review the commented-out lines in your <a href="./tsconfig.json">typescript compiler options</a>.</p>
+				<a href="#auto-fix-and-format-project" id="auto-fix-and-format-project" style="color: inherit; text-decoration: none;">
+					<h2>Auto-fix and format project</h2>
+				</a>
+				<p>To automatically fix <code>eslint</code> and <code>prettier</code> formatting issues, run:</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> fix</span></code></pre>
 				<a href="#view-test-coverage" id="view-test-coverage" style="color: inherit; text-decoration: none;">
 					<h2>View test coverage</h2>
 				</a>
@@ -175,7 +180,7 @@ npm run version</code></pre>
 npm run prepare-release</code></pre>
 				<p>This command runs the following tasks:</p>
 				<ul>
-					<li><code>reset</code>: cleans the repo by removing all untracked files and resetting <code>--hard</code> to the latest commit. (<strong>Note: this could be destructive.</strong>)</li>
+					<li><code>hard-reset</code>: cleans the repo by removing all untracked files and resetting <code>--hard</code> to the latest commit. (<strong>Note: this could be destructive.</strong>)</li>
 					<li><code>test</code>: build and fully test the project</li>
 					<li><code>docs:html</code>: generate the latest version of the documentation</li>
 					<li><code>docs:publish</code>: publish the documentation to GitHub Pages</li>
@@ -188,10 +193,10 @@ npm run prepare-release</code></pre>
 				<pre><code class="language-bash"><span class="hljs-comment"># Or a non-standard release:</span>
 
 <span class="hljs-comment"># Reset the repo to the latest commit and build everything</span>
-npm run reset &amp;&amp; npm run <span class="hljs-built_in">test</span> &amp;&amp; npm run cov:check &amp;&amp; npm run doc:html
+npm run hard-reset &amp;&amp; npm run <span class="hljs-built_in">test</span> &amp;&amp; npm run cov:check &amp;&amp; npm run doc:html
 
 <span class="hljs-comment"># Then version it with standard-version options. e.g.:</span>
-<span class="hljs-comment"># don't bump package.json version</span>
+<span class="hljs-comment"># don&#x27;t bump package.json version</span>
 npm run version -- --first-release
 
 <span class="hljs-comment"># Other popular options include:</span>
@@ -202,42 +207,12 @@ npm run version -- --first-release
 <span class="hljs-comment"># alpha release:</span>
 <span class="hljs-comment"># $ npm run version -- --prerelease alpha</span>
 
-<span class="hljs-comment"># And don't forget to push the docs to GitHub pages:</span>
+<span class="hljs-comment"># And don&#x27;t forget to push the docs to GitHub pages:</span>
 npm run doc:publish</code></pre>
-				<a href="#describe-package-scripts" id="describe-package-scripts" style="color: inherit; text-decoration: none;">
-					<h2>Describe package scripts</h2>
-				</a>
-				<p>You can run the <code>describe</code> script for a description of the available package scripts.</p>
-				<pre><code>npm run <span class="hljs-keyword">describe</span>
-
-&gt; npm-scripts-info
-
-info:
-  Display information about the <span class="hljs-keyword">package</span> scripts
-<span class="hljs-keyword">build</span>:
-  Clean <span class="hljs-keyword">and</span> <span class="hljs-keyword">rebuild</span> the <span class="hljs-keyword">project</span>
-fix:
-  Try <span class="hljs-keyword">to</span> automatically fix <span class="hljs-keyword">any</span> linting problems
-<span class="hljs-keyword">test</span>:
-  Lint <span class="hljs-keyword">and</span> unit <span class="hljs-keyword">test</span> the <span class="hljs-keyword">project</span>
-watch:
-  Watch <span class="hljs-keyword">and</span> <span class="hljs-keyword">rebuild</span> the <span class="hljs-keyword">project</span> <span class="hljs-keyword">on</span> <span class="hljs-keyword">save</span>, <span class="hljs-keyword">then</span> rerun relevant tests
-cov:
-  <span class="hljs-keyword">Rebuild</span>, run tests, <span class="hljs-keyword">then</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">open</span> the coverage report
-doc:
-  Generate HTML API documentation <span class="hljs-keyword">and</span> <span class="hljs-keyword">open</span> it <span class="hljs-keyword">in</span> a browser
-doc:<span class="hljs-keyword">json</span>:
-  Generate API documentation <span class="hljs-keyword">in</span> typedoc <span class="hljs-keyword">JSON</span> <span class="hljs-keyword">format</span>
-<span class="hljs-keyword">version</span>:
-  Bump package.json <span class="hljs-keyword">version</span>, <span class="hljs-keyword">update</span> CHANGELOG.md, tag <span class="hljs-keyword">release</span>
-<span class="hljs-keyword">reset</span>:
-  <span class="hljs-keyword">Delete</span> <span class="hljs-keyword">all</span> untracked files <span class="hljs-keyword">and</span> <span class="hljs-keyword">reset</span> the repo <span class="hljs-keyword">to</span> the <span class="hljs-keyword">last</span> <span class="hljs-keyword">commit</span>
-<span class="hljs-keyword">prepare</span>-<span class="hljs-keyword">release</span>:
-  One-step: clean, <span class="hljs-keyword">build</span>, <span class="hljs-keyword">test</span>, publish docs, <span class="hljs-keyword">and</span> prep a <span class="hljs-keyword">release</span></code></pre>
 				<a href="#faqs" id="faqs" style="color: inherit; text-decoration: none;">
 					<h1>FAQs</h1>
 				</a>
-				<a href="#why-are-there-two-builds-codemaincode-and-codemodulecode" id="why-are-there-two-builds-codemaincode-and-codemodulecode" style="color: inherit; text-decoration: none;">
+				<a href="#why-are-there-two-builds-main-and-module" id="why-are-there-two-builds-main-and-module" style="color: inherit; text-decoration: none;">
 					<h2>Why are there two builds? (<code>main</code> and <code>module</code>)</h2>
 				</a>
 				<p>The <code>src</code> of <code>typescript-starter</code> is compiled into two separate builds: <code>main</code> and <code>module</code>. The <code>main</code> build is <a href="https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8">configured to use the CommonJS module system</a>. The <code>module</code> build <a href="https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json">uses the new es6 module system</a>.</p>
@@ -253,7 +228,7 @@ doc:<span class="hljs-keyword">json</span>:
 					<li>When you move the source (inevitable), you remember to move the test.</li>
 					<li>When you rename the source file (inevitable), you remember to rename the test file.</li>
 				</ul>
-				<p>(Bullet points taken from <a href="https://angular.io/guide/testing#q-spec-file-location">Angular&#39;s Testing Guide</a>.)</p>
+				<p>(Bullet points taken from <a href="https://angular.io/guide/testing#q-spec-file-location">the Angular Testing Guide</a>.)</p>
 				<a href="#can-i-move-the-tests" id="can-i-move-the-tests" style="color: inherit; text-decoration: none;">
 					<h2>Can I move the tests?</h2>
 				</a>
@@ -285,45 +260,40 @@ doc:<span class="hljs-keyword">json</span>:
 				<p>A better way to provide this developer experience is to provide similar APIs for each environment, and then encourage the use of es6 import aliasing to standardize between them.</p>
 				<p>For example, in the documentation for <code>typescript-starter</code>, we encourage Node.js users to import <code>sha256Native as sha256</code>. With this convention, we get a standard API without loaders or dependency substitution hacks.</p>
 				<pre><code class="language-js"><span class="hljs-comment">// browser-application.js</span>
-<span class="hljs-keyword">import</span> { sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">'typescript-starter'</span>;
+<span class="hljs-keyword">import</span> { sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;typescript-starter&#x27;</span>;
 
 <span class="hljs-comment">// fully-portable code</span>
-<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));</code></pre>
+<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">&#x27;test&#x27;</span>));</code></pre>
 				<pre><code class="language-js"><span class="hljs-comment">// node-application.js</span>
-<span class="hljs-keyword">import</span> { sha256Native <span class="hljs-keyword">as</span> sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">'typescript-starter'</span>;
+<span class="hljs-keyword">import</span> { sha256Native <span class="hljs-keyword">as</span> sha256 } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;typescript-starter&#x27;</span>;
 
 <span class="hljs-comment">// fully-portable code</span>
-<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">'test'</span>));</code></pre>
+<span class="hljs-built_in">console</span>.log(sha256(<span class="hljs-string">&#x27;test&#x27;</span>));</code></pre>
 				<a href="#what-about-git-hooks-to-validate-commit-messages" id="what-about-git-hooks-to-validate-commit-messages" style="color: inherit; text-decoration: none;">
 					<h2>What about Git hooks to validate commit messages?</h2>
 				</a>
 				<p>This project uses <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> to automatically update the changelog based on commit messages since the last release. To do this, each relevant commit must be properly formatted.</p>
-				<p>To ensure all commits follow the proper conventions, you can use a package like <a href="https://github.com/marionebl/commitlint">commitlint</a> with <a href="https://github.com/typicode/husky">Husky</a>. However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.</p>
+				<p>To ensure all commits follow the proper conventions, you can use a package like <a href="https://github.com/marionebl/commitlint"><code>commitlint</code></a> with <a href="https://github.com/typicode/husky">Husky</a>. However, keep in mind that commit hooks can be confusing, especially for new contributors. They also interfere with some development tools and workflows.</p>
 				<p>If your project is private, or will primarily receive contributions from long-running contributors, this may be a good fit. Otherwise, this setup may raise the barrier to one-off contributions slightly.</p>
 				<p>Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the <code>Squash and Merge</code> option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, <code>typescript-starter</code> does not bundle any commit message validation.</p>
-				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
-					<h1>Contributing</h1>
-				</a>
-				<p>To work on the CLI, clone and build the repo, then use <code>npm link</code> to install it globally.</p>
-				<pre><code><span class="hljs-attr">git</span> <span class="hljs-string">clone https://github.com/bitjson/typescript-starter.git</span>
+				<hr>
+				<details>
+					<summary><strong>Contributing</strong></summary>
+					<p>Pull Requests welcome! To work on the CLI, clone and build the repo, then use <code>npm link</code> to install it globally.</p>
+					<pre><code><span class="hljs-attr">git</span> <span class="hljs-string">clone https://github.com/bitjson/typescript-starter.git</span>
 <span class="hljs-attr">cd</span> <span class="hljs-string">typescript-starter</span>
 <span class="hljs-attr">npm</span> <span class="hljs-string">install</span>
 <span class="hljs-attr">npm</span> <span class="hljs-string">test</span>
-<span class="hljs-attr">npm</span> <span class="hljs-string">link</span></code></pre><p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run watch</code> as you&#39;re developing, then in a different testing directory:</p>
-				<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
+<span class="hljs-attr">npm</span> <span class="hljs-string">link</span></code></pre>
+					<p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run build:main -- -w</code> as you&#39;re developing, then in a different testing directory:</p>
+					<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
 <span class="hljs-built_in">cd</span> typescript-starter-testing
-TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/typescript-starter' typescript-starter</code></pre><p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
-				<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">'https://github.com/YOUR_USERNAME/typescript-starter.git'</span> typescript-starter</code></pre><p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
-				<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
-				<a href="#in-the-wild" id="in-the-wild" style="color: inherit; text-decoration: none;">
-					<h1>In the wild</h1>
-				</a>
-				<p>You can find more advanced configurations, usage examples, and inspiration from other projects using <code>typescript-starter</code>:</p>
-				<ul>
-					<li><a href="https://github.com/bitauth/">BitAuth</a> – A universal identity and authentication protocol, based on bitcoin</li>
-					<li><a href="https://gitlab.com/td7x/s6/">s6: Super Simple Secrets * Simple Secure Storage</a> – An NPM library and tool to sprawl secrets with S3, ease, and encryption</li>
-				</ul>
-				<p>Using <code>typescript-starter</code> for your project? Please send a pull request to add it to the list!</p>
+TYPESCRIPT_STARTER_REPO_URL=&#x27;/local/<span class="hljs-built_in">path</span>/to/typescript-starter&#x27; typescript-starter</code></pre>
+					<p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
+					<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">&#x27;https://github.com/YOUR_USERNAME/typescript-starter.git&#x27;</span> typescript-starter</code></pre>
+					<p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
+					<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
+				</details>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -342,23 +312,23 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					<li class=" tsd-kind-enum">
 						<a href="enums/runner.html" class="tsd-kind-icon">Runner</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/tasks.html" class="tsd-kind-icon">Tasks</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/typescriptstarterclioptions.html" class="tsd-kind-icon">Typescript<wbr>StarterCLIOptions</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/typescriptstarterinferredoptions.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Inferred<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/typescriptstarteroptions.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/typescriptstarterrequiredconfig.html" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Required<wbr>Config</a>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#tasks" class="tsd-kind-icon">Tasks</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#typescriptstarterargsoptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Args<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarterclioptions" class="tsd-kind-icon">Typescript<wbr>StarterCLIOptions</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarterinferredoptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Inferred<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarteroptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#typescriptstarterrequiredconfig" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>Required<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#typescriptstarteruseroptions" class="tsd-kind-icon">Typescript<wbr>Starter<wbr>User<wbr>Options</a>
@@ -408,7 +378,7 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					<li class=" tsd-kind-function">
 						<a href="globals.html#power" class="tsd-kind-icon">power</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#readpackagejson" class="tsd-kind-icon">read<wbr>Package<wbr>Json</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -423,7 +393,7 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 					<li class=" tsd-kind-function">
 						<a href="globals.html#validatename" class="tsd-kind-icon">validate<wbr>Name</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#writepackagejson" class="tsd-kind-icon">write<wbr>Package<wbr>Json</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
@@ -438,59 +408,6 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
-			</ul>
 		</div>
 	</div>
 </footer>
@@ -499,6 +416,5 @@ TYPESCRIPT_STARTER_REPO_URL='/local/<span class="hljs-built_in">path</span>/to/t
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
