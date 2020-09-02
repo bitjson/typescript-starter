@@ -472,7 +472,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     'test-6/.vscode/settings.json': 'f70eb64341e74d24d901055a26dc8242',
     'test-6/LICENSE': '03ffa741a4f7e356b69353efa4937d2b',
     'test-6/README.md': 'd809bcbf240f44b51b575a3d49936232',
-    'test-6/appveyor.yml': '214e043a9baa2a9d2579a0af0a5621a3',
+    'test-6/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '65b10546885ebad41c098318b896f23c',
     'test-6/src/lib/async.ts': '926732fef1285cb0abb5c6e287ed24df',
