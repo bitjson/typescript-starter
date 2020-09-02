@@ -466,7 +466,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
       '70f4b97f3914e2f399bcc5868e072c29',
     'test-6/.gitignore': 'af817565c661f1b15514584c8ea9e469',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
-    'test-6/.travis.yml': 'b56cf7194d8ff58d6cf51c34b0c645e0',
+    'test-6/.travis.yml': '91976af7b86cffb6960db8c35b27b7d0',
     'test-6/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-6/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
     'test-6/.vscode/settings.json': 'f70eb64341e74d24d901055a26dc8242',
