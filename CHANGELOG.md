@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/bitjson/typescript-starter/compare/v3.0.0...v3.0.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* **appveyor:** extend ava timeout for appveyor ([b48eec5](https://github.com/bitjson/typescript-starter/commit/b48eec599c43a7d373497b971ca1ed50547cecb2))
+* **appveyor:** switch from x86 to x64 version of node ([5a84c78](https://github.com/bitjson/typescript-starter/commit/5a84c78f3141947a17769efee87addcc2057d6da))
+
 ## [3.0.0](https://github.com/bitjson/typescript-starter/compare/v2.4.8...v3.0.0) (2020-09-01)
 
 
