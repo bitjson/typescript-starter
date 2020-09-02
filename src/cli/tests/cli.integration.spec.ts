@@ -13,6 +13,7 @@
  * `diff build/test-one/package.json build/test-two/package.json`
  */
 
+import { existsSync, mkdirSync } from 'fs';
 import { join, relative } from 'path';
 
 import test, { ExecutionContext } from 'ava';
@@ -45,7 +46,11 @@ const repoInfo = {
   branch: branch === 'HEAD' ? '.' : branch,
   repo: process.cwd(),
 };
-const buildDir = join(process.cwd(), 'build');
+const testDir = join(process.cwd(), 'test');
+if (existsSync(testDir)) {
+  del.sync(testDir);
+}
+mkdirSync(testDir);
 const env = {
   TYPESCRIPT_STARTER_REPO_BRANCH: repoInfo.branch,
   TYPESCRIPT_STARTER_REPO_URL: repoInfo.repo,
@@ -59,18 +64,6 @@ enum TestDirectories {
   five = 'test-5',
   six = 'test-6',
 }
-
-// If the tests all pass, the TestDirectories will automatically be cleaned up.
-test.after(async () => {
-  await del([
-    `./build/${TestDirectories.one}`,
-    `./build/${TestDirectories.two}`,
-    `./build/${TestDirectories.three}`,
-    `./build/${TestDirectories.four}`,
-    `./build/${TestDirectories.five}`,
-    `./build/${TestDirectories.six}`,
-  ]);
-});
 
 test('returns version', async (t) => {
   const expected = meow('').pkg.version;
@@ -103,7 +96,7 @@ async function hashAllTheThings(
   projectName: string,
   sandboxed = false
 ): Promise<{ readonly [filename: string]: string }> {
-  const projectDir = normalizePath(join(buildDir, projectName));
+  const projectDir = normalizePath(join(testDir, projectName));
   const rawFilePaths: ReadonlyArray<string> = await globby(
     [projectDir, `!${projectDir}/.git`],
     {
@@ -122,7 +115,7 @@ async function hashAllTheThings(
   return hashes.reduce<{ readonly [filename: string]: string }>(
     (acc, hash, i) => {
       const trimmedNormalizedFilePath = normalizePath(
-        relative(buildDir, filePaths[i])
+        relative(testDir, filePaths[i])
       );
       return {
         ...acc,
@@ -157,7 +150,7 @@ test(`${TestDirectories.one}: parses CLI arguments, handles default options`, as
       '--no-install',
     ],
     {
-      cwd: buildDir,
+      cwd: testDir,
       env,
     }
   );
@@ -172,7 +165,7 @@ test(`${TestDirectories.one}: parses CLI arguments, handles default options`, as
     'test-1/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-1/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-1/.gitignore': '96abf7aadc9155ba2a5bba1e05563ff0',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-1/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-1/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
@@ -182,7 +175,7 @@ test(`${TestDirectories.one}: parses CLI arguments, handles default options`, as
     'test-1/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-1/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-1/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-1/tsconfig.json': '0e04adfce2f26c6473f079f6dabd108a',
+    'test-1/tsconfig.json': '741e6fa9f78712a6f276ba33fc2c798b',
     'test-1/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });
@@ -202,7 +195,7 @@ test(`${TestDirectories.two}: parses CLI arguments, handles all options`, async 
       '--no-install',
     ],
     {
-      cwd: buildDir,
+      cwd: testDir,
       env,
     }
   );
@@ -217,7 +210,7 @@ test(`${TestDirectories.two}: parses CLI arguments, handles all options`, async 
     'test-2/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-2/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-2/.gitignore': '2b90e204ba76e30ec95f946ac7c9787e',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-2/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-2/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
@@ -231,7 +224,7 @@ test(`${TestDirectories.two}: parses CLI arguments, handles all options`, async 
     'test-2/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-2/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-2/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-2/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
+    'test-2/tsconfig.json': 'eadf0f5640c5000ceabf242d157861e4',
     'test-2/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });
@@ -248,7 +241,7 @@ async function testInteractive(
 ): Promise<execa.ExecaReturnValue<string>> {
   const typeDefs = entry[3] !== '';
   const proc = execa(`../bin/typescript-starter`, ['--no-install'], {
-    cwd: buildDir,
+    cwd: testDir,
     env,
   });
 
@@ -302,7 +295,7 @@ test(`${TestDirectories.three}: interactive mode: javascript library`, async (t)
     'test-3/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-3/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-3/.gitignore': '2b90e204ba76e30ec95f946ac7c9787e',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-3/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-3/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
@@ -316,7 +309,7 @@ test(`${TestDirectories.three}: interactive mode: javascript library`, async (t)
     'test-3/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-3/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-3/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-3/tsconfig.json': '43817952d399db9e44977b3703edd7cf',
+    'test-3/tsconfig.json': '25e6e53cdc0b9194c5ba862b275afc37',
     'test-3/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });
@@ -340,7 +333,7 @@ test(`${TestDirectories.four}: interactive mode: node.js application`, async (t)
     'test-4/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-4/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-4/.gitignore': '96abf7aadc9155ba2a5bba1e05563ff0',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-4/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-4/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
@@ -354,7 +347,7 @@ test(`${TestDirectories.four}: interactive mode: node.js application`, async (t)
     'test-4/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-4/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-4/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-4/tsconfig.json': 'e41d08f0aca16cb05430b61e4b6286db',
+    'test-4/tsconfig.json': '0256ae9ca8952a1125c461392b69ce06',
     'test-4/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });
@@ -379,7 +372,7 @@ const sandboxOptions = {
   description: 'this is an example description',
   githubUsername: 'SOME_GITHUB_USERNAME',
   repoInfo,
-  workingDirectory: buildDir,
+  workingDirectory: testDir,
 };
 
 const silenceConsole = (console: Console) => {
@@ -420,7 +413,7 @@ test(`${TestDirectories.five}: Sandboxed: npm install, initial commit`, async (t
     'test-5/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-5/.gitignore': '892227b7f662b74410e9bf6fb2ae887f',
+    'test-5/.gitignore': '96abf7aadc9155ba2a5bba1e05563ff0',
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '317693126d229a3cdd19725a624a56fc',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
@@ -428,7 +421,7 @@ test(`${TestDirectories.five}: Sandboxed: npm install, initial commit`, async (t
     'test-5/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-5/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-5/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-5/tsconfig.json': 'f36dc6407fc898f41a23cb620b2f4884',
+    'test-5/tsconfig.json': '24a7b8aff2651d9a1920e33459d8c346',
     'test-5/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });
@@ -464,7 +457,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     'test-6/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-6/.gitignore': 'af817565c661f1b15514584c8ea9e469',
+    'test-6/.gitignore': '2b90e204ba76e30ec95f946ac7c9787e',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': '91976af7b86cffb6960db8c35b27b7d0',
     'test-6/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
@@ -481,7 +474,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     'test-6/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
     'test-6/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
     'test-6/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-6/tsconfig.json': '8a55379f60e4e6d4fad1f0b2318b74c4',
+    'test-6/tsconfig.json': 'eadf0f5640c5000ceabf242d157861e4',
     'test-6/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
   });
 });

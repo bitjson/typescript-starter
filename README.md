@@ -15,7 +15,7 @@
 
 Run one simple command to install and use the interactive project generator. You'll need [Node](https://nodejs.org/) `v10` or later.
 
-```bash
+```sh
 npx typescript-starter
 ```
 
@@ -56,15 +56,21 @@ Also consider installing editor extensions for [ESLint](https://github.com/Micro
 
 ## Development zen
 
-To start working, run the `watch` task using [`npm`](https://docs.npmjs.com/getting-started/what-is-npm) or [`yarn`](https://yarnpkg.com/).
+To start working, run the `watch:build` task using [`npm`](https://docs.npmjs.com/getting-started/what-is-npm) or [`yarn`](https://yarnpkg.com/).
 
-```bash
-npm run watch
+```sh
+npm run watch:build
 ```
 
-This starter includes a watch task which makes development faster and more interactive. It's particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
+In another terminal tab/window, run the `watch:test` task:
 
-The watch task will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
+```sh
+npm run watch:test
+```
+
+These watch tasks make development much faster and more interactive. They're particularly helpful for [TDD](https://en.wikipedia.org/wiki/Test-driven_development)/[BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) workflows.
+
+These watch tasks will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.
 
 <p align="center">
   <!-- PR request: capture the magic of using a test-running watch task for development -->
@@ -83,7 +89,7 @@ To enable additional Typescript type checking features (a good idea for mission-
 
 To automatically fix `eslint` and `prettier` formatting issues, run:
 
-```
+```sh
 npm run fix
 ```
 
@@ -91,7 +97,7 @@ npm run fix
 
 To generate and view test coverage, run:
 
-```bash
+```sh
 npm run cov
 ```
 
@@ -105,7 +111,7 @@ This will create an HTML report of test coverage – source-mapped back to Types
 
 The src folder is analyzed and documentation is automatically generated using [TypeDoc](https://github.com/TypeStrong/typedoc).
 
-```bash
+```sh
 npm run doc
 ```
 
@@ -115,7 +121,7 @@ Since types are tracked by Typescript, there's no need to indicate types in JSDo
 
 To generate and publish your documentation to [GitHub Pages](https://pages.github.com/) use the following command:
 
-```bash
+```sh
 npm run doc:publish
 ```
 
@@ -127,7 +133,7 @@ Once published, your documentation should be available at the proper GitHub Page
 
 For more advanced documentation generation, you can provide your own [TypeDoc theme](http://typedoc.org/guides/themes/), or [build your own documentation](https://blog.cloudflare.com/generating-documentation-for-typescript-projects/) using the JSON TypeDoc export:
 
-```bash
+```sh
 npm run doc:json
 ```
 
@@ -135,7 +141,7 @@ npm run doc:json
 
 It's recommended that you install [`commitizen`](https://github.com/commitizen/cz-cli) to make commits to your project.
 
-```bash
+```sh
 npm install -g commitizen
 
 # commit your changes:
@@ -144,7 +150,7 @@ git cz
 
 This project is tooled for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) to make managing releases easier. See the [standard-version](https://github.com/conventional-changelog/standard-version) documentation for more information on the workflow, or [`CHANGELOG.md`](CHANGELOG.md) for an example.
 
-```bash
+```sh
 # bump package.json version, update CHANGELOG.md, git tag the release
 npm run version
 ```
@@ -155,7 +161,7 @@ You may find a tool like [**`wip`**](https://github.com/bitjson/wip) helpful for
 
 Bringing together many of the steps above, this repo includes a one-step release preparation command.
 
-```bash
+```sh
 # Prepare a standard release:
 npm run prepare-release
 ```
@@ -170,7 +176,7 @@ This command runs the following tasks:
 
 When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the `npm` registry:
 
-```bash
+```sh
 git push --follow-tags origin master; npm publish
 ```
 
@@ -178,7 +184,7 @@ Look over the release if you'd like, then execute the command to publish everyth
 
 You can also prepare a non-standard release:
 
-```bash
+```sh
 # Or a non-standard release:
 
 # Reset the repo to the latest commit and build everything

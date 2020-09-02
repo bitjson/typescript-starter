@@ -29,18 +29,19 @@
     "appveyor"
   ],
   "scripts": {
-    "build": "run-s clean && run-p build:*",
+    "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint . --ext .ts --fix",
     "test": "run-s build test:*",
-    "test:lint": "eslint . --ext .ts",
+    "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
     "test:spelling": "cspell \"{README.md,.github/*.md,src/**/*.ts}\"",
     "test:unit": "nyc --silent ava",
-    "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
+    "watch:build": "tsc -p tsconfig.json -w",
+    "watch:test": "nyc --silent ava --watch",
     "cov": "run-s build test:unit cov:html cov:lcov && open-cli coverage/index.html",
     "cov:html": "nyc report --reporter=html",
     "cov:lcov": "nyc report --reporter=lcov",
@@ -52,7 +53,6 @@
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
-    "clean": "trash build test",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish"
   },
   "engines": {
@@ -126,7 +126,11 @@
       }
     },
     "files": [
+      "!test",
       "!build/module/**"
+    ],
+    "ignoredByWatcher": [
+      "test"
     ]
   },
   "config": {
