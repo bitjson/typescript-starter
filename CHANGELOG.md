@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/bitjson/typescript-starter/compare/v3.1.0...v3.1.1) (2020-09-02)
+
+
+### Bug Fixes
+
+* **package:** remove unused dependency ([b6875c2](https://github.com/bitjson/typescript-starter/commit/b6875c25c3925150c77d6aa82236592afbd95bce))
+
 ## [3.1.0](https://github.com/bitjson/typescript-starter/compare/v3.0.1...v3.1.0) (2020-09-02)
 
 
