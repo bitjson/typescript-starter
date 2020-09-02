@@ -78,7 +78,7 @@
 					<h2>Start Now</h2>
 				</a>
 				<p>Run one simple command to install and use the interactive project generator. You&#39;ll need <a href="https://nodejs.org/">Node</a> <code>v10</code> or later.</p>
-				<pre><code class="language-bash">npx typescript-starter</code></pre>
+				<pre><code class="language-sh">npx typescript-starter</code></pre>
 				<p>The interactive CLI will help you create and configure your project automatically.</p>
 				<blockquote>
 					<p>Since this repo includes <a href="./src/cli">the CLI and it&#39;s tests</a>, you&#39;ll only need to fork or clone this project if you want to contribute. If you find this project useful, please consider <a href="https://github.com/bitjson/typescript-starter/stargazers">leaving a star</a> so others can find it. Thanks!</p>
@@ -117,10 +117,12 @@
 				<a href="#development-zen" id="development-zen" style="color: inherit; text-decoration: none;">
 					<h2>Development zen</h2>
 				</a>
-				<p>To start working, run the <code>watch</code> task using <a href="https://docs.npmjs.com/getting-started/what-is-npm"><code>npm</code></a> or <a href="https://yarnpkg.com/"><code>yarn</code></a>.</p>
-				<pre><code class="language-bash">npm run watch</code></pre>
-				<p>This starter includes a watch task which makes development faster and more interactive. It&#39;s particularly helpful for <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>/<a href="https://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a> workflows.</p>
-				<p>The watch task will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.</p>
+				<p>To start working, run the <code>watch:build</code> task using <a href="https://docs.npmjs.com/getting-started/what-is-npm"><code>npm</code></a> or <a href="https://yarnpkg.com/"><code>yarn</code></a>.</p>
+				<pre><code class="language-sh">npm run watch:build</code></pre>
+				<p>In another terminal tab/window, run the <code>watch:test</code> task:</p>
+				<pre><code class="language-sh">npm run watch:<span class="hljs-built_in">test</span></code></pre>
+				<p>These watch tasks make development much faster and more interactive. They&#39;re particularly helpful for <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>/<a href="https://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a> workflows.</p>
+				<p>These watch tasks will build and watch the entire project for changes (to both the library source files and test source files). As you develop, you can add tests for new functionality – which will initially fail – before developing the new functionality. Each time you save, any changes will be rebuilt and retested.</p>
 				<p align="center">
 					<!-- PR request: capture the magic of using a test-running watch task for development -->
 					<img alt="typescript-starter's watch task" src="https://user-images.githubusercontent.com/904007/37270842-c05f5192-25a6-11e8-83bb-1981ae48e38e.png">
@@ -135,12 +137,12 @@
 					<h2>Auto-fix and format project</h2>
 				</a>
 				<p>To automatically fix <code>eslint</code> and <code>prettier</code> formatting issues, run:</p>
-				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> fix</span></code></pre>
+				<pre><code class="language-sh">npm run fix</code></pre>
 				<a href="#view-test-coverage" id="view-test-coverage" style="color: inherit; text-decoration: none;">
 					<h2>View test coverage</h2>
 				</a>
 				<p>To generate and view test coverage, run:</p>
-				<pre><code class="language-bash">npm run cov</code></pre>
+				<pre><code class="language-sh">npm run cov</code></pre>
 				<p>This will create an HTML report of test coverage – source-mapped back to Typescript – and open it in your default browser.</p>
 				<p align="center">
 					<img height="600" alt="source-mapped typescript test coverage example" src="https://cloud.githubusercontent.com/assets/904007/22909301/5164c83a-f221-11e6-9d7c-72c924fde450.png">
@@ -149,34 +151,34 @@
 					<h2>Generate your API docs</h2>
 				</a>
 				<p>The src folder is analyzed and documentation is automatically generated using <a href="https://github.com/TypeStrong/typedoc">TypeDoc</a>.</p>
-				<pre><code class="language-bash">npm run doc</code></pre>
+				<pre><code class="language-sh">npm run doc</code></pre>
 				<p>This command generates API documentation for your library in HTML format and opens it in a browser.</p>
 				<p>Since types are tracked by Typescript, there&#39;s no need to indicate types in JSDoc format. For more information, see the <a href="http://typedoc.org/guides/doccomments/">TypeDoc documentation</a>.</p>
 				<p>To generate and publish your documentation to <a href="https://pages.github.com/">GitHub Pages</a> use the following command:</p>
-				<pre><code class="language-bash">npm run doc:publish</code></pre>
+				<pre><code class="language-sh">npm run doc:publish</code></pre>
 				<p>Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See <a href="https://bitjson.github.io/typescript-starter/"><code>typescript-starter</code>&#39;s GitHub Pages</a> for an example.</p>
 				<p align="center">
 					<img height="500" alt="TypeDoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
 				</p>
 				<p>For more advanced documentation generation, you can provide your own <a href="http://typedoc.org/guides/themes/">TypeDoc theme</a>, or <a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/">build your own documentation</a> using the JSON TypeDoc export:</p>
-				<pre><code class="language-bash">npm run doc:json</code></pre>
+				<pre><code class="language-sh">npm run doc:json</code></pre>
 				<a href="#bump-version-update-changelog-commit-amp-tag-release" id="bump-version-update-changelog-commit-amp-tag-release" style="color: inherit; text-decoration: none;">
 					<h2>Bump version, update changelog, commit, &amp; tag release</h2>
 				</a>
 				<p>It&#39;s recommended that you install <a href="https://github.com/commitizen/cz-cli"><code>commitizen</code></a> to make commits to your project.</p>
-				<pre><code class="language-bash">npm install -g commitizen
+				<pre><code class="language-sh">npm install -g commitizen
 
 <span class="hljs-comment"># commit your changes:</span>
 git cz</code></pre>
 				<p>This project is tooled for <a href="https://github.com/conventional-changelog/conventional-changelog">conventional changelog</a> to make managing releases easier. See the <a href="https://github.com/conventional-changelog/standard-version">standard-version</a> documentation for more information on the workflow, or <a href="CHANGELOG.md"><code>CHANGELOG.md</code></a> for an example.</p>
-				<pre><code class="language-bash"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
+				<pre><code class="language-sh"><span class="hljs-comment"># bump package.json version, update CHANGELOG.md, git tag the release</span>
 npm run version</code></pre>
 				<p>You may find a tool like <a href="https://github.com/bitjson/wip"><strong><code>wip</code></strong></a> helpful for managing work in progress before you&#39;re ready to create a meaningful commit.</p>
 				<a href="#one-step-publish-preparation-script" id="one-step-publish-preparation-script" style="color: inherit; text-decoration: none;">
 					<h2>One-step publish preparation script</h2>
 				</a>
 				<p>Bringing together many of the steps above, this repo includes a one-step release preparation command.</p>
-				<pre><code class="language-bash"><span class="hljs-comment"># Prepare a standard release:</span>
+				<pre><code class="language-sh"><span class="hljs-comment"># Prepare a standard release:</span>
 npm run prepare-release</code></pre>
 				<p>This command runs the following tasks:</p>
 				<ul>
@@ -187,10 +189,10 @@ npm run prepare-release</code></pre>
 					<li><code>version</code>: bump package.json version, update CHANGELOG.md, and git tag the release</li>
 				</ul>
 				<p>When the script finishes, it will log the final command needed to push the release commit to the repo and publish the package on the <code>npm</code> registry:</p>
-				<pre><code class="language-bash">git push --follow-tags origin master; npm publish</code></pre>
+				<pre><code class="language-sh">git push --follow-tags origin master; npm publish</code></pre>
 				<p>Look over the release if you&#39;d like, then execute the command to publish everything.</p>
 				<p>You can also prepare a non-standard release:</p>
-				<pre><code class="language-bash"><span class="hljs-comment"># Or a non-standard release:</span>
+				<pre><code class="language-sh"><span class="hljs-comment"># Or a non-standard release:</span>
 
 <span class="hljs-comment"># Reset the repo to the latest commit and build everything</span>
 npm run hard-reset &amp;&amp; npm run <span class="hljs-built_in">test</span> &amp;&amp; npm run cov:check &amp;&amp; npm run doc:html
