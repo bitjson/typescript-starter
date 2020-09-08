@@ -101,6 +101,23 @@ export async function typescriptStarter(
     );
 
   const pkg = readPackageJson(pkgPath);
+  const removeCliScripts = {
+    'check-integration-test': undefined,
+    'check-integration-test:1': undefined,
+    'check-integration-test:2': undefined,
+    'check-integration-test:3': undefined,
+    'check-integration-test:4': undefined,
+    'check-integration-test:5': undefined,
+    'check-integration-test:6': undefined,
+  };
+  const scripts = {
+    ...pkg.scripts,
+    ...removeCliScripts,
+    ...(runner === Runner.Yarn
+      ? { 'reset-hard': `git clean -dfx && git reset --hard && yarn` }
+      : {}),
+    ...(cspell ? {} : { 'test:spelling': undefined }),
+  };
   const newPkg = {
     ...pkg,
     dependencies: nodeDefinitions
@@ -111,14 +128,13 @@ export async function typescriptStarter(
     keywords: [],
     name: projectName,
     repository: `https://github.com/${githubUsername}/${projectName}`,
-    scripts:
-      runner === Runner.Yarn
-        ? {
-            ...pkg.scripts,
-            'reset-hard': `git clean -dfx && git reset --hard && yarn`,
-          }
-        : { ...pkg.scripts },
+    scripts,
     version: '1.0.0',
+    ava: {
+      ...pkg.ava,
+      files: ['!build/module/**'],
+      ignoredByWatcher: undefined,
+    },
   };
 
   // eslint-disable-next-line functional/immutable-data
@@ -132,6 +148,11 @@ export async function typescriptStarter(
   spinnerPackage.succeed();
 
   const spinnerGitignore = ora('Updating .gitignore').start();
+  await replaceInFile({
+    files: join(projectPath, '.gitignore'),
+    from: 'diff\n',
+    to: '',
+  });
   if (runner === Runner.Yarn) {
     await replaceInFile({
       files: join(projectPath, '.gitignore'),
@@ -169,6 +190,12 @@ export async function typescriptStarter(
   }
   if (!circleci) {
     del([normalizePath(join(projectPath, '.circleci'))]);
+  } else {
+    await replaceInFile({
+      files: join(projectPath, '.circleci', 'config.yml'),
+      from: / {6}- run: npm run check-integration-tests\n/g,
+      to: '',
+    });
   }
   if (!cspell) {
     del([normalizePath(join(projectPath, '.cspell.json'))]);
@@ -245,6 +272,15 @@ export async function typescriptStarter(
       from: '"lib": ["es2017", "dom"]',
       to: '"lib": ["es2017"]',
     });
+    await replaceInFile({
+      files: join(projectPath, 'src', 'index.ts'),
+      from: `export * from './lib/hash';\n`,
+      to: '',
+    });
+    await del([
+      normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
+      normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
+    ]);
     spinnerDom.succeed();
   }
 
@@ -257,7 +293,12 @@ export async function typescriptStarter(
     });
     await replaceInFile({
       files: join(projectPath, 'src', 'index.ts'),
-      from: /^export[\S\s]*hash';\s*/,
+      from: `export * from './lib/async';\n`,
+      to: '',
+    });
+    await replaceInFile({
+      files: join(projectPath, 'src', 'index.ts'),
+      from: `export * from './lib/hash';\n`,
       to: '',
     });
     await del([

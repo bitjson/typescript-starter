@@ -311,6 +311,8 @@ npm test
 npm link
 ```
 
+### Manual testing
+
 To manually test the CLI, you can use the `TYPESCRIPT_STARTER_REPO_URL` environment variable to test a clone from your local repo. Run `npm run build:main -- -w` as you're developing, then in a different testing directory:
 
 ```
@@ -327,6 +329,24 @@ TYPESCRIPT_STARTER_REPO_URL='https://github.com/YOUR_USERNAME/typescript-starter
 
 If `TYPESCRIPT_STARTER_REPO_BRANCH` is not provided, it will default to `master`.
 
+### Debug in VS Code
+
 If you're using [VS Code](https://code.visualstudio.com/), the `Debug CLI` launch configuration also allows you to immediately build and step through execution of the CLI.
+
+### Integration Test Result Diffs
+
+You can compare the integration test results before and after a change by running `check-cli` before and after applying your changes:
+
+```sh
+npm run check-cli
+```
+
+Each time you run `check-cli`, the test results will be committed to the `diff` directory, allowing you to easily review the differences with `git diff HEAD` or an interactive Git client like [GitHub for Desktop](https://desktop.github.com/) or [SourceTree](https://www.sourcetreeapp.com/).
+
+If you already have changes in the working directory, try:
+
+```sh
+git stash && npm run check-cli && git stash pop && npm run check-cli
+```
 
 </details>

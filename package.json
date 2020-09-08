@@ -34,12 +34,21 @@
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "fix:lint": "eslint . --ext .ts --fix",
+    "fix:lint": "eslint src --ext .ts --fix",
     "test": "run-s build test:*",
     "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
     "test:spelling": "cspell \"{README.md,.github/*.md,src/**/*.ts}\"",
     "test:unit": "nyc --silent ava",
+    "check-cli": "run-s test diff-integration-tests check-integration-tests",
+    "check-integration-tests": "run-s check-integration-test:*",
+    "check-integration-test:1": "cd test/test-1 && npm i && npm run build && npm run test",
+    "check-integration-test:2": "cd test/test-2 && yarn && yarn build && yarn test",
+    "check-integration-test:3": "cd test/test-3 && yarn && yarn build && yarn test",
+    "check-integration-test:4": "cd test/test-4 && npm i && npm run build && npm run test",
+    "check-integration-test:5": "cd test/test-5 && npm i && npm run build && npm run test",
+    "check-integration-test:6": "cd test/test-6 && yarn && yarn build && yarn test",
+    "diff-integration-tests": "mkdir -p diff && rm -rf diff/test && cp -r test diff/test && rm -rf diff/test/test-*/.git && cd diff && git init --quiet && git add -A && git commit --quiet --no-verify --allow-empty -m 'WIP' && echo '\\n\\nCommitted most recent integration test output in the \"diff\" directory. Review the changes with \"cd diff && git diff HEAD\" or your preferred git diff viewer.'",
     "watch:build": "tsc -p tsconfig.json -w",
     "watch:test": "nyc --silent ava --watch",
     "cov": "run-s build test:unit cov:html cov:lcov && open-cli coverage/index.html",
@@ -125,10 +134,12 @@
       }
     },
     "files": [
+      "!diff",
       "!test",
       "!build/module/**"
     ],
     "ignoredByWatcher": [
+      "diff",
       "test"
     ]
   },
