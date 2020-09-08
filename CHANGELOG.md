@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.2](https://github.com/bitjson/typescript-starter/compare/v3.1.1...v3.1.2) (2020-09-08)
+
+
+### Bug Fixes
+
+* avoid adding WASM example without DOM definitions ([#244](https://github.com/bitjson/typescript-starter/issues/244)) ([c16e858](https://github.com/bitjson/typescript-starter/commit/c16e8589f3a03f182ec1508d3f0e1883ff84e30d)), closes [#243](https://github.com/bitjson/typescript-starter/issues/243)
+
 ### [3.1.1](https://github.com/bitjson/typescript-starter/compare/v3.1.0...v3.1.1) (2020-09-02)
 
 
