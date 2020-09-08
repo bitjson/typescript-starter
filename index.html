@@ -287,6 +287,9 @@ npm run doc:publish</code></pre>
 <span class="hljs-attr">npm</span> <span class="hljs-string">install</span>
 <span class="hljs-attr">npm</span> <span class="hljs-string">test</span>
 <span class="hljs-attr">npm</span> <span class="hljs-string">link</span></code></pre>
+					<a href="#manual-testing" id="manual-testing" style="color: inherit; text-decoration: none;">
+						<h3>Manual testing</h3>
+					</a>
 					<p>To manually test the CLI, you can use the <code>TYPESCRIPT_STARTER_REPO_URL</code> environment variable to test a clone from your local repo. Run <code>npm run build:main -- -w</code> as you&#39;re developing, then in a different testing directory:</p>
 					<pre><code><span class="hljs-built_in">mkdir</span> typescript-starter-testing
 <span class="hljs-built_in">cd</span> typescript-starter-testing
@@ -294,7 +297,18 @@ TYPESCRIPT_STARTER_REPO_URL=&#x27;/local/<span class="hljs-built_in">path</span>
 					<p>You can also set <code>TYPESCRIPT_STARTER_REPO_URL</code> to any valid Git URL, such as your fork of this repo:</p>
 					<pre><code><span class="hljs-attr">TYPESCRIPT_STARTER_REPO_URL</span>=<span class="hljs-string">&#x27;https://github.com/YOUR_USERNAME/typescript-starter.git&#x27;</span> typescript-starter</code></pre>
 					<p>If <code>TYPESCRIPT_STARTER_REPO_BRANCH</code> is not provided, it will default to <code>master</code>.</p>
+					<a href="#debug-in-vs-code" id="debug-in-vs-code" style="color: inherit; text-decoration: none;">
+						<h3>Debug in VS Code</h3>
+					</a>
 					<p>If you&#39;re using <a href="https://code.visualstudio.com/">VS Code</a>, the <code>Debug CLI</code> launch configuration also allows you to immediately build and step through execution of the CLI.</p>
+					<a href="#integration-test-result-diffs" id="integration-test-result-diffs" style="color: inherit; text-decoration: none;">
+						<h3>Integration Test Result Diffs</h3>
+					</a>
+					<p>You can compare the integration test results before and after a change by running <code>check-cli</code> before and after applying your changes:</p>
+					<pre><code class="language-sh">npm run check-cli</code></pre>
+					<p>Each time you run <code>check-cli</code>, the test results will be committed to the <code>diff</code> directory, allowing you to easily review the differences with <code>git diff HEAD</code> or an interactive Git client like <a href="https://desktop.github.com/">GitHub for Desktop</a> or <a href="https://www.sourcetreeapp.com/">SourceTree</a>.</p>
+					<p>If you already have changes in the working directory, try:</p>
+					<pre><code class="language-sh">git stash &amp;&amp; npm run check-cli &amp;&amp; git stash pop &amp;&amp; npm run check-cli</code></pre>
 				</details>
 			</div>
 		</div>
