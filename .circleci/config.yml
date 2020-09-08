@@ -18,6 +18,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
+      - run: npm run check-integration-tests
       - run: npm run cov:send
       - run: npm run cov:check
   'node-12':
@@ -35,6 +36,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
+      - run: npm run check-integration-tests
       - run: npm run cov:send
       - run: npm run cov:check
   'node-latest':
@@ -52,6 +54,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
+      - run: npm run check-integration-tests
       - run: npm run cov:send
       - run: npm run cov:check
 
