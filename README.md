@@ -210,7 +210,7 @@ npm run doc:publish
 
 ## Why are there two builds? (`main` and `module`)
 
-The `src` of `typescript-starter` is compiled into two separate builds: `main` and `module`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8). The `module` build [uses the new es6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json).
+The `src` of `typescript-starter` is compiled into two separate builds: `main` and `module`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8). The `module` build [uses the new es6 module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.module.json).
 
 Because Node.js LTS releases do not yet support the es6 module system, some projects which depend on your project will follow the `main` field in [`package.json`](https://github.com/bitjson/typescript-starter/blob/master/package.json). Tools which support the new system (like [Rollup](https://github.com/rollup/rollup), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/)) will follow the `module` field, giving them the ability to statically analyze your project. These tools can tree-shake your `module` build to import only the code they need.
 
