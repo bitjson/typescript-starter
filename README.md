@@ -27,7 +27,7 @@ The interactive CLI will help you create and configure your project automaticall
 
 - Write **standard, future javascript** – with stable ESNext features – today ([stage 3](https://github.com/tc39/proposals) or [finished](https://github.com/tc39/proposals/blob/master/finished-proposals.md) features)
 - [Optionally use typescript](https://medium.freecodecamp.org/its-time-to-give-typescript-another-chance-2caaf7fabe61) to improve tooling, linting, and documentation generation
-- Export as a [javascript module](http://jsmodules.io/), making your work **fully tree-shakable** for consumers capable of using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
+- Export as a [javascript module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), making your work **fully tree-shakable** for consumers capable of using [es6 imports](https://github.com/rollup/rollup/wiki/pkg.module) (like [Rollup](http://rollupjs.org/), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/))
 - Export type declarations to improve your downstream development experience
 - Backwards compatibility for Node.js-style (CommonJS) imports
 - Both strict and flexible [typescript configurations](./tsconfig.json) available
