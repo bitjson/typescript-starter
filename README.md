@@ -188,7 +188,7 @@ You can also prepare a non-standard release:
 # Or a non-standard release:
 
 # Reset the repo to the latest commit and build everything
-npm run hard-reset && npm run test && npm run cov:check && npm run doc:html
+npm run reset-hard && npm run test && npm run cov:check && npm run doc:html
 
 # Then version it with standard-version options. e.g.:
 # don't bump package.json version
