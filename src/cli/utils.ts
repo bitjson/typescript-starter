@@ -17,6 +17,7 @@ export type TypescriptStarterCLIOptions = {
   readonly domDefinitions: boolean;
   readonly editorconfig: boolean;
   readonly functional: boolean;
+  readonly githubactions: boolean;
   readonly install: boolean;
   readonly nodeDefinitions: boolean;
   readonly projectName: string;

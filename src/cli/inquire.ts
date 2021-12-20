@@ -81,6 +81,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     cspell = 'cspell',
     editorconfig = 'editorconfig',
     functional = 'functional',
+    githubactions = 'githubactions',
     strict = 'strict',
     travis = 'travis',
     vscode = 'vscode',
@@ -126,6 +127,11 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
         name: 'Include Travis CI config',
         value: Extras.travis,
       },
+      {
+        checked: false,
+        name: 'Include Github Actions CI config',
+        value: Extras.githubactions,
+      },
     ],
     message: '🚀 More fun stuff:',
     name: 'extras',
@@ -167,6 +173,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
         : false,
       editorconfig: extras.includes(Extras.editorconfig),
       functional: extras.includes(Extras.functional),
+      githubactions: extras.includes(Extras.githubactions),
       install: true,
       nodeDefinitions: definitions
         ? [TypeDefinitions.node, TypeDefinitions.nodeAndDom].includes(

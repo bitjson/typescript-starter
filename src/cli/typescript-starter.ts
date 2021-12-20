@@ -31,6 +31,7 @@ export async function typescriptStarter(
     fullName,
     githubUsername,
     functional,
+    githubactions,
     install,
     nodeDefinitions,
     projectName,
@@ -214,6 +215,9 @@ export async function typescriptStarter(
   }
   if (!travis) {
     del([normalizePath(join(projectPath, '.travis.yml'))]);
+  }
+  if (!githubactions) {
+    del([normalizePath(join(projectPath, '.github', 'workflows', 'ci.yaml'))]);
   }
   if (!editorconfig) {
     del([normalizePath(join(projectPath, '.editorconfig'))]);

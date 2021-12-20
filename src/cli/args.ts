@@ -16,6 +16,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     --appveyor          include Appveyor for Windows CI
     --description, -d   package.json description
     --dom               include DOM type definitions
+    --githubactions     include Github Actions CI
     --node              include node.js type definitions
     --strict            enable stricter type-checking
     --travis            include Travis CI configuration
@@ -23,7 +24,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
 
     --no-circleci       don't include CircleCI
     --no-cspell         don't include cspell
-    --no-editorconfig   don't include .editorconfig
+    --no-editorconfig    don't include .editorconfig
     --no-functional     don't enable eslint-plugin-functional
     --no-install        skip yarn/npm install
     --no-vscode         don't include VS Code debugging config
@@ -60,6 +61,10 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
         },
         functional: {
           default: true,
+          type: 'boolean',
+        },
+        githubactions: {
+          default: false,
           type: 'boolean',
         },
         install: {
@@ -129,6 +134,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     domDefinitions: cli.flags.dom,
     editorconfig: cli.flags.editorconfig,
     functional: cli.flags.functional,
+    githubactions: cli.flags.githubactions,
     install: cli.flags.install,
     nodeDefinitions: cli.flags.node,
     projectName: input,
