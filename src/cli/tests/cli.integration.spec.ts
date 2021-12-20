@@ -394,6 +394,7 @@ test(`${TestDirectories.five}: Sandboxed: npm install, initial commit`, async (t
     // cspell: disable-next-line
     fullName: 'Satoshi Nakamoto',
     functional: true,
+    githubactions: false,
     install: true,
     nodeDefinitions: false,
     projectName: TestDirectories.five,
@@ -436,6 +437,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     email: Placeholders.email,
     fullName: Placeholders.name,
     functional: true,
+    githubactions: false,
     install: true,
     nodeDefinitions: true,
     projectName: TestDirectories.six,
