@@ -68,7 +68,7 @@ test('checkArgs returns the right options', async (t) => {
   // eslint-disable-next-line functional/immutable-data
   process.argv = [
     'path/to/node',
-    'path/to/typescript-starter',
+    'path/to/typescript-starter.js',
     'example-project',
     '--appveyor',
     '--description',
@@ -109,7 +109,7 @@ test('checkArgs returns the right options', async (t) => {
 test('checkArgs always returns a TypescriptStarterRequiredConfig, even in interactive mode', async (t) => {
   pretendLatestVersionIs('1.0.0');
   // eslint-disable-next-line functional/immutable-data
-  process.argv = ['path/to/node', 'path/to/typescript-starter'];
+  process.argv = ['path/to/node', 'path/to/typescript-starter.js'];
   const opts = await checkArgs();
   t.true(typeof opts.install === 'boolean');
   t.true(typeof opts.starterVersion === 'string');
@@ -134,7 +134,7 @@ test('small ascii art shows if stdout has 74-84 columns', async (t) => {
 });
 
 const mockErr = (code = 1, name = 'ERR') =>
-  ((() => {
+  (() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err: any = new Error();
     // eslint-disable-next-line functional/immutable-data
@@ -143,7 +143,7 @@ const mockErr = (code = 1, name = 'ERR') =>
     err.exitCodeName = name;
     // eslint-disable-next-line functional/no-throw-statement
     throw err;
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
 
 test('cloneRepo: errors when Git is not installed on PATH', async (t) => {
   const error = await t.throwsAsync(
@@ -162,11 +162,11 @@ test('cloneRepo: throws when clone fails', async (t) => {
 test('cloneRepo: throws when rev-parse fails', async (t) => {
   // eslint-disable-next-line functional/no-let
   let calls = 0;
-  const mock = ((async () => {
+  const mock = (async () => {
     calls++;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return calls === 1 ? {} : (mockErr(128) as any)();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   const error = await t.throwsAsync(
     cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
@@ -209,11 +209,11 @@ test('getUserInfo: suppresses errors and returns empty strings', async (t) => {
 });
 
 test('getUserInfo: returns results properly', async (t) => {
-  const mock = ((async () => {
+  const mock = (async () => {
     return {
       stdout: 'result',
     };
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   const result = await getUserInfo(mock)();
   t.deepEqual(result, {
     gitEmail: 'result',
@@ -230,16 +230,16 @@ test('initialCommit: throws generated errors', async (t) => {
 
 test('initialCommit: spawns 3 times', async (t) => {
   t.plan(4);
-  const mock = ((async () => {
+  const mock = (async () => {
     t.pass();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   await t.notThrowsAsync(initialCommit(mock)('commit', 'dir'));
 });
 
 test('install: uses the correct runner', async (t) => {
-  const mock = ((async (runner: Runner) => {
+  const mock = (async (runner: Runner) => {
     runner === Runner.Yarn ? t.pass() : t.fail();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   await install(mock)(Runner.Yarn, 'pass');
 });
 

@@ -7,6 +7,7 @@ import validateNpmPackageName from 'validate-npm-package-name';
 export enum Runner {
   Npm = 'npm',
   Yarn = 'yarn',
+  Pnpm = 'pnpm',
 }
 
 export type TypescriptStarterCLIOptions = {
@@ -90,7 +91,7 @@ _                             _      _          _            _
     ? chalk.bold(gradient.mind(ascii))
     : columns && columns >= 74
     ? chalk.bold(gradient.mind(asciiSmaller))
-    : `\n${chalk.cyan.bold.underline('typescript-starter')}\n`;
+    : `\n${chalk.cyan.bold.underline('typescript-starter.js')}\n`;
 }
 
 /**

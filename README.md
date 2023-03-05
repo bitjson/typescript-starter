@@ -1,4 +1,4 @@
-<img height="0" width="0" alt="typescript-starter dark logo" src="https://cloud.githubusercontent.com/assets/904007/23006840/4e2b0c6c-f3d2-11e6-8f32-11384ee0cc4b.png"><img alt="typescript-starter logo" src="https://cloud.githubusercontent.com/assets/904007/23006836/4c67a3b8-f3d2-11e6-8784-12f0a34284d1.png">
+<img height="0" width="0" alt="typescript-starter.js dark logo" src="https://cloud.githubusercontent.com/assets/904007/23006840/4e2b0c6c-f3d2-11e6-8f32-11384ee0cc4b.png"><img alt="typescript-starter.js logo" src="https://cloud.githubusercontent.com/assets/904007/23006836/4c67a3b8-f3d2-11e6-8784-12f0a34284d1.png">
 
 [![NPM version](https://img.shields.io/npm/v/typescript-starter.svg)](https://www.npmjs.com/package/typescript-starter)
 [![Codecov](https://img.shields.io/codecov/c/github/bitjson/typescript-starter.svg)](https://codecov.io/gh/bitjson/typescript-starter)
@@ -8,7 +8,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/bitjson/typescript-starter.svg?style=social&logo=github&label=Stars)](https://github.com/bitjson/typescript-starter)
 
 <p align="center">
-  <img alt="demo of the typescript-starter command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/c3e3b7ec/demo.svg">
+  <img alt="demo of the typescript-starter.js command-line interface" src="https://cdn.rawgit.com/bitjson/typescript-starter/c3e3b7ec/demo.svg">
 </p>
 
 ## Start Now
@@ -16,7 +16,7 @@
 Run one simple command to install and use the interactive project generator. You'll need [Node](https://nodejs.org/) `v10` or later.
 
 ```sh
-npx typescript-starter
+npx typescript-starter.js
 ```
 
 The interactive CLI will help you create and configure your project automatically.
@@ -52,7 +52,7 @@ Also consider installing editor extensions for [ESLint](https://github.com/Micro
   <img alt="Typescript Editor Support – vscode" width="600" src="https://cloud.githubusercontent.com/assets/904007/23042221/ccebd534-f465-11e6-838d-e2449899282c.png">
 </p>
 
-# Developing with typescript-starter
+# Developing with typescript-starter.js
 
 ## Development zen
 
@@ -74,7 +74,7 @@ These watch tasks will build and watch the entire project for changes (to both t
 
 <p align="center">
   <!-- PR request: capture the magic of using a test-running watch task for development -->
-  <img alt="typescript-starter's watch task" src="https://user-images.githubusercontent.com/904007/37270842-c05f5192-25a6-11e8-83bb-1981ae48e38e.png">
+  <img alt="typescript-starter.js's watch task" src="https://user-images.githubusercontent.com/904007/37270842-c05f5192-25a6-11e8-83bb-1981ae48e38e.png">
 </p>
 
 Since only changed files are rebuilt and retested, this workflow remains fast even for large projects.
@@ -125,7 +125,7 @@ To generate and publish your documentation to [GitHub Pages](https://pages.githu
 npm run doc:publish
 ```
 
-Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [`typescript-starter`'s GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
+Once published, your documentation should be available at the proper GitHub Pages URL for your repo. See [`typescript-starter.js`'s GitHub Pages](https://bitjson.github.io/typescript-starter/) for an example.
 
 <p align="center">
   <img height="500" alt="TypeDoc documentation example" src="https://cloud.githubusercontent.com/assets/904007/22909419/085b9e38-f222-11e6-996e-c7a86390478c.png">
@@ -210,7 +210,7 @@ npm run doc:publish
 
 ## Why are there two builds? (`main` and `module`)
 
-The `src` of `typescript-starter` is compiled into two separate builds: `main` and `module`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8). The `module` build [uses the new es6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json).
+The `src` of `typescript-starter.js` is compiled into two separate builds: `main` and `module`. The `main` build is [configured to use the CommonJS module system](https://github.com/bitjson/typescript-starter/blob/master/tsconfig.json#L8). The `module` build [uses the new es6 module system](https://github.com/bitjson/typescript-starter/blob/master/config/tsconfig.module.json).
 
 Because Node.js LTS releases do not yet support the es6 module system, some projects which depend on your project will follow the `main` field in [`package.json`](https://github.com/bitjson/typescript-starter/blob/master/package.json). Tools which support the new system (like [Rollup](https://github.com/rollup/rollup), [Webpack](https://webpack.js.org/), or [Parcel](https://parceljs.org/)) will follow the `module` field, giving them the ability to statically analyze your project. These tools can tree-shake your `module` build to import only the code they need.
 
@@ -244,7 +244,7 @@ TypeScript has versions, and different versions of TypeScript may not be compati
 
 The short answer is: **don't pre-bundle your library**.
 
-Previous versions of `typescript-starter` included browser bundling using [Rollup](https://github.com/rollup/rollup). This feature has since been removed, since very few libraries should ever be pre-bundled.
+Previous versions of `typescript-starter.js` included browser bundling using [Rollup](https://github.com/rollup/rollup). This feature has since been removed, since very few libraries should ever be pre-bundled.
 
 If the consumer of your library is using Node.js, bundling is especially unnecessary, since Node.js can reliably resolve dependencies, and bundling may even make debugging more difficult.
 
@@ -268,11 +268,11 @@ Providing a public API where consumer code is the same between browsers and Node
 
 A better way to provide this developer experience is to provide similar APIs for each environment, and then encourage the use of es6 import aliasing to standardize between them.
 
-For example, in the documentation for `typescript-starter`, we encourage Node.js users to import `sha256Native as sha256`. With this convention, we get a standard API without loaders or dependency substitution hacks.
+For example, in the documentation for `typescript-starter.js`, we encourage Node.js users to import `sha256Native as sha256`. With this convention, we get a standard API without loaders or dependency substitution hacks.
 
 ```js
 // browser-application.js
-import { sha256 } from 'typescript-starter';
+import { sha256 } from 'typescript-starter.js';
 
 // fully-portable code
 console.log(sha256('test'));
@@ -280,7 +280,7 @@ console.log(sha256('test'));
 
 ```js
 // node-application.js
-import { sha256Native as sha256 } from 'typescript-starter';
+import { sha256Native as sha256 } from 'typescript-starter.js';
 
 // fully-portable code
 console.log(sha256('test'));
@@ -294,7 +294,7 @@ To ensure all commits follow the proper conventions, you can use a package like 
 
 If your project is private, or will primarily receive contributions from long-running contributors, this may be a good fit. Otherwise, this setup may raise the barrier to one-off contributions slightly.
 
-Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the `Squash and Merge` option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, `typescript-starter` does not bundle any commit message validation.
+Note, as a maintainer, if you manage your project on GitHub or a similar website, you can now use the `Squash and Merge` option to add a properly formatted, descriptive commit messages when merging each pull request. This is likely to be more valuable than trying to force one-time contributors to adhere to commit conventions, since you can also maintain a more consistent language style. Because this is the best choice for the vast majority of projects, `typescript-starter.js` does not bundle any commit message validation.
 
 ---
 
@@ -304,8 +304,8 @@ Note, as a maintainer, if you manage your project on GitHub or a similar website
 Pull Requests welcome! To work on the CLI, clone and build the repo, then use `npm link` to install it globally.
 
 ```
-git clone https://github.com/bitjson/typescript-starter.git
-cd typescript-starter
+git clone https://github.com/bitjson/typescript-starter.js.git
+cd typescript-starter.js
 npm install
 npm test
 npm link
@@ -316,15 +316,15 @@ npm link
 To manually test the CLI, you can use the `TYPESCRIPT_STARTER_REPO_URL` environment variable to test a clone from your local repo. Run `npm run build:main -- -w` as you're developing, then in a different testing directory:
 
 ```
-mkdir typescript-starter-testing
-cd typescript-starter-testing
-TYPESCRIPT_STARTER_REPO_URL='/local/path/to/typescript-starter' typescript-starter
+mkdir typescript-starter.js-testing
+cd typescript-starter.js-testing
+TYPESCRIPT_STARTER_REPO_URL='/local/path/to/typescript-starter.js' typescript-starter.js
 ```
 
 You can also set `TYPESCRIPT_STARTER_REPO_URL` to any valid Git URL, such as your fork of this repo:
 
 ```
-TYPESCRIPT_STARTER_REPO_URL='https://github.com/YOUR_USERNAME/typescript-starter.git' typescript-starter
+TYPESCRIPT_STARTER_REPO_URL='https://github.com/YOUR_USERNAME/typescript-starter.js.git' typescript-starter.js
 ```
 
 If `TYPESCRIPT_STARTER_REPO_BRANCH` is not provided, it will default to `master`.

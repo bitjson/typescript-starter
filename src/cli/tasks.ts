@@ -8,7 +8,7 @@ import {
   TypescriptStarterInferredOptions,
   TypescriptStarterOptions,
   TypescriptStarterUserOptions,
-} from './utils';
+} from './utils.js';
 
 export enum Placeholders {
   email = 'YOUR_EMAIL',
@@ -18,72 +18,73 @@ export enum Placeholders {
 
 // We implement these as function factories to make unit testing easier.
 
-export const cloneRepo = (
-  spawner: typeof execa,
-  suppressOutput = false
-) => async (
-  repoInfo: {
-    readonly branch: string;
-    readonly repo: string;
-  },
-  workingDirectory: string,
-  dir: string
-) => {
-  const projectDir = join(workingDirectory, dir);
-  const gitHistoryDir = join(projectDir, '.git');
-  const args =
-    repoInfo.branch === '.'
-      ? ['clone', '--depth=1', repoInfo.repo, dir]
-      : [
-          'clone',
-          '--depth=1',
-          `--branch=${repoInfo.branch}`,
-          repoInfo.repo,
-          dir,
-        ];
-  try {
-    await spawner('git', args, {
-      cwd: workingDirectory,
-      stdio: suppressOutput ? 'pipe' : 'inherit',
-    });
-  } catch (err) {
-    if (err.exitCodeName === 'ENOENT') {
-      // eslint-disable-next-line functional/no-throw-statement
-      throw new Error(`
+export const cloneRepo =
+  (spawner: typeof execa, suppressOutput = false) =>
+  async (
+    repoInfo: {
+      readonly branch: string;
+      readonly repo: string;
+    },
+    workingDirectory: string,
+    dir: string
+  ) => {
+    const projectDir = join(workingDirectory, dir);
+    const gitHistoryDir = join(projectDir, '.git');
+    const args =
+      repoInfo.branch === '.'
+        ? ['clone', '--depth=1', repoInfo.repo, dir]
+        : [
+            'clone',
+            '--depth=1',
+            `--branch=${repoInfo.branch}`,
+            repoInfo.repo,
+            dir,
+          ];
+    try {
+      await spawner('git', args, {
+        cwd: workingDirectory,
+        stdio: suppressOutput ? 'pipe' : 'inherit',
+      });
+    } catch (err: any) {
+      if (err.exitCodeName === 'ENOENT') {
+        // eslint-disable-next-line functional/no-throw-statement
+        throw new Error(`
     Git is not installed on your PATH. Please install Git and try again.
 
     For more information, visit: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 `);
-    } else {
-      // eslint-disable-next-line functional/no-throw-statement
-      throw new Error(`Git clone failed.`);
+      } else {
+        // eslint-disable-next-line functional/no-throw-statement
+        throw new Error(`Git clone failed.`);
+      }
     }
-  }
-  try {
-    const revParseResult = await spawner('git', ['rev-parse', 'HEAD'], {
-      cwd: projectDir,
-      encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'inherit'],
-    });
-    const commitHash = revParseResult.stdout;
-    return { commitHash, gitHistoryDir };
-  } catch (err) {
-    // eslint-disable-next-line functional/no-throw-statement
-    throw new Error(`Git rev-parse failed.`);
-  }
-};
+    try {
+      const revParseResult = await spawner('git', ['rev-parse', 'HEAD'], {
+        cwd: projectDir,
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'inherit'],
+      });
+      const commitHash = revParseResult.stdout;
+      return { commitHash, gitHistoryDir };
+    } catch (err) {
+      // eslint-disable-next-line functional/no-throw-statement
+      throw new Error(`Git rev-parse failed.`);
+    }
+  };
 
-export const getGithubUsername = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fetcher: any
-) => async (email: string | undefined): Promise<string> => {
-  if (email === Placeholders.email) {
-    return Placeholders.username;
-  }
-  return fetcher(email).catch(() => {
-    return Placeholders.username;
-  });
-};
+export const getGithubUsername =
+  (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fetcher: any
+  ) =>
+  async (email: string | undefined): Promise<string> => {
+    if (email === Placeholders.email) {
+      return Placeholders.username;
+    }
+    return fetcher(email).catch(() => {
+      return Placeholders.username;
+    });
+  };
 
 export const getUserInfo = (spawner: typeof execa) => async () => {
   const opts: Options = {
@@ -105,46 +106,45 @@ export const getUserInfo = (spawner: typeof execa) => async () => {
   }
 };
 
-export const initialCommit = (spawner: typeof execa) => async (
-  hash: string,
-  projectDir: string
-): Promise<void> => {
-  const opts: Options = {
-    cwd: projectDir,
-    encoding: 'utf8',
-    stdio: 'pipe',
+export const initialCommit =
+  (spawner: typeof execa) =>
+  async (hash: string, projectDir: string): Promise<void> => {
+    const opts: Options = {
+      cwd: projectDir,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    };
+    await spawner('git', ['init'], opts);
+    await spawner('git', ['add', '-A'], opts);
+    await spawner(
+      'git',
+      [
+        'commit',
+        '-m',
+        `Initial commit\n\nCreated with bitjson/typescript-starter@${hash}`,
+      ],
+      opts
+    );
   };
-  await spawner('git', ['init'], opts);
-  await spawner('git', ['add', '-A'], opts);
-  await spawner(
-    'git',
-    [
-      'commit',
-      '-m',
-      `Initial commit\n\nCreated with bitjson/typescript-starter@${hash}`,
-    ],
-    opts
-  );
-};
 
-export const install = (spawner: typeof execa) => async (
-  runner: Runner,
-  projectDir: string
-) => {
-  const opts: Options = {
-    cwd: projectDir,
-    encoding: 'utf8',
-    stdio: 'inherit',
+export const install =
+  (spawner: typeof execa) => async (runner: Runner, projectDir: string) => {
+    const opts: Options = {
+      cwd: projectDir,
+      encoding: 'utf8',
+      stdio: 'inherit',
+    };
+    try {
+      runner === Runner.Npm
+        ? spawner('npm', ['install'], opts)
+        : runner === Runner.Pnpm
+        ? spawner('pnpm', ['i'], opts)
+        : spawner('yarn', opts);
+    } catch (err) {
+      // eslint-disable-next-line functional/no-throw-statement
+      throw new Error(`Installation failed. You'll need to install manually.`);
+    }
   };
-  try {
-    runner === Runner.Npm
-      ? spawner('npm', ['install'], opts)
-      : spawner('yarn', opts);
-  } catch (err) {
-    // eslint-disable-next-line functional/no-throw-statement
-    throw new Error(`Installation failed. You'll need to install manually.`);
-  }
-};
 
 /**
  * Returns the URL and branch to clone. We clone the branch (tag) at the current

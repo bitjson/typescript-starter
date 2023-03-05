@@ -3,11 +3,11 @@
   "compilerOptions": {
     "target": "esnext",
     "outDir": "build/module",
-    "module": "esnext"
+    "module": "ESNext"
   },
   "exclude": [
     "node_modules/**",
-    // typescript-starter: exclude CLI from module build, since it's exclusively
+    // typescript-starter.js: exclude CLI from module build, since it's exclusively
     // for Node.js. (This should also be stripped from the generated project.)
     "src/cli/**/*.ts"
   ]

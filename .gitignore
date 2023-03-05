@@ -8,3 +8,4 @@ src/**.js
 coverage
 *.log
 yarn.lock
+pnpm-lock.yaml

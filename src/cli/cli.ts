@@ -1,10 +1,10 @@
 import chalk from 'chalk';
 
-import { checkArgs } from './args';
-import { inquire } from './inquire';
-import { addInferredOptions, LiveTasks } from './tasks';
-import { typescriptStarter } from './typescript-starter';
-import { getIntro, hasCLIOptions, TypescriptStarterUserOptions } from './utils';
+import { checkArgs } from './args.js';
+import { inquire } from './inquire.js';
+import { addInferredOptions, LiveTasks } from './tasks.js';
+import { typescriptStarter } from './typescript-starter.js';
+import { getIntro, hasCLIOptions, TypescriptStarterUserOptions } from './utils.js';
 
 (async () => {
   const argInfo = await checkArgs();

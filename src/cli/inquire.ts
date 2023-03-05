@@ -1,6 +1,8 @@
-import { DistinctQuestion, prompt } from 'inquirer';
+import { createPromptModule, DistinctQuestion } from 'inquirer';
 
-import { Runner, TypescriptStarterCLIOptions, validateName } from './utils';
+import { Runner, TypescriptStarterCLIOptions, validateName } from './utils.js';
+
+const prompt = createPromptModule();
 
 export async function inquire(): Promise<TypescriptStarterCLIOptions> {
   const packageNameQuestion: DistinctQuestion = {
@@ -15,6 +17,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     Node = 'node',
     Library = 'lib',
   }
+
   const projectTypeQuestion: DistinctQuestion = {
     choices: [
       { name: 'Node.js application', value: ProjectType.Node },
@@ -37,8 +40,9 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     choices: [
       { name: 'npm', value: Runner.Npm },
       { name: 'yarn', value: Runner.Yarn },
+      { name: 'pnpm', value: Runner.Pnpm },
     ],
-    message: '🚄 Will this project use npm or yarn?',
+    message: '🚄 Will this project use npm, pnpm or yarn?',
     name: 'runner',
     type: 'list',
   };
@@ -85,6 +89,7 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     travis = 'travis',
     vscode = 'vscode',
   }
+
   const extrasQuestion: DistinctQuestion = {
     choices: [
       {
@@ -140,21 +145,15 @@ export async function inquire(): Promise<TypescriptStarterCLIOptions> {
     typeDefsQuestion,
     extrasQuestion,
   ]).then((answers) => {
-    const {
-      definitions,
-      description,
-      extras,
-      projectName,
-      runner,
-      type,
-    } = answers as {
-      readonly definitions?: TypeDefinitions;
-      readonly description: string;
-      readonly extras: ReadonlyArray<string>;
-      readonly projectName: string;
-      readonly runner: Runner;
-      readonly type: ProjectType;
-    };
+    const { definitions, description, extras, projectName, runner, type } =
+      answers as {
+        readonly definitions?: TypeDefinitions;
+        readonly description: string;
+        readonly extras: ReadonlyArray<string>;
+        readonly projectName: string;
+        readonly runner: Runner;
+        readonly type: ProjectType;
+      };
     return {
       appveyor: extras.includes(Extras.appveyor),
       circleci: extras.includes(Extras.circleci),

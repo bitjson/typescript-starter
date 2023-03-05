@@ -7,7 +7,7 @@ import { binToHex, instantiateSha256, utf8ToBin } from '@bitauth/libauth';
  *
  * ### Example (es imports)
  * ```js
- * import { sha256 } from 'typescript-starter'
+ * import { sha256 } from 'typescript-starter.js'
  *
  * (async () => {
  *   console.log(await sha256('test'));
@@ -29,7 +29,7 @@ export const sha256 = async (message: string) => {
  *
  * ### Example (es imports)
  * ```js
- * import { sha256Native as sha256 } from 'typescript-starter'
+ * import { sha256Native as sha256 } from 'typescript-starter.js'
  * console.log(sha256('test'));
  * // => '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
  * ```

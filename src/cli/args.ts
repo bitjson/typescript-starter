@@ -1,7 +1,7 @@
 import meow from 'meow';
-import { Package, UpdateNotifier } from 'update-notifier';
+//import UpdateNotifier, { Package } from 'update-notifier';
 
-import { Runner, TypescriptStarterArgsOptions, validateName } from './utils';
+import { Runner, TypescriptStarterArgsOptions, validateName } from './utils.js';
 
 export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
   const cli = meow(
@@ -20,12 +20,13 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     --strict            enable stricter type-checking
     --travis            include Travis CI configuration
     --yarn              use yarn (default: npm)
+    --pnpm              use pnpm (default: npm)
 
     --no-circleci       don't include CircleCI
     --no-cspell         don't include cspell
     --no-editorconfig   don't include .editorconfig
     --no-functional     don't enable eslint-plugin-functional
-    --no-install        skip yarn/npm install
+    --no-install        skip pnpm/yarn/npm install
     --no-vscode         don't include VS Code debugging config
 
     Non-Interactive Example
@@ -47,7 +48,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
         },
         description: {
           alias: 'd',
-          default: 'a typescript-starter project',
+          default: 'a typescript-starter.js project',
           type: 'string',
         },
         dom: {
@@ -86,11 +87,16 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
           default: false,
           type: 'boolean',
         },
+        pnpm: {
+          default: false,
+          type: 'boolean',
+        },
       },
     }
   );
 
-  const info = await new UpdateNotifier({
+  /*
+  const info = await UpdateNotifier({
     pkg: cli.pkg as Package,
   }).fetchInfo();
   if (info.type !== 'latest') {
@@ -100,6 +106,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
       Consider using 'npx typescript-starter' to always get the latest version.
       `);
   }
+   */
 
   const version = cli.pkg.version as string;
 
@@ -121,6 +128,12 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     throw new Error(validOrMsg);
   }
 
+  const runner = cli.flags.pnpm
+    ? Runner.Pnpm
+    : cli.flags.yarn
+    ? Runner.Yarn
+    : Runner.Npm;
+
   return {
     appveyor: cli.flags.appveyor,
     circleci: cli.flags.circleci,
@@ -132,7 +145,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     install: cli.flags.install,
     nodeDefinitions: cli.flags.node,
     projectName: input,
-    runner: cli.flags.yarn ? Runner.Yarn : Runner.Npm,
+    runner,
     starterVersion: version,
     strict: cli.flags.strict,
     travis: cli.flags.travis,

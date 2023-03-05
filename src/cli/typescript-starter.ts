@@ -4,10 +4,11 @@ import { join } from 'path';
 import chalk from 'chalk';
 import del from 'del';
 import ora from 'ora';
-import { replaceInFile } from 'replace-in-file';
+import replace_in_file from 'replace-in-file';
+const { replaceInFile } = replace_in_file;
 
-import { Placeholders, Tasks } from './tasks';
-import { normalizePath, Runner, TypescriptStarterOptions } from './utils';
+import { Placeholders, Tasks } from './tasks.js';
+import { normalizePath, Runner, TypescriptStarterOptions } from './utils.js';
 
 const readPackageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8'));
@@ -115,6 +116,8 @@ export async function typescriptStarter(
     ...removeCliScripts,
     ...(runner === Runner.Yarn
       ? { 'reset-hard': `git clean -dfx && git reset --hard && yarn` }
+      : runner === Runner.Pnpm
+      ? { 'reset-hard': `git clean -dfx && git reset --hard && pnpm i` }
       : {}),
     ...(cspell ? {} : { 'test:spelling': undefined }),
   };
@@ -160,6 +163,13 @@ export async function typescriptStarter(
       to: 'package-lock.json',
     });
   }
+  if (runner === Runner.Pnpm) {
+    await replaceInFile({
+      files: join(projectPath, '.gitignore'),
+      from: 'pnpm-lock.yaml',
+      to: 'package-lock.json',
+    });
+  }
   spinnerGitignore.succeed();
 
   const spinnerLicense = ora('Updating LICENSE').start();
@@ -185,8 +195,8 @@ export async function typescriptStarter(
     normalizePath(join(projectPath, 'bin')),
     normalizePath(join(projectPath, 'src', 'cli')),
   ]);
+  // eslint-disable-next-line no-empty
   if (!appveyor) {
-    del([normalizePath(join(projectPath, 'appveyor.yml'))]);
   }
   if (!circleci) {
     del([normalizePath(join(projectPath, '.circleci'))]);
@@ -226,7 +236,7 @@ export async function typescriptStarter(
   const spinnerTsconfigModule = ora('Removing traces of the CLI').start();
   await replaceInFile({
     files: join(projectPath, 'tsconfig.module.json'),
-    from: /,\s+\/\/ typescript-starter:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
+    from: /,\s+\/\/ typescript-starter.js:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
     to: '',
   });
   if (vscode) {
@@ -332,9 +342,7 @@ export async function typescriptStarter(
   }
 
   const gitIsConfigured =
-    fullName !== Placeholders.name && email !== Placeholders.email
-      ? true
-      : false;
+    fullName !== Placeholders.name && email !== Placeholders.email;
   if (gitIsConfigured) {
     const spinnerGitInit = ora(`Initializing git repository...`).start();
     await tasks.initialCommit(commitHash, projectPath, fullName);

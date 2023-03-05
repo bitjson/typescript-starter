@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import path from 'path';
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 /**
  * This file needs the 'x' permission to be spawned by tests. Since TypeScript
@@ -6,4 +9,4 @@
  * (https://github.com/Microsoft/TypeScript/issues/16667), we track this file
  * with Git, and simply require the generated CLI.
  */
-require('../build/main/cli/cli.js');
+import(path.resolve(__dirname, '../build/main/cli/cli.js'));

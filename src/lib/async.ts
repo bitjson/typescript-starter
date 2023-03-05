@@ -3,14 +3,14 @@
  *
  * ### Example (es imports)
  * ```js
- * import { asyncABC } from 'typescript-starter'
+ * import { asyncABC } from 'typescript-starter.js'
  * console.log(await asyncABC())
  * // => ['a','b','c']
  * ```
  *
  * ### Example (commonjs)
  * ```js
- * var double = require('typescript-starter').asyncABC;
+ * var double = require('typescript-starter.js').asyncABC;
  * asyncABC().then(console.log);
  * // => ['a','b','c']
  * ```
