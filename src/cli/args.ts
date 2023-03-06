@@ -1,5 +1,5 @@
 import meow from 'meow';
-//import UpdateNotifier, { Package } from 'update-notifier';
+import UpdateNotifier, { Package } from 'update-notifier';
 
 import { Runner, TypescriptStarterArgsOptions, validateName } from './utils.js';
 
@@ -33,6 +33,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
 	  $ npx typescript-starter my-library -d 'do something, better'
     `,
     {
+      importMeta: import.meta,
       flags: {
         appveyor: {
           default: false,
@@ -91,11 +92,10 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
           default: false,
           type: 'boolean',
         },
-      },
+      }
     }
   );
 
-  /*
   const info = await UpdateNotifier({
     pkg: cli.pkg as Package,
   }).fetchInfo();
@@ -106,7 +106,6 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
       Consider using 'npx typescript-starter' to always get the latest version.
       `);
   }
-   */
 
   const version = cli.pkg.version as string;
 

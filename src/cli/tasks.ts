@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import execa, { Options } from 'execa';
+import { Options, execa } from 'execa';
 import githubUsername from 'github-username';
 
 import {

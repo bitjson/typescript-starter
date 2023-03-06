@@ -2,7 +2,7 @@ import { readFileSync, renameSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import chalk from 'chalk';
-import del from 'del';
+import { deleteAsync, deleteSync } from 'del';
 import ora from 'ora';
 import replace_in_file from 'replace-in-file';
 const { replaceInFile } = replace_in_file;
@@ -50,7 +50,7 @@ export async function typescriptStarter(
     workingDirectory,
     projectName
   );
-  await del([normalizePath(gitHistoryDir)]);
+  await deleteAsync([normalizePath(gitHistoryDir)]);
   console.log(`
   ${chalk.dim(`Cloned at commit: ${commitHash}`)}
 `);
@@ -188,7 +188,7 @@ export async function typescriptStarter(
 
   const spinnerDelete = ora('Deleting unnecessary files').start();
 
-  await del([
+  await deleteAsync([
     normalizePath(join(projectPath, 'CHANGELOG.md')),
     normalizePath(join(projectPath, 'README.md')),
     normalizePath(join(projectPath, 'package-lock.json')),
@@ -199,7 +199,7 @@ export async function typescriptStarter(
   if (!appveyor) {
   }
   if (!circleci) {
-    del([normalizePath(join(projectPath, '.circleci'))]);
+    deleteSync([normalizePath(join(projectPath, '.circleci'))]);
   } else {
     await replaceInFile({
       files: join(projectPath, '.circleci', 'config.yml'),
@@ -208,7 +208,7 @@ export async function typescriptStarter(
     });
   }
   if (!cspell) {
-    del([normalizePath(join(projectPath, '.cspell.json'))]);
+    deleteSync([normalizePath(join(projectPath, '.cspell.json'))]);
     if (vscode) {
       await replaceInFile({
         files: join(projectPath, '.vscode', 'settings.json'),
@@ -223,13 +223,13 @@ export async function typescriptStarter(
     }
   }
   if (!travis) {
-    del([normalizePath(join(projectPath, '.travis.yml'))]);
+    deleteSync([normalizePath(join(projectPath, '.travis.yml'))]);
   }
   if (!editorconfig) {
-    del([normalizePath(join(projectPath, '.editorconfig'))]);
+    deleteSync([normalizePath(join(projectPath, '.editorconfig'))]);
   }
   if (!vscode) {
-    del([normalizePath(join(projectPath, '.vscode'))]);
+    deleteSync([normalizePath(join(projectPath, '.vscode'))]);
   }
   spinnerDelete.succeed();
 
@@ -287,7 +287,7 @@ export async function typescriptStarter(
       from: `export * from './lib/hash';\n`,
       to: '',
     });
-    await del([
+    await deleteAsync([
       normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
     ]);
@@ -311,7 +311,7 @@ export async function typescriptStarter(
       from: `export * from './lib/hash';\n`,
       to: '',
     });
-    await del([
+    await deleteAsync([
       normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'async.ts')),

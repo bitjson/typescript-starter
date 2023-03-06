@@ -1,5 +1,5 @@
 import test from 'ava';
-import execa from 'execa';
+import { execa, ExecaError } from 'execa';
 import meow from 'meow';
 import nock from 'nock';
 
@@ -29,6 +29,7 @@ test('errors if outdated', async (t) => {
       },
     });
   const error = await t.throwsAsync(checkArgs);
+  if (error)
   t.regex(error.message, /is outdated/);
 });
 
@@ -60,6 +61,7 @@ test('errors if update-notifier fails', async (t) => {
     .get('/typescript-starter')
     .reply(404, {});
   const error = await t.throwsAsync(checkArgs);
+  if (error)
   t.regex(error.message, /could not be found/);
 });
 
@@ -149,6 +151,7 @@ test('cloneRepo: errors when Git is not installed on PATH', async (t) => {
   const error = await t.throwsAsync(
     cloneRepo(mockErr(1, 'ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
   );
+  if (error)
   t.regex(error.message, /Git is not installed on your PATH/);
 });
 
@@ -156,6 +159,7 @@ test('cloneRepo: throws when clone fails', async (t) => {
   const error = await t.throwsAsync(
     cloneRepo(mockErr(128))({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
+  if (error)
   t.regex(error.message, /Git clone failed./);
 });
 
@@ -170,6 +174,7 @@ test('cloneRepo: throws when rev-parse fails', async (t) => {
   const error = await t.throwsAsync(
     cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
+  if (error)
   t.regex(error.message, /Git rev-parse failed./);
 });
 
@@ -222,9 +227,10 @@ test('getUserInfo: returns results properly', async (t) => {
 });
 
 test('initialCommit: throws generated errors', async (t) => {
-  const error = await t.throwsAsync<execa.ExecaError>(
+  const error = await t.throwsAsync<ExecaError>(
     initialCommit(mockErr(1))('deadbeef', 'fail')
   );
+  if (error)
   t.is(error.exitCode, 1);
 });
 
@@ -245,6 +251,7 @@ test('install: uses the correct runner', async (t) => {
 
 test('install: throws pretty error on failure', async (t) => {
   const error = await t.throwsAsync(install(mockErr())(Runner.Npm, 'fail'));
+  if (error)
   t.is(error.message, "Installation failed. You'll need to install manually.");
 });
 

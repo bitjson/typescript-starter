@@ -17,9 +17,9 @@ import { existsSync, mkdirSync } from 'fs';
 import { join, relative } from 'path';
 
 import test, { ExecutionContext } from 'ava';
-import del from 'del';
-import execa from 'execa';
-import globby from 'globby';
+import { deleteSync } from 'del';
+import { execa, execaSync, ExecaError, ExecaReturnValue } from 'execa';
+import { globby } from 'globby';
 import md5File from 'md5-file';
 import meow from 'meow';
 
@@ -35,7 +35,7 @@ import { normalizePath, Runner } from '../utils';
  * directory for easier clean up.
  */
 
-const branch = execa.sync('git', [
+const branch = execaSync('git', [
   'rev-parse',
   '--symbolic-full-name',
   '--abbrev-ref',
@@ -48,7 +48,7 @@ const repoInfo = {
 };
 const testDir = join(process.cwd(), 'test');
 if (existsSync(testDir)) {
-  del.sync(testDir);
+  deleteSync(testDir);
 }
 mkdirSync(testDir);
 const env = {
@@ -69,6 +69,7 @@ test('returns version', async (t) => {
   const expected = meow('').pkg.version;
   t.truthy(typeof expected === 'string');
   const { stdout } = await execa(`./bin/typescript-starter`, ['--version']);
+  if (expected)
   t.is(stdout, expected);
 });
 
@@ -79,16 +80,18 @@ test('returns help/usage', async (t) => {
 
 test('errors if project name collides with an existing path', async (t) => {
   const existingDir = 'build';
-  const error = await t.throwsAsync<execa.ExecaError>(
+  const error = await t.throwsAsync<ExecaError>(
     execa(`./bin/typescript-starter`, [existingDir])
   );
+  if (error)
   t.regex(error.stderr, /"build" path already exists/);
 });
 
 test('errors if project name is not in kebab-case', async (t) => {
-  const error = await t.throwsAsync<execa.ExecaError>(
+  const error = await t.throwsAsync<ExecaError>(
     execa(`./bin/typescript-starter`, ['name with spaces'])
   );
+  if (error)
   t.regex(error.stderr, /should be in-kebab-case/);
 });
 
@@ -238,7 +241,7 @@ const ms = (milliseconds: number) =>
 async function testInteractive(
   projectName: string,
   entry: ReadonlyArray<string | ReadonlyArray<string>>
-): Promise<execa.ExecaReturnValue<string>> {
+): Promise<ExecaReturnValue<string>> {
   const typeDefs = entry[3] !== '';
   const proc = execa(`../bin/typescript-starter`, ['--no-install'], {
     cwd: testDir,
