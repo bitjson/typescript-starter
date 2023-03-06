@@ -1,9 +1,9 @@
 import test from 'ava';
-import execa from 'execa';
+import { execa, ExecaError } from 'execa';
 import meow from 'meow';
 import nock from 'nock';
 
-import { checkArgs } from '../args';
+import { checkArgs } from '../args.js';
 import {
   cloneRepo,
   getGithubUsername,
@@ -12,8 +12,8 @@ import {
   initialCommit,
   install,
   Placeholders,
-} from '../tasks';
-import { getIntro, Runner, validateName } from '../utils';
+} from '../tasks.js';
+import { getIntro, Runner, validateName } from '../utils.js';
 
 test('errors if outdated', async (t) => {
   nock.disableNetConnect();
@@ -29,9 +29,10 @@ test('errors if outdated', async (t) => {
       },
     });
   const error = await t.throwsAsync(checkArgs);
-  t.regex(error.message, /is outdated/);
+  if (error) t.regex(error.message, /is outdated/);
 });
 
+// eslint-disable-next-line functional/no-return-void
 const pretendLatestVersionIs = (version: string) => {
   nock.disableNetConnect();
   nock('https://registry.npmjs.org:443')
@@ -48,7 +49,9 @@ const pretendLatestVersionIs = (version: string) => {
 };
 
 test("doesn't error if not outdated", async (t) => {
-  const currentVersion = meow('').pkg.version as string;
+  const currentVersion = meow('', {
+    importMeta: import.meta,
+  }).pkg.version as string;
   t.truthy(typeof currentVersion === 'string');
   pretendLatestVersionIs(currentVersion);
   await t.notThrows(checkArgs);
@@ -60,7 +63,7 @@ test('errors if update-notifier fails', async (t) => {
     .get('/typescript-starter')
     .reply(404, {});
   const error = await t.throwsAsync(checkArgs);
-  t.regex(error.message, /could not be found/);
+  if (error) t.regex(error.message, /could not be found/);
 });
 
 test('checkArgs returns the right options', async (t) => {
@@ -68,7 +71,7 @@ test('checkArgs returns the right options', async (t) => {
   // eslint-disable-next-line functional/immutable-data
   process.argv = [
     'path/to/node',
-    'path/to/typescript-starter',
+    'path/to/typescript-starter.js',
     'example-project',
     '--appveyor',
     '--description',
@@ -86,12 +89,15 @@ test('checkArgs returns the right options', async (t) => {
     '--no-vscode',
   ];
   const opts = await checkArgs();
-  const currentVersion = meow('').pkg.version as string;
+  const currentVersion = meow('', {
+    importMeta: import.meta,
+  }).pkg.version as string;
+
   t.deepEqual(opts, {
     appveyor: true,
     circleci: false,
     cspell: false,
-    description: 'example description',
+    description: '"example description"',
     domDefinitions: true,
     editorconfig: false,
     functional: false,
@@ -109,7 +115,7 @@ test('checkArgs returns the right options', async (t) => {
 test('checkArgs always returns a TypescriptStarterRequiredConfig, even in interactive mode', async (t) => {
   pretendLatestVersionIs('1.0.0');
   // eslint-disable-next-line functional/immutable-data
-  process.argv = ['path/to/node', 'path/to/typescript-starter'];
+  process.argv = ['path/to/node', 'path/to/typescript-starter.js'];
   const opts = await checkArgs();
   t.true(typeof opts.install === 'boolean');
   t.true(typeof opts.starterVersion === 'string');
@@ -134,43 +140,42 @@ test('small ascii art shows if stdout has 74-84 columns', async (t) => {
 });
 
 const mockErr = (code = 1, name = 'ERR') =>
-  ((() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (() => {
     const err: any = new Error();
     // eslint-disable-next-line functional/immutable-data
     err.exitCode = code;
     // eslint-disable-next-line functional/immutable-data
     err.exitCodeName = name;
-    // eslint-disable-next-line functional/no-throw-statement
+    // eslint-disable-next-line functional/no-throw-statements
     throw err;
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
 
 test('cloneRepo: errors when Git is not installed on PATH', async (t) => {
   const error = await t.throwsAsync(
     cloneRepo(mockErr(1, 'ENOENT'))({ repo: 'r', branch: '.' }, 'd', 'p')
   );
-  t.regex(error.message, /Git is not installed on your PATH/);
+  if (error) t.regex(error.message, /Git is not installed on your PATH/);
 });
 
 test('cloneRepo: throws when clone fails', async (t) => {
   const error = await t.throwsAsync(
     cloneRepo(mockErr(128))({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
-  t.regex(error.message, /Git clone failed./);
+  if (error) t.regex(error.message, /Git clone failed./);
 });
 
 test('cloneRepo: throws when rev-parse fails', async (t) => {
   // eslint-disable-next-line functional/no-let
   let calls = 0;
-  const mock = ((async () => {
+  const mock = (async () => {
     calls++;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     return calls === 1 ? {} : (mockErr(128) as any)();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   const error = await t.throwsAsync(
     cloneRepo(mock)({ repo: 'r', branch: 'b' }, 'd', 'p')
   );
-  t.regex(error.message, /Git rev-parse failed./);
+  if (error) t.regex(error.message, /Git rev-parse failed./);
 });
 
 test('getGithubUsername: returns found users', async (t) => {
@@ -191,7 +196,6 @@ test("getGithubUsername: returns placeholder if user doesn't have Git user.email
 
 test('getGithubUsername: returns placeholder if not found', async (t) => {
   const mockFetcher = async () => {
-    // eslint-disable-next-line functional/no-throw-statement
     throw new Error();
   };
   const username: string = await getGithubUsername(mockFetcher)(
@@ -209,11 +213,11 @@ test('getUserInfo: suppresses errors and returns empty strings', async (t) => {
 });
 
 test('getUserInfo: returns results properly', async (t) => {
-  const mock = ((async () => {
+  const mock = (async () => {
     return {
       stdout: 'result',
     };
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   const result = await getUserInfo(mock)();
   t.deepEqual(result, {
     gitEmail: 'result',
@@ -222,30 +226,34 @@ test('getUserInfo: returns results properly', async (t) => {
 });
 
 test('initialCommit: throws generated errors', async (t) => {
-  const error = await t.throwsAsync<execa.ExecaError>(
+  const error = await t.throwsAsync<ExecaError>(
     initialCommit(mockErr(1))('deadbeef', 'fail')
   );
-  t.is(error.exitCode, 1);
+  if (error) t.is(error.exitCode, 1);
 });
 
 test('initialCommit: spawns 3 times', async (t) => {
   t.plan(4);
-  const mock = ((async () => {
+  const mock = (async () => {
     t.pass();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   await t.notThrowsAsync(initialCommit(mock)('commit', 'dir'));
 });
 
 test('install: uses the correct runner', async (t) => {
-  const mock = ((async (runner: Runner) => {
+  const mock = (async (runner: Runner) => {
     runner === Runner.Yarn ? t.pass() : t.fail();
-  }) as unknown) as typeof execa;
+  }) as unknown as typeof execa;
   await install(mock)(Runner.Yarn, 'pass');
 });
 
 test('install: throws pretty error on failure', async (t) => {
   const error = await t.throwsAsync(install(mockErr())(Runner.Npm, 'fail'));
-  t.is(error.message, "Installation failed. You'll need to install manually.");
+  if (error)
+    t.is(
+      error.message,
+      "Installation failed. You'll need to install manually."
+    );
 });
 
 test("getRepoInfo: returns defaults when TYPESCRIPT_STARTER_REPO_URL/BRANCH aren't set", async (t) => {

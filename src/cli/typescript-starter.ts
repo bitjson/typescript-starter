@@ -2,16 +2,18 @@ import { readFileSync, renameSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import chalk from 'chalk';
-import del from 'del';
+import { deleteAsync, deleteSync } from 'del';
 import ora from 'ora';
-import { replaceInFile } from 'replace-in-file';
+import replace_in_file from 'replace-in-file';
+const { replaceInFile } = replace_in_file;
 
-import { Placeholders, Tasks } from './tasks';
-import { normalizePath, Runner, TypescriptStarterOptions } from './utils';
+import { Placeholders, Tasks } from './tasks.js';
+import { normalizePath, Runner, TypescriptStarterOptions } from './utils.js';
 
 const readPackageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8'));
 
+// eslint-disable-next-line functional/no-return-void
 const writePackageJson = (path: string, pkg: unknown) => {
   // write using the same format as npm:
   // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48
@@ -49,7 +51,7 @@ export async function typescriptStarter(
     workingDirectory,
     projectName
   );
-  await del([normalizePath(gitHistoryDir)]);
+  await deleteAsync([normalizePath(gitHistoryDir)]);
   console.log(`
   ${chalk.dim(`Cloned at commit: ${commitHash}`)}
 `);
@@ -115,6 +117,8 @@ export async function typescriptStarter(
     ...removeCliScripts,
     ...(runner === Runner.Yarn
       ? { 'reset-hard': `git clean -dfx && git reset --hard && yarn` }
+      : runner === Runner.Pnpm
+      ? { 'reset-hard': `git clean -dfx && git reset --hard && pnpm i` }
       : {}),
     ...(cspell ? {} : { 'test:spelling': undefined }),
   };
@@ -160,6 +164,13 @@ export async function typescriptStarter(
       to: 'package-lock.json',
     });
   }
+  if (runner === Runner.Pnpm) {
+    await replaceInFile({
+      files: join(projectPath, '.gitignore'),
+      from: 'pnpm-lock.yaml',
+      to: 'package-lock.json',
+    });
+  }
   spinnerGitignore.succeed();
 
   const spinnerLicense = ora('Updating LICENSE').start();
@@ -178,18 +189,18 @@ export async function typescriptStarter(
 
   const spinnerDelete = ora('Deleting unnecessary files').start();
 
-  await del([
+  await deleteAsync([
     normalizePath(join(projectPath, 'CHANGELOG.md')),
     normalizePath(join(projectPath, 'README.md')),
     normalizePath(join(projectPath, 'package-lock.json')),
     normalizePath(join(projectPath, 'bin')),
     normalizePath(join(projectPath, 'src', 'cli')),
   ]);
+  // eslint-disable-next-line no-empty
   if (!appveyor) {
-    del([normalizePath(join(projectPath, 'appveyor.yml'))]);
   }
   if (!circleci) {
-    del([normalizePath(join(projectPath, '.circleci'))]);
+    deleteSync([normalizePath(join(projectPath, '.circleci'))]);
   } else {
     await replaceInFile({
       files: join(projectPath, '.circleci', 'config.yml'),
@@ -198,7 +209,7 @@ export async function typescriptStarter(
     });
   }
   if (!cspell) {
-    del([normalizePath(join(projectPath, '.cspell.json'))]);
+    deleteSync([normalizePath(join(projectPath, '.cspell.json'))]);
     if (vscode) {
       await replaceInFile({
         files: join(projectPath, '.vscode', 'settings.json'),
@@ -213,20 +224,20 @@ export async function typescriptStarter(
     }
   }
   if (!travis) {
-    del([normalizePath(join(projectPath, '.travis.yml'))]);
+    deleteSync([normalizePath(join(projectPath, '.travis.yml'))]);
   }
   if (!editorconfig) {
-    del([normalizePath(join(projectPath, '.editorconfig'))]);
+    deleteSync([normalizePath(join(projectPath, '.editorconfig'))]);
   }
   if (!vscode) {
-    del([normalizePath(join(projectPath, '.vscode'))]);
+    deleteSync([normalizePath(join(projectPath, '.vscode'))]);
   }
   spinnerDelete.succeed();
 
   const spinnerTsconfigModule = ora('Removing traces of the CLI').start();
   await replaceInFile({
     files: join(projectPath, 'tsconfig.module.json'),
-    from: /,\s+\/\/ typescript-starter:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
+    from: /,\s+\/\/ typescript-starter.js:[\s\S]*"src\/cli\/\*\*\/\*\.ts"/,
     to: '',
   });
   if (vscode) {
@@ -277,7 +288,7 @@ export async function typescriptStarter(
       from: `export * from './lib/hash';\n`,
       to: '',
     });
-    await del([
+    await deleteAsync([
       normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
     ]);
@@ -301,7 +312,7 @@ export async function typescriptStarter(
       from: `export * from './lib/hash';\n`,
       to: '',
     });
-    await del([
+    await deleteAsync([
       normalizePath(join(projectPath, 'src', 'lib', 'hash.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'hash.spec.ts')),
       normalizePath(join(projectPath, 'src', 'lib', 'async.ts')),
@@ -332,9 +343,7 @@ export async function typescriptStarter(
   }
 
   const gitIsConfigured =
-    fullName !== Placeholders.name && email !== Placeholders.email
-      ? true
-      : false;
+    fullName !== Placeholders.name && email !== Placeholders.email;
   if (gitIsConfigured) {
     const spinnerGitInit = ora(`Initializing git repository...`).start();
     await tasks.initialCommit(commitHash, projectPath, fullName);

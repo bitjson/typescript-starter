@@ -17,15 +17,15 @@ import { existsSync, mkdirSync } from 'fs';
 import { join, relative } from 'path';
 
 import test, { ExecutionContext } from 'ava';
-import del from 'del';
-import execa from 'execa';
-import globby from 'globby';
+import { deleteSync } from 'del';
+import { execa, ExecaError, ExecaReturnValue, execaSync } from 'execa';
+import { globby } from 'globby';
 import md5File from 'md5-file';
 import meow from 'meow';
 
-import { cloneRepo, Placeholders, Tasks } from '../tasks';
-import { typescriptStarter } from '../typescript-starter';
-import { normalizePath, Runner } from '../utils';
+import { cloneRepo, Placeholders, Tasks } from '../tasks.js';
+import { typescriptStarter } from '../typescript-starter.js';
+import { normalizePath, Runner } from '../utils.js';
 
 /**
  * NOTE: many of the tests below validate file modification. The filesystem is
@@ -35,7 +35,7 @@ import { normalizePath, Runner } from '../utils';
  * directory for easier clean up.
  */
 
-const branch = execa.sync('git', [
+const branch = execaSync('git', [
   'rev-parse',
   '--symbolic-full-name',
   '--abbrev-ref',
@@ -48,7 +48,7 @@ const repoInfo = {
 };
 const testDir = join(process.cwd(), 'test');
 if (existsSync(testDir)) {
-  del.sync(testDir);
+  deleteSync(testDir);
 }
 mkdirSync(testDir);
 const env = {
@@ -66,30 +66,32 @@ enum TestDirectories {
 }
 
 test('returns version', async (t) => {
-  const expected = meow('').pkg.version;
+  const expected: any = meow('', {
+    importMeta: import.meta,
+  }).pkg.version;
   t.truthy(typeof expected === 'string');
-  const { stdout } = await execa(`./bin/typescript-starter`, ['--version']);
+  const { stdout } = await execa(`./bin/typescript-starter.js`, ['--version']);
   t.is(stdout, expected);
 });
 
 test('returns help/usage', async (t) => {
-  const { stdout } = await execa(`./bin/typescript-starter`, ['--help']);
+  const { stdout } = await execa(`./bin/typescript-starter.js`, ['--help']);
   t.regex(stdout, /Usage/);
 });
 
 test('errors if project name collides with an existing path', async (t) => {
   const existingDir = 'build';
-  const error = await t.throwsAsync<execa.ExecaError>(
-    execa(`./bin/typescript-starter`, [existingDir])
+  const error = await t.throwsAsync<ExecaError>(
+    execa(`./bin/typescript-starter.js`, [existingDir])
   );
-  t.regex(error.stderr, /"build" path already exists/);
+  if (error) t.regex(error.stderr, /"build" path already exists/);
 });
 
 test('errors if project name is not in kebab-case', async (t) => {
-  const error = await t.throwsAsync<execa.ExecaError>(
-    execa(`./bin/typescript-starter`, ['name with spaces'])
+  const error = await t.throwsAsync<ExecaError>(
+    execa(`./bin/typescript-starter.js`, ['name with spaces'])
   );
-  t.regex(error.stderr, /should be in-kebab-case/);
+  if (error) t.regex(error.stderr, /should be in-kebab-case/);
 });
 
 async function hashAllTheThings(
@@ -142,7 +144,7 @@ const ignorePackageJson = (map: { readonly [file: string]: string }) =>
 test(`${TestDirectories.one}: parses CLI arguments, handles default options`, async (t) => {
   const description = 'example description 1';
   const { stdout } = await execa(
-    `../bin/typescript-starter`,
+    `../bin/typescript-starter.js`,
     [
       `${TestDirectories.one}`,
       // (user entered `-d='example description 1'`)
@@ -158,32 +160,33 @@ test(`${TestDirectories.one}: parses CLI arguments, handles default options`, as
   const map = await hashAllTheThings(TestDirectories.one);
   t.deepEqual(map, {
     'test-1/.circleci/config.yml': '44d2fd424c93d381d41030f789efabba',
-    'test-1/.cspell.json': '61bbd8ed98375a94cbd1063ab498959f',
+    'test-1/.cspell.json': '6ec7789d9a99ff99bd30d09b48864064',
     'test-1/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-1/.eslintrc.json': '4e74756d24eaccb7f28d4999e4bd6f0d',
     'test-1/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-1/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-1/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-1/.gitignore': 'a053cd9512af2ebf8ffac400b14034eb',
+    'test-1/.gitignore': '0c488f2c5c62824d42330541d3390a2d',
     'test-1/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-1/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-1/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
     'test-1/.vscode/settings.json': '1671948882faee285f18d7491f0fc913',
     'test-1/README.md': '7a9f4efa9213266c3800f3cc82a53ba7',
+    'test-1/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-1/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
     'test-1/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-1/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-1/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-1/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-1/tsconfig.json': '4228782ef56faca96f8123a88bf26dc2',
-    'test-1/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-1/tsconfig.json': 'f6f7fe748d198c1aafd326c0fa837e7e',
+    'test-1/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
 
 test(`${TestDirectories.two}: parses CLI arguments, handles all options`, async (t) => {
   const description = 'example description 2';
   const { stdout } = await execa(
-    `../bin/typescript-starter`,
+    `../bin/typescript-starter.js`,
     [
       `${TestDirectories.two}`,
       // (user entered `--description 'example description 2'`)
@@ -203,29 +206,30 @@ test(`${TestDirectories.two}: parses CLI arguments, handles all options`, async 
   const map = await hashAllTheThings(TestDirectories.two);
   t.deepEqual(map, {
     'test-2/.circleci/config.yml': '44d2fd424c93d381d41030f789efabba',
-    'test-2/.cspell.json': '61bbd8ed98375a94cbd1063ab498959f',
+    'test-2/.cspell.json': '6ec7789d9a99ff99bd30d09b48864064',
     'test-2/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-2/.eslintrc.json': '4e74756d24eaccb7f28d4999e4bd6f0d',
     'test-2/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-2/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-2/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-2/.gitignore': '703beedaf3cabd7f7fd7d3f57408ec61',
+    'test-2/.gitignore': '5b1097e234aee733c062f84adc7fdccc',
     'test-2/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-2/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-2/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
     'test-2/.vscode/settings.json': '1671948882faee285f18d7491f0fc913',
     'test-2/README.md': 'ddaf27da4cc4ca5225785f0ac8f4da58',
+    'test-2/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-2/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-2/src/lib/async.spec.ts': '65b10546885ebad41c098318b896f23c',
-    'test-2/src/lib/async.ts': '926732fef1285cb0abb5c6e287ed24df',
+    'test-2/src/lib/async.ts': 'b74598b1b54d503ad80db470e4ce7b56',
     'test-2/src/lib/hash.spec.ts': '06f6bfc1b03f893a16448bb6d6806ea2',
-    'test-2/src/lib/hash.ts': 'cf3659937ff3162bc525c8bfac18b7cf',
+    'test-2/src/lib/hash.ts': '390d91dc01dd109b134d05cf11bd796e',
     'test-2/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-2/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-2/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-2/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-2/tsconfig.json': '7a9481f033cb07985ee1b903ad42b167',
-    'test-2/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-2/tsconfig.json': 'c8881f0890818959c290515e7640023c',
+    'test-2/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
 
@@ -238,9 +242,9 @@ const ms = (milliseconds: number) =>
 async function testInteractive(
   projectName: string,
   entry: ReadonlyArray<string | ReadonlyArray<string>>
-): Promise<execa.ExecaReturnValue<string>> {
+): Promise<ExecaReturnValue<string>> {
   const typeDefs = entry[3] !== '';
-  const proc = execa(`../bin/typescript-starter`, ['--no-install'], {
+  const proc = execa(`../bin/typescript-starter.js`, ['--no-install'], {
     cwd: testDir,
     env,
   });
@@ -252,6 +256,7 @@ async function testInteractive(
   const type = (input: string) => proc.stdin?.write(input);
 
   // wait for first chunk to be emitted
+  // eslint-disable-next-line functional/no-return-void
   await new Promise((resolve) => {
     proc.stdout?.once('data', resolve);
   });
@@ -288,29 +293,30 @@ test(`${TestDirectories.three}: interactive mode: javascript library`, async (t)
   const map = await hashAllTheThings(TestDirectories.three);
   t.deepEqual(map, {
     'test-3/.circleci/config.yml': '44d2fd424c93d381d41030f789efabba',
-    'test-3/.cspell.json': '61bbd8ed98375a94cbd1063ab498959f',
+    'test-3/.cspell.json': '6ec7789d9a99ff99bd30d09b48864064',
     'test-3/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-3/.eslintrc.json': '4e74756d24eaccb7f28d4999e4bd6f0d',
     'test-3/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-3/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-3/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-3/.gitignore': '703beedaf3cabd7f7fd7d3f57408ec61',
+    'test-3/.gitignore': '5b1097e234aee733c062f84adc7fdccc',
     'test-3/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-3/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-3/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
     'test-3/.vscode/settings.json': '1671948882faee285f18d7491f0fc913',
     'test-3/README.md': 'c52631ebf78f6b030af9a109b769b647',
+    'test-3/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-3/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-3/src/lib/async.spec.ts': '65b10546885ebad41c098318b896f23c',
-    'test-3/src/lib/async.ts': '926732fef1285cb0abb5c6e287ed24df',
+    'test-3/src/lib/async.ts': 'b74598b1b54d503ad80db470e4ce7b56',
     'test-3/src/lib/hash.spec.ts': '06f6bfc1b03f893a16448bb6d6806ea2',
-    'test-3/src/lib/hash.ts': 'cf3659937ff3162bc525c8bfac18b7cf',
+    'test-3/src/lib/hash.ts': '390d91dc01dd109b134d05cf11bd796e',
     'test-3/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-3/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-3/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-3/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-3/tsconfig.json': '472791a7b88cee5b9369207216fe7f98',
-    'test-3/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-3/tsconfig.json': '1184f3c0851cd2f83b621ace4ce54d6f',
+    'test-3/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
 
@@ -326,32 +332,33 @@ test(`${TestDirectories.four}: interactive mode: node.js application`, async (t)
   const map = await hashAllTheThings(TestDirectories.four);
   t.deepEqual(map, {
     'test-4/.circleci/config.yml': '44d2fd424c93d381d41030f789efabba',
-    'test-4/.cspell.json': '61bbd8ed98375a94cbd1063ab498959f',
+    'test-4/.cspell.json': '6ec7789d9a99ff99bd30d09b48864064',
     'test-4/.editorconfig': '44a3e6c69d9267b0f756986fd970a8f4',
     'test-4/.eslintrc.json': '941448b089cd055bbe476a84c8f96cfe',
     'test-4/.github/CONTRIBUTING.md': '5f0dfa7fdf9bf828e3a3aa8fcaeece08',
     'test-4/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-4/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-4/.gitignore': 'a053cd9512af2ebf8ffac400b14034eb',
+    'test-4/.gitignore': '0c488f2c5c62824d42330541d3390a2d',
     'test-4/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-4/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
     'test-4/.vscode/launch.json': '140e17d591e03b8850c456ade3aefb1f',
     'test-4/.vscode/settings.json': '1671948882faee285f18d7491f0fc913',
     'test-4/README.md': 'a3e0699b39498df4843c9dde95f1e000',
+    'test-4/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-4/src/index.ts': '5991bedc40ac87a01d880c6db16fe349',
     'test-4/src/lib/async.spec.ts': '65b10546885ebad41c098318b896f23c',
-    'test-4/src/lib/async.ts': '926732fef1285cb0abb5c6e287ed24df',
+    'test-4/src/lib/async.ts': 'b74598b1b54d503ad80db470e4ce7b56',
     'test-4/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-4/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-4/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-4/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-4/tsconfig.json': 'b4786d3cf1c3e6bd51253c036bfc6e8a',
-    'test-4/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-4/tsconfig.json': '839ab9a1c586359718c58591a4f10890',
+    'test-4/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
 
 const sandboxTasks = (
-  t: ExecutionContext<unknown>,
+  t: Readonly<ExecutionContext<unknown>>,
   commit: boolean,
   install: boolean
 ): Tasks => {
@@ -373,8 +380,9 @@ const sandboxOptions = {
   workingDirectory: testDir,
 };
 
-const silenceConsole = (console: Console) => {
-  // eslint-disable-next-line functional/immutable-data
+// eslint-disable-next-line functional/no-return-void
+const silenceConsole = (console: any) => {
+  // eslint-disable-next-line functional/no-return-void,functional/immutable-data
   console.log = () => {
     // mock console.log to silence it
     return;
@@ -411,16 +419,17 @@ test(`${TestDirectories.five}: Sandboxed: npm install, initial commit`, async (t
     'test-5/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-5/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-5/.gitignore': 'a053cd9512af2ebf8ffac400b14034eb',
+    'test-5/.gitignore': '0c488f2c5c62824d42330541d3390a2d',
     'test-5/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-5/LICENSE': '317693126d229a3cdd19725a624a56fc',
     'test-5/README.md': '8fc7ecb21d7d47289e4b2469eea4db39',
+    'test-5/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-5/src/index.ts': '5025093b4dc30524d349fd1cc465ed30',
     'test-5/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-5/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-5/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-5/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-5/tsconfig.json': '5ea2a8356e00e9407dd4641007fd3940',
-    'test-5/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-5/tsconfig.json': '6a8f30fa12273069a46ccae2abfe8a17',
+    'test-5/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
 
@@ -455,7 +464,7 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     'test-6/.github/ISSUE_TEMPLATE.md': 'e70a0b70402765682b1a961af855040e',
     'test-6/.github/PULL_REQUEST_TEMPLATE.md':
       '70f4b97f3914e2f399bcc5868e072c29',
-    'test-6/.gitignore': '703beedaf3cabd7f7fd7d3f57408ec61',
+    'test-6/.gitignore': '5b1097e234aee733c062f84adc7fdccc',
     'test-6/.prettierignore': '1da1ce4fdb868f0939608fafd38f9683',
     'test-6/.travis.yml': '91976af7b86cffb6960db8c35b27b7d0',
     'test-6/.vscode/extensions.json': '2d26a716ba181656faac4cd2d38ec139',
@@ -466,13 +475,13 @@ test(`${TestDirectories.six}: Sandboxed: yarn, no initial commit`, async (t) => 
     'test-6/appveyor.yml': '70a91379874bffbf5b27ecbd2fb52ead',
     'test-6/src/index.ts': 'fbc67c2cbf3a7d37e4e02583bf06eec9',
     'test-6/src/lib/async.spec.ts': '65b10546885ebad41c098318b896f23c',
-    'test-6/src/lib/async.ts': '926732fef1285cb0abb5c6e287ed24df',
+    'test-6/src/lib/async.ts': 'b74598b1b54d503ad80db470e4ce7b56',
     'test-6/src/lib/hash.spec.ts': '06f6bfc1b03f893a16448bb6d6806ea2',
-    'test-6/src/lib/hash.ts': 'cf3659937ff3162bc525c8bfac18b7cf',
+    'test-6/src/lib/hash.ts': '390d91dc01dd109b134d05cf11bd796e',
     'test-6/src/lib/number.spec.ts': '0592001d71aa3b3e6bf72f4cd95dc1b9',
-    'test-6/src/lib/number.ts': 'dcbcc98fea337d07e81728c1a6526a1e',
+    'test-6/src/lib/number.ts': '8e34ca866fa05b31b8b7104295427e2d',
     'test-6/src/types/example.d.ts': '76642861732b16754b0110fb1de49823',
-    'test-6/tsconfig.json': '7a9481f033cb07985ee1b903ad42b167',
-    'test-6/tsconfig.module.json': '2fda4c8760c6cfa3462b40df0645850d',
+    'test-6/tsconfig.json': 'c8881f0890818959c290515e7640023c',
+    'test-6/tsconfig.module.json': '2d09cbcd671c2e7b0c611cfad9a549e8',
   });
 });
