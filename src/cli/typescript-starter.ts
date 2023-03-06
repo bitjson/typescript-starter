@@ -13,6 +13,7 @@ import { normalizePath, Runner, TypescriptStarterOptions } from './utils.js';
 const readPackageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8'));
 
+// eslint-disable-next-line functional/no-return-void
 const writePackageJson = (path: string, pkg: unknown) => {
   // write using the same format as npm:
   // https://github.com/npm/npm/blob/latest/lib/install/update-package-json.js#L48

@@ -20,6 +20,7 @@
 export const asyncABC = async () => {
   const somethingSlow = (index: 0 | 1 | 2) => {
     const storage = 'abc'.charAt(index);
+    // eslint-disable-next-line functional/no-return-void
     return new Promise<string>((resolve) =>
       // later...
       resolve(storage)

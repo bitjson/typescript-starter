@@ -92,7 +92,7 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
           default: false,
           type: 'boolean',
         },
-      }
+      },
     }
   );
 
@@ -100,7 +100,6 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
     pkg: cli.pkg as Package,
   }).fetchInfo();
   if (info.type !== 'latest') {
-    // eslint-disable-next-line functional/no-throw-statement
     throw new Error(`
       Your version of typescript-starter is outdated.
       Consider using 'npx typescript-starter' to always get the latest version.
@@ -123,7 +122,6 @@ export async function checkArgs(): Promise<TypescriptStarterArgsOptions> {
   }
   const validOrMsg = validateName(input);
   if (typeof validOrMsg === 'string') {
-    // eslint-disable-next-line functional/no-throw-statement
     throw new Error(validOrMsg);
   }
 

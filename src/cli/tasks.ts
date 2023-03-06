@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { Options, execa } from 'execa';
+import { execa, Options } from 'execa';
 import githubUsername from 'github-username';
 
 import {
@@ -47,14 +47,12 @@ export const cloneRepo =
       });
     } catch (err: any) {
       if (err.exitCodeName === 'ENOENT') {
-        // eslint-disable-next-line functional/no-throw-statement
         throw new Error(`
     Git is not installed on your PATH. Please install Git and try again.
 
     For more information, visit: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 `);
       } else {
-        // eslint-disable-next-line functional/no-throw-statement
         throw new Error(`Git clone failed.`);
       }
     }
@@ -67,16 +65,12 @@ export const cloneRepo =
       const commitHash = revParseResult.stdout;
       return { commitHash, gitHistoryDir };
     } catch (err) {
-      // eslint-disable-next-line functional/no-throw-statement
       throw new Error(`Git rev-parse failed.`);
     }
   };
 
 export const getGithubUsername =
-  (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    fetcher: any
-  ) =>
+  (fetcher: any) =>
   async (email: string | undefined): Promise<string> => {
     if (email === Placeholders.email) {
       return Placeholders.username;
@@ -141,7 +135,6 @@ export const install =
         ? spawner('pnpm', ['i'], opts)
         : spawner('yarn', opts);
     } catch (err) {
-      // eslint-disable-next-line functional/no-throw-statement
       throw new Error(`Installation failed. You'll need to install manually.`);
     }
   };

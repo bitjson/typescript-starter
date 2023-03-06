@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { sha256, sha256Native } from './hash';
+import { sha256, sha256Native } from './hash.js';
 
 test(
   'sha256',
